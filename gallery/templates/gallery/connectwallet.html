@@ -1,0 +1,33 @@
+{% extends "gallery/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+        
+    <p id="texty" class="text-center">You need a MetaMask wallet to create your own Gallery.</p>
+    <div class="d-flex justify-content-center">
+    <img id="metamaskimg" class="img-fluid center d-block" src="https://storage.googleapis.com/opensea-static/logos/metamask.png" style="object-fit: contain;">
+    </div>
+    
+        <h6 class="text-center mt-3">Don't have a MetaMask wallet yet?</h6>
+        <div class="d-flex justify-content-center">
+            <a href="https://metamask.io/download.html" rel="nofollow noopener noreferrer" target="_blank">
+                <div class="ActionButtonreact__DivButton-sc-7jpoey-0 fwfywF ActionButton--light ActionButton--iconOnly wallet--btn-cta" data-testid="ActionButton" role="button" tabindex="0">
+                    <div class="btn btn-primary">Get MetaMask</div>
+                </div>
+            </a>
+        </div>
+
+        <h6 class="text-center mt-3">Already have a wallet?</h6>
+
+        <div class="d-flex justify-content-center">
+        <button class="btn btn-primary enableEthereumButton">Sign In</button>
+      </div>
+            
+
+    
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'gallery/connectwallet.js' %}"></script>
+{% endblock %}

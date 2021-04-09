@@ -1,0 +1,21 @@
+{% extends "gallery/layout.html" %}
+
+{% block body %}
+<div id="postingview">
+    <div id="newpostpage">
+        <div id="centerposts">
+            <title id="cenh1post">Post</title>
+                <form action="{% url 'newcreate' %}" method="post">
+
+                {% csrf_token %}
+                <textarea id="uniquetextarea" placeholder="Write new post..." name="newposttext"class="newpost_ta"></textarea>
+                <input type="checkbox" id="checkmain1" name="checkmain" value="1">
+                <label for="vehicle1">Do you want to make this gallery your main?</label><br>
+                <input id="submitpost" type="submit" value="Post"class="btn btn-primary"/>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

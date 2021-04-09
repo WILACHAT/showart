@@ -1,0 +1,11 @@
+{% extends "gallery/layout.html" %}
+{% load static %}
+
+{% block body %}
+    THE GALLERY
+    <MyUploader />
+{% endblock %}
+
+{% block script %}
+    <script type="module"src="{% static 'gallery/testdropzone.js' %}"></script>
+{% endblock %}

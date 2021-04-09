@@ -1,0 +1,141 @@
+.navibar
+{
+    background-color:lightseagreen;
+}
+#texty{
+    font-weight: 500;
+    font-size: 30px;
+    text-align: center;
+    font-family: Avenir Next,Avenir,Avenir Next Local,sans-serif!important;
+}
+#metamaskimg{
+    width: 150px;
+    height:150px;
+}
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.container-small {
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+div {
+    display: block;
+}
+.h2username
+{
+    
+    font-weight: 600;
+    font-size: 18px;
+  
+}
+#file-upload-button
+{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+.dropin
+{
+    border: 2px dashed #0087F7;
+    background-color: #ffffff;
+    height: 300px;
+    width: 500px;
+
+    cursor: pointer;
+
+}
+.wow{
+    margin: 0px;
+    line-height: 1.2;
+    font-weight: 600;
+    font-size: 25px;
+    color: rgb(0, 0, 0);
+    display: inline-block;
+    font-family:"VSCO Gothic";
+}
+.contactgmailcss
+{
+    margin: 0px 0px 16px;
+    line-height: 1.2;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(170, 170, 170);
+}
+.profiledescss
+{
+    margin: 0px 0px 16px;
+    line-height: 1.2;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(170, 170, 170);
+}
+.openseaurlcss
+{
+    margin: 0px 0px 16px;
+    line-height: 1.2;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(170, 170, 170);
+}
+.textedit
+{
+    width:50%;
+    height:300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+    border: none;
+    background-color:lightgoldenrodyellow;
+    border-radius: 5px;
+}
+.showart
+{
+    font-family:"Transport New HeavyBuying Choices";
+}
+input[type='file'] {
+  opacity:0  
+}
+
+#coverschoosefile
+{
+  text-align:center;
+  /*border: 2px dashed #0087F7;
+  background-color: #ffffff;
+  */
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  background-color:lightgoldenrodyellow;
+
+}
+
+.choosefile
+{
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+}
+.imgnoedit
+{
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  object-fit: cover;
+
+}
+
