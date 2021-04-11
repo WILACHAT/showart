@@ -1,0 +1,19 @@
+{% extends "gallery/layout.html" %}
+{% load static %}
+
+
+{% block body %}
+<div id="askforwallet">
+    <input type="text" id="walletaddress">
+    <button id="wallclick"type="button" class="btn btn-primary" value="button">button</button>
+</div>
+
+<div id="shownfts">
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+    <script type="module" src="{% static 'gallery/realcreate.js' %}"></script>
+{% endblock %}

@@ -1,4 +1,6 @@
 import PostTable from './main.js'
+//import Grade from './grade-js'
+
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -103,6 +105,7 @@ function getCookie(name) {
         });
     
     }
+  
     sendEditPost(profiledes,contactgmail,openseaurl, profilepic){
         let whatkind = "profile"
         let clicked = parseInt(window.location.pathname.split('/')[2])

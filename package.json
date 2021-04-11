@@ -6,6 +6,7 @@
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-react-app": "^3.1.2",
+    "grade-js": "^1.0.10",
     "npm": "^7.7.5",
     "react-dropzone-uploader": "^2.11.0"
   },

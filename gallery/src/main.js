@@ -47,7 +47,6 @@
     }
   }
 
-
 class PostTable extends React.Component 
 {
   constructor(props) 
@@ -87,7 +86,7 @@ class PostTable extends React.Component
     .then(data => {
     ReactDOM.render(<PostTable data={data}/>, document.querySelector('#postpage'));
     });
-    
+
     window.scrollTo(0, 0)
   }
   render() 

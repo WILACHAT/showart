@@ -18,8 +18,6 @@ from django.contrib.staticfiles.views import serve
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
-
-
 def index(request):
     if request.user.id == None:
         request.session["wallet"] = "ye"
@@ -55,6 +53,9 @@ def gallery(request):
          request.session["wallet"] = "Ye"
     
     return render(request, "gallery/gallery.html", {"wallet": request.session["wallet"]})
+
+def realcreateapi(request, address):
+    return JsonResponse
 
 
 def currentgalleryapi(request, whatkind, clicked, paginationid):
@@ -178,6 +179,8 @@ def handle_uploaded_file(profilepic):
     with open(path, 'wb+') as destination:
         for chunk in profilepic.chunks():
             destination.write(chunk)
+def realcreate(request):
+    return render(request, "gallery/realcreate.html")
 
     
 

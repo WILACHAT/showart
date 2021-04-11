@@ -13,7 +13,9 @@ urlpatterns = [
     path("saved", views.explore, name="saved"),
     path("newcreate", views.newcreate, name="newcreate"),
     path("gallery", views.gallery, name="gallery"),
+    path("realcreate", views.realcreate, name="realcreate"),
     path("testdropzone", views.testdropzone, name="testdropzone"),
+    
 
     path("register", views.register, name="register"),
     path("thegallery/<int:id>", views.thegallery, name="thegallery"),
@@ -21,7 +23,9 @@ urlpatterns = [
 
 
 
+
     #APIS
+    path("realcreateapi/<str:address>", views.realcreateapi, name="realcreateapi"),
     path("currentgalleryapi/<str:whatkind>/<int:clicked>/<int:paginationid>", views.currentgalleryapi, name="currentgalleryapi")
     #path("network/<str:posts>/<int:paginationid>", views.posts, name="posts")
 

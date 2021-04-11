@@ -9,8 +9,10 @@
         <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
         <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>      
         <script src="{% static 'gallery/dropzone/dist/dropzone.js' %}"></script>
+        <script src="{% static 'gallery/dropzone/dist/dropzone.js' %}"></script>
         <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
-
+        
+        
 
         {% block script %}
         {% endblock %}
@@ -18,7 +20,7 @@
     <body>
 
         <nav class="navibar navbar navbar-expand-lg navbar-light">
-            <a class="showart navbar-brand" href="#">showArt</a>
+            <a class="showart navbar-brand" href="{% url 'explore' %}">showArt</a>
             <div>
               <ul class="navbar-nav mr-auto">
                 
@@ -51,7 +53,7 @@
                           <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="{% url 'testdropzone' %}">Test Drop Zone</a>
+                        <a class="nav-link" href="{% url 'realcreate' %}">Real Create</a>
                     </li>
                       
                 {% endif %}
