@@ -23,79 +23,115 @@ function getCookie(name) {
 class EachNft extends React.Component{
     constructor(props){
         super(props);
+        this.chooseNft = this.chooseNft.bind(this);
+        let arrayurl = [];
+        this.state = {
+            arrayurl: arrayurl
+        }
+      }
+      chooseNft(e){
+        this.setState({
+            arrayurl:this.state.arrayurl.push(this.props.imageurl)
+        })
+        console.log(this.props.imageurl)
+        console.log("this is array", this.state.arrayurl)
+            
       }
       render() {
- 
+          console.log("animation url", this.props.animationurl)
+          console.log("img url", this.props.imageurl)
+          let animationurl =  this.props.animationurl 
+          let index = 65
+
+          if (animationurl != null)
+          { 
+            index = animationurl.indexOf( '.gltf' );
+          }
+        
           return (
-            <div class={this.props.user_id == this.props.curuser ? "container border border-black rounded post_style" : "container border border-black rounded post_style_noedit"} >
-                <img src={this.props.imageurl} width="500" height="300"></img>
+            <div>
+                <div class="box" onClick={this.chooseNft}>
+                    {index == 65 ? <img class="nftimg" src={this.props.imageurl}></img>: <video autoplay="autoplay" loop="true" class="nftvdo"><source src={this.props.animationurl} type = "video/mp4"></source></video>}                  
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href = {index == 65 ? this.props.imageurl: this.props.animationurl} target="_blank" class="btn btn-outline-dark btn-sm">view</a>
+                </div>
             </div>
           )
-  
       }
   }
   class ShowNfts extends React.Component {
     constructor(props) {
         super(props);
 }
-        
         render() {
             const img = [];
             const counter = [];
             let counterr = 0;
-            console.log("waanandfkds")
-            console.log(this.props.data["assets"])
+
             for (let i = 0; i < this.props.data["assets"].length; i++)
             {
-                counter.push(counterr)
-                counterr = counterr + 1;
-                console.log("waan")
-                let imageurl = this.props.data["assets"][i]["image_url"]
-                img.push(imageurl)
-                console.log(imageurl)
-                
                 img.push(
-                    <EachNft imageurl={this.props.data["assets"][i]["image_url"]}/>
+                    <EachNft imageurl={this.props.data["assets"][i]["image_url"]} 
+                    animationurl={this.props.data["assets"][i]["animation_url"]} />
                   );
             }
-            console.log(img)
-            console.log(counter)
-       
+          
       return (
         <div>
-            <tbody> {img} </tbody>
+            <h1></h1>
+        <div class="d-flex justify-content-around d-flex flex-wrap">
+            {img}
+        </div>
         </div>
         );
     }
   }
 
+document.addEventListener('DOMContentLoaded', function(e) {
 
-document.addEventListener('DOMContentLoaded', function() {
+    // do while u dont own an nfts (not the query)
 
-    // do while u dont own an nfts
-    console.log("waan")
     let wallclick = document.querySelector('#wallclick')
-    wallclick.addEventListener('click', () => {
+    wallclick.addEventListener('click', (e) => {
+        let query = ""
+        let queryhl = ""
+        let i = 0
+        for (i = 0; i < 4; i++)
+        {
+            if (e.path[1].childNodes[3].options[i].selected == true)
+            {
+                query = e.path[1].childNodes[3].options[i].value
+            }
+        }
+        let j = 0
+        for (j = 0; j < 3; j++)
+        {
+            if (e.path[1].childNodes[5].options[j].selected == true)
+            {
+                queryhl = e.path[1].childNodes[5].options[j].value
+            }
+        }
+        let orderby = "asc"
+        if (query != "None")
+        {
+            orderby = "&order_by=" + query
+        }
+        
+       let orderdirection = "&order_direction=" + queryhl
+    
         let address = document.querySelector('#walletaddress').value
-        console.log("address", address)
-
-       // fetch(`https://api.opensea.io/api/v1/assets?owner=${address}&order_direction=desc&offset=0&limit=100`)
-        fetch(`https://api.opensea.io/api/v1/collections?asset_owner=${address}&offset=0&limit=300`)
-        //fetch(`/realcreateapi/${whatkind}/${clicked}/${pagination}`)
-
+        console.log(`https://api.opensea.io/api/v1/assets?owner=${address}${orderby}${orderdirection}&offset=0&limit=50`)
+        
+        fetch(`https://api.opensea.io/api/v1/assets?owner=${address}${orderby}${orderdirection}&offset=0&limit=50`)
+      
         .then(response => response.json())
     
          .then(data => {
-            console.log(data)
-
+            document.querySelector('#askforwallet').hidden = true;
             ReactDOM.render(<ShowNfts data={data}/>, document.querySelector('#shownfts'));
-            // for (let i = 0; i < data["assets"].length; i++)
-             //{
-                // let imageurl = data["assets"][i]["image_url"]
-                 //console.log(imageurl)
-             //}
-             
-         });
+            
+        });
     });
 });
             

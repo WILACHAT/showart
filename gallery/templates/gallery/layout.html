@@ -18,6 +18,7 @@
         {% endblock %}
     </head>
     <body>
+      <h1>wilachat</h1>
 
         <nav class="navibar navbar navbar-expand-lg navbar-light">
             <a class="showart navbar-brand" href="{% url 'explore' %}">showArt</a>
@@ -45,6 +46,9 @@
                       <li class="nav-item">
                         <a class="nav-link" href="{% url 'connectwallet' %}">Saved</a>
                       </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'realcreate' %}">Real Create</a>
+                    </li>
 
                       <li class="nav-item">
                           <a class="nav-link" href="{% url 'following' %}">Following</a>
@@ -52,9 +56,7 @@
                       <li class="nav-item">
                           <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
                       </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="{% url 'realcreate' %}">Real Create</a>
-                    </li>
+                     
                       
                 {% endif %}
               <!---

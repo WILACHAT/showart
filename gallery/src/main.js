@@ -4,7 +4,6 @@
       super(props);
       
       };
-    
  
     toEdit()
     {
@@ -21,7 +20,6 @@
       const createdDate = this.props.time_stamp
       const changedTime = this.props.changedtime
       const thegallery = "/thegallery/"+this.props.id
-
 
       let checknone = ""
       if (this.props.curuser == null)

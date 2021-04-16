@@ -3,8 +3,21 @@
 
 
 {% block body %}
+
 <div id="askforwallet">
     <input type="text" id="walletaddress">
+    <select name="sort" id="sorting">
+        <option value="None"></option>
+        <option value="sale_date">Date</option>
+        <option value="visitor_count">Visitor Count</option>
+        <option value="sale_price">Price</option>
+        <option value="sale_count">Number of Sales</option>
+      </select>
+    <select name="sort" id="highlow">
+        <option value="desc"></option>
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+    </select>
     <button id="wallclick"type="button" class="btn btn-primary" value="button">button</button>
 </div>
 
