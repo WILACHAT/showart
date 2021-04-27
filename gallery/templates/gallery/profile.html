@@ -3,20 +3,23 @@
 
 {% block body %}
 <div class="d-flex mt-3 mb-5 justify-content-center">
- 
-
-
+    <div id="overlay">
+        <div class="mt-5 d-flex justify-content-center">
+            <img id="uknowimg" class="testingtestimg"></img>
+        </div> 
+    </div>
 </div>
 <div id="profileedit">
-
 </div>
 
 <div id="followpart">
 </div>
-<div id="postpage">
+<div id="gallerypage">
 </div>
 {% endblock %}
 
 {% block script %}
     <script type="module" src="{% static 'gallery/profile.js' %}"></script>
+    <script src="{% static 'gallery/grade-master/docs/dist/grade.js' %}"></script>
+
 {% endblock %}

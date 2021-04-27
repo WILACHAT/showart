@@ -26,6 +26,8 @@ urlpatterns = [
 
     #APIS
     path("realcreateapi/<str:address>", views.realcreateapi, name="realcreateapi"),
+    path("realsaveapi/<str:address>", views.realsaveapi, name="realsaveapi"),
+
     path("currentgalleryapi/<str:whatkind>/<int:clicked>/<int:paginationid>", views.currentgalleryapi, name="currentgalleryapi")
     #path("network/<str:posts>/<int:paginationid>", views.posts, name="posts")
 

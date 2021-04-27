@@ -8,12 +8,15 @@ class User(AbstractUser, models.Model):
     contactgmail = models.CharField(max_length=256, null=True)
     profile_des = models.TextField(null=True)
     profile_pic = models.URLField(max_length=256, null=True)
+    galleryinfo = models.TextField(null=True)
+
     
 
 
 class User_Wallet(models.Model):   
     wallet_address = models.CharField(max_length=64)
     user_id = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+
 
 class Dummypost(models.Model):
     post_info = models.CharField(max_length=256)

@@ -6,8 +6,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-import PostTable from './main.js';
-//import Grade from './grade-js'
+import { ShowTemplateOne, ShowTemplateTwo } from './realcreate.js';
 
 function getCookie(name) {
     var cookieValue = null;
@@ -25,22 +24,100 @@ function getCookie(name) {
     return cookieValue;
 }
 
-var ProfileEdit = function (_React$Component) {
-    _inherits(ProfileEdit, _React$Component);
+var DisplayGallery = function (_React$Component) {
+    _inherits(DisplayGallery, _React$Component);
+
+    function DisplayGallery(props) {
+        _classCallCheck(this, DisplayGallery);
+
+        var _this = _possibleConstructorReturn(this, (DisplayGallery.__proto__ || Object.getPrototypeOf(DisplayGallery)).call(this, props));
+
+        _this.toBack = _this.toBack.bind(_this);
+        var data = _this.props.data;
+
+        data = data.replaceAll("'", '"');
+        data = JSON.parse(data);
+        console.log("this is new data!", data);
+        console.log(data['everydata'].length);
+        var i = 0;
+        for (i = 0; i < data['everydata'].length; i++) {
+            var count = i;
+            var newDiv = document.createElement("div");
+            newDiv.id = "templatesidone" + count;
+            var id = "templatesidone" + count;
+            document.querySelector('#gallerypage').append(newDiv);
+            if (data['everydata'][i]['imageinfo'].length == 1) {
+                console.log("1");
+                ReactDOM.render(React.createElement(ShowTemplateOne, { alldata: data['everydata'][i]['imageinfo'] }), document.querySelector('#templatesidone' + count));
+            }
+            if (data['everydata'][i]['imageinfo'].length == 2) {
+                console.log("2");
+                ReactDOM.render(React.createElement(ShowTemplateTwo, { alldata: data['everydata'][i]['imageinfo'] }), document.querySelector('#templatesidone' + count));
+            }
+            var j = 0;
+            for (j = 0; j < data['everydata'][i]['imageinfo'].length; j++) {
+                console.log("src", data['everydata'][i]['imageinfo'][j]['src']);
+                console.log("title", data['everydata'][i]['imageinfo'][j]['title']);
+                console.log("des", data['everydata'][i]['imageinfo'][j]['des']);
+            }
+        }
+        return _this;
+    }
+
+    _createClass(DisplayGallery, [{
+        key: 'toBack',
+        value: function toBack() {
+            document.querySelector('#profileedit').hidden = false;
+            document.querySelector('#followpart').hidden = false;
+            document.querySelector('#gallerypage').hidden = true;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var i = 0;
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(
+                    'h1',
+                    null,
+                    'wilachat'
+                ),
+                React.createElement(
+                    'div',
+                    { 'class': 'd-flex justify-content-center' },
+                    React.createElement(
+                        'button',
+                        { 'class': 'btn btn-outline-dark btn-sm mt-2 mb-2', onClick: this.toBack },
+                        'Back'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return DisplayGallery;
+}(React.Component);
+
+var ProfileEdit = function (_React$Component2) {
+    _inherits(ProfileEdit, _React$Component2);
 
     function ProfileEdit(props) {
         _classCallCheck(this, ProfileEdit);
 
-        var _this = _possibleConstructorReturn(this, (ProfileEdit.__proto__ || Object.getPrototypeOf(ProfileEdit)).call(this, props));
+        var _this2 = _possibleConstructorReturn(this, (ProfileEdit.__proto__ || Object.getPrototypeOf(ProfileEdit)).call(this, props));
 
-        _this.sendEditPost = _this.sendEditPost.bind(_this);
-        _this.showEditPost = _this.showEditPost.bind(_this);
-        _this.cancel = _this.cancel.bind(_this);
-        var contactgmail = _this.props.data["contactgmail"];
-        var openseaurl = _this.props.data["openseaurl"];
-        var profiledes = _this.props.data["profiledes"];
-        var username = _this.props.data["username"];
-        var profilepic = _this.props.data["profilepic"];
+        _this2.sendEditPost = _this2.sendEditPost.bind(_this2);
+        _this2.showEditPost = _this2.showEditPost.bind(_this2);
+        _this2.showImg = _this2.showImg.bind(_this2);
+        _this2.cancel = _this2.cancel.bind(_this2);
+        _this2.toNext = _this2.toNext.bind(_this2);
+
+        var contactgmail = _this2.props.data["contactgmail"];
+        var openseaurl = _this2.props.data["openseaurl"];
+        var profiledes = _this2.props.data["profiledes"];
+        var username = _this2.props.data["username"];
+        var profilepic = _this2.props.data["profilepic"];
 
         console.log("username", username);
 
@@ -58,9 +135,9 @@ var ProfileEdit = function (_React$Component) {
         if (profilepic == null) {
             profilepic = "/static/profile_pic/wallpaper.png";
         }
-        var edit_button = _this.props.data["user"] == clicked ? React.createElement(
+        var edit_button = _this2.props.data["user"] == clicked ? React.createElement(
             'button',
-            { type: 'button', name: 'edit_button', onClick: _this.showEditPost, className: 'loll btn btn-outline-dark btn-sm' },
+            { type: 'button', name: 'edit_button', onClick: _this2.showEditPost, className: 'loll btn btn-outline-dark btn-sm' },
             'edit'
         ) : null;
 
@@ -68,7 +145,7 @@ var ProfileEdit = function (_React$Component) {
         console.log("opensea url", openseaurl);
         console.log("profile des", profiledes);
 
-        _this.state = {
+        _this2.state = {
             username: username,
             profiledes: profiledes,
             openseaurl: openseaurl,
@@ -79,7 +156,7 @@ var ProfileEdit = function (_React$Component) {
                 null,
                 React.createElement(
                     'div',
-                    { 'class': 'd-flex justify-content-center' },
+                    { onClick: _this2.showImg, 'class': 'd-flex justify-content-center' },
                     React.createElement('img', { 'class': 'imgnoedit', src: profilepic })
                 ),
                 React.createElement(
@@ -127,10 +204,9 @@ var ProfileEdit = function (_React$Component) {
             )
 
             //in the first set state it will only show the img cannot edit an only view image
-
         };
 
-        return _this;
+        return _this2;
     }
 
     _createClass(ProfileEdit, [{
@@ -149,9 +225,19 @@ var ProfileEdit = function (_React$Component) {
             });
         }
     }, {
+        key: 'showImg',
+        value: function showImg() {
+            document.getElementById("overlay").style.display = "block";
+
+            document.querySelector('#uknowimg').src = this.state.profilepic;
+            document.querySelector('#overlay').onclick = function () {
+                document.getElementById("overlay").style.display = "none";
+            };
+        }
+    }, {
         key: 'sendEditPost',
         value: function sendEditPost(profiledes, contactgmail, openseaurl, profilepic) {
-            var _this2 = this;
+            var _this3 = this;
 
             var whatkind = "profile";
             var clicked = parseInt(window.location.pathname.split('/')[2]);
@@ -174,11 +260,11 @@ var ProfileEdit = function (_React$Component) {
                 console.log("result", result);
                 if (result.error) {
                     console.log("Error");
-                    _this2.setState({
-                        profiledes: _this2.state.profiledes,
-                        contactgmail: _this2.state.contactgmail,
-                        openseaurl: _this2.state.openseaurl,
-                        profilepic: _this2.state.profilepic,
+                    _this3.setState({
+                        profiledes: _this3.state.profiledes,
+                        contactgmail: _this3.state.contactgmail,
+                        openseaurl: _this3.state.openseaurl,
+                        profilepic: _this3.state.profilepic,
                         edit: React.createElement(
                             'div',
                             { 'class': 'mb-4' },
@@ -228,16 +314,16 @@ var ProfileEdit = function (_React$Component) {
                             { className: 'alert alert-danger alert-dismissible fade show', role: 'alert' },
                             'Sorry. An error has occured.'
                         ),
-                        like_button: _this2.state.like_button
+                        like_button: _this3.state.like_button
                     });
                 } else {
-                    var _username = _this2.state.username;
+                    var _username = _this3.state.username;
                     var _edit_button = React.createElement(
                         'button',
-                        { type: 'button', name: 'edit_button', onClick: _this2.showEditPost, className: 'loll btn btn-outline-dark btn-sm' },
+                        { type: 'button', name: 'edit_button', onClick: _this3.showEditPost, className: 'loll btn btn-outline-dark btn-sm' },
                         'edit'
                     );
-                    _this2.setState({
+                    _this3.setState({
                         username: _username,
                         profiledes: profiledes,
                         contactgmail: contactgmail,
@@ -248,7 +334,7 @@ var ProfileEdit = function (_React$Component) {
                             null,
                             React.createElement(
                                 'div',
-                                { 'class': 'd-flex justify-content-center' },
+                                { onClick: _this3.showImg, 'class': 'd-flex justify-content-center' },
                                 React.createElement('img', { 'class': 'imgnoedit', src: profilepic })
                             ),
                             React.createElement(
@@ -295,9 +381,27 @@ var ProfileEdit = function (_React$Component) {
                             )
                         ),
                         error: null,
-                        like_button: _this2.state.like_button
+                        like_button: _this3.state.like_button
                     });
                 }
+            });
+        }
+    }, {
+        key: 'toNext',
+        value: function toNext() {
+
+            document.querySelector('#profileedit').hidden = true;
+            document.querySelector('#followpart').hidden = true;
+            document.querySelector('#gallerypage').hidden = false;
+            var getcooked = getCookie('csrftoken');
+            fetch('/realcreateapi/1', {
+                method: 'PUT',
+                headers: { 'X-CSRFToken': getcooked },
+                body: "getgalleryinfo"
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                ReactDOM.render(React.createElement(DisplayGallery, { data: data }), document.querySelector('#gallerypage'));
             });
         }
     }, {
@@ -325,7 +429,7 @@ var ProfileEdit = function (_React$Component) {
                     null,
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { onClick: this.showImg, 'class': 'd-flex justify-content-center' },
                         React.createElement('img', { 'class': 'imgnoedit', src: profilepic })
                     ),
                     React.createElement(
@@ -387,7 +491,16 @@ var ProfileEdit = function (_React$Component) {
             return React.createElement(
                 'div',
                 null,
-                this.state.edit
+                this.state.edit,
+                React.createElement(
+                    'div',
+                    { 'class': 'd-flex justify-content-center' },
+                    React.createElement(
+                        'button',
+                        { 'class': 'btn btn-outline-dark btn-sm mt-2 mb-2', onClick: this.toNext },
+                        'Gallery'
+                    )
+                )
             );
         }
     }]);
@@ -395,27 +508,27 @@ var ProfileEdit = function (_React$Component) {
     return ProfileEdit;
 }(React.Component);
 
-var EditPost = function (_React$Component2) {
-    _inherits(EditPost, _React$Component2);
+var EditPost = function (_React$Component3) {
+    _inherits(EditPost, _React$Component3);
 
     function EditPost(props) {
         _classCallCheck(this, EditPost);
 
-        var _this3 = _possibleConstructorReturn(this, (EditPost.__proto__ || Object.getPrototypeOf(EditPost)).call(this, props));
+        var _this4 = _possibleConstructorReturn(this, (EditPost.__proto__ || Object.getPrototypeOf(EditPost)).call(this, props));
 
-        _this3.textInput = React.createRef();
-        _this3.editPost = _this3.editPost.bind(_this3);
-        _this3.editCancel = _this3.editCancel.bind(_this3);
-        _this3.chooseFile = _this3.chooseFile.bind(_this3);
-        _this3.checkTxtArea = _this3.checkTxtArea.bind(_this3);
+        _this4.textInput = React.createRef();
+        _this4.editPost = _this4.editPost.bind(_this4);
+        _this4.editCancel = _this4.editCancel.bind(_this4);
+        _this4.chooseFile = _this4.chooseFile.bind(_this4);
+        _this4.checkTxtArea = _this4.checkTxtArea.bind(_this4);
 
-        _this3.state = { profiledes: _this3.props.profiledes,
-            contactgmail: _this3.props.contactgmail,
-            openseaurl: _this3.props.openseaurl,
-            profilepic: _this3.props.profilepic
+        _this4.state = { profiledes: _this4.props.profiledes,
+            contactgmail: _this4.props.contactgmail,
+            openseaurl: _this4.props.openseaurl,
+            profilepic: _this4.props.profilepic
         };
 
-        return _this3;
+        return _this4;
     }
 
     _createClass(EditPost, [{
@@ -478,7 +591,7 @@ var EditPost = function (_React$Component2) {
     }, {
         key: 'chooseFile',
         value: function chooseFile(e) {
-            var _this4 = this;
+            var _this5 = this;
 
             var getcooked = getCookie('csrftoken');
             var whatkind = "profile";
@@ -496,7 +609,7 @@ var EditPost = function (_React$Component2) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                _this4.setState({ profilepic: data["profilepic"] });
+                _this5.setState({ profilepic: data["profilepic"] });
             });
         }
     }, {
@@ -579,22 +692,22 @@ var EditPost = function (_React$Component2) {
     return EditPost;
 }(React.Component);
 
-var FollowTable = function (_React$Component3) {
-    _inherits(FollowTable, _React$Component3);
+var FollowTable = function (_React$Component4) {
+    _inherits(FollowTable, _React$Component4);
 
     function FollowTable(props) {
         _classCallCheck(this, FollowTable);
 
-        var _this5 = _possibleConstructorReturn(this, (FollowTable.__proto__ || Object.getPrototypeOf(FollowTable)).call(this, props));
+        var _this6 = _possibleConstructorReturn(this, (FollowTable.__proto__ || Object.getPrototypeOf(FollowTable)).call(this, props));
 
-        var followname = _this5.props.data["following"] > 0 ? "Unfollow" : "Follow";
-        _this5.followPost = _this5.followPost.bind(_this5);
+        var followname = _this6.props.data["following"] > 0 ? "Unfollow" : "Follow";
+        _this6.followPost = _this6.followPost.bind(_this6);
         console.log("followname", followname);
 
-        _this5.state = {
+        _this6.state = {
             followname: followname
         };
-        return _this5;
+        return _this6;
     }
 
     _createClass(FollowTable, [{
@@ -678,14 +791,15 @@ document.addEventListener('DOMContentLoaded', function () {
     var pagination = 1;
     console.log("atleast");
     var whatkind = "profile";
+    Grade(document.querySelectorAll('.gradient-wrap'));
     var clicked = parseInt(window.location.pathname.split('/')[2]);
+    document.querySelector('#gallerypage').hidden = true;
 
     fetch('/currentgalleryapi/' + whatkind + '/' + clicked + '/' + pagination).then(function (response) {
         return response.json();
     }).then(function (data) {
         ReactDOM.render(React.createElement(ProfileEdit, { data: data }), document.querySelector('#profileedit'));
         ReactDOM.render(React.createElement(FollowTable, { data: data }), document.querySelector('#followpart'));
-        ReactDOM.render(React.createElement(PostTable, { data: data }), document.querySelector('#postpage'));
 
         console.log(data);
     });

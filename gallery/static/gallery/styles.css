@@ -102,7 +102,7 @@ div {
 {
     font-family:"Transport New HeavyBuying Choices";
 }
-input[type='file'] {
+input[id='choosefile'] {
   opacity:0  
 }
 
@@ -118,7 +118,6 @@ input[type='file'] {
   display: inline-block;
   cursor: pointer;
   background-color:lightgoldenrodyellow;
-
 }
 
 .choosefile
@@ -150,36 +149,211 @@ input[type='file'] {
 .nftimg
 {
   margin:auto;
-
   display: block;
   transform: scale(0.5);
   width: 100%;
   height:100%; 
   text-align:center;
-
-
+  z-index: 2;
+  position: relative;
+  object-fit: contain;
 
 }
 .nftvdo
 {
   margin:auto;
-
   display: block;
   text-align:center;
   transform: scale(0.5);
   width: 100%; 
   height:100%;
-
-
+  z-index: 2;
+  position: relative;
 }
 .box
 {
   display:block;
   width: 333px; 
   height:333px; 
+  z-index: 1;
+}
+.boxcolor
+{
+  display:block;
+
+  width: 333px; 
+  height:333px; 
+  background-color: salmon;
+}
+.changecolorr
+{
+  background-color:black;
+}
+.gradient-wrap
+{
+  width:300px;
+  height:300px;
+}
+.testimg
+{
+  margin:auto;
+  display: block;
+  margin-top:auto;
+  position: relative;
+  margin-top:23px;
 
 }
-.test
+.nftimgnext
 {
-  background-color: black;
+  margin:auto;
+  display: block;
+  transform: scale(0.5);
+  width: 100%;
+  height:100%; 
+  text-align:center;
+  z-index: 2;
+  position: relative;
 }
+.boxnext
+{
+  display:block;
+  width: 120px; 
+  height:120px; 
+  z-index: 1;
+}
+.imgnextbg
+{
+  background-color: salmon;
+}
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+.testingtestimg{
+  height:70%;
+  width:70%;
+
+
+}
+/*templates */
+.template1{
+  width:100%;
+  height:105vh;
+  background-color:sandybrown;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+
+}
+.template2{
+  width:100%;
+  height:850px;
+  background-color:tomato;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.templates1{
+  display:block;
+  width: 40%; 
+  height:60%; 
+  z-index: 1;
+  position:relative;
+  margin:auto;
+}
+.templates2{
+  display:block;
+  width: 40%; 
+  height:60%; 
+  z-index: 1;
+  position:relative;
+  margin:auto;
+}
+
+
+.nftimgg
+{
+  margin:auto;
+  display: block;
+  transform: scale(0.5);
+  width: 100%;
+  height:100%;
+  text-align:center;
+  z-index: 2;
+  position: relative;
+  border-style: dotted
+}
+.nftimgg
+{
+  margin:auto;
+  display: block;
+  transform: scale(0.5);
+  width: 100%;
+  height:100%;
+  text-align:center;
+  z-index: 2;
+  position: relative;
+  border-style: dotted
+}
+.divborder
+{
+  margin:auto;
+  display: block;
+  width: 80%;
+  height:80%;
+  z-index: -1;
+  position: relative;
+  text-align: center;
+  position:relative;
+}
+.testingtestimgg{
+  margin:auto;
+  display: block;
+  width: 100%;
+  height:100%; 
+  text-align:center;
+  z-index: 2;
+  position: relative;
+  object-fit: contain;
+}
+.nftvdoo
+{
+  margin:auto;
+  display: block;
+  text-align:center;
+  width: 100%; 
+  height:100%;
+  z-index: 2;
+  position: relative;
+}
+.changebgbutton{
+  height:30px;
+  vertical-align: middle
+
+}
+.deletetemplate{
+  height:30px;
+  vertical-align: middle;
+  text-align:center;
+ 
+}
+.changecolor{
+  height:30px;
+  background-color: white;
+
+}
+.filetemplate1{
+  height:30px;
+  vertical-align: middle
+}
+

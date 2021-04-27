@@ -54,9 +54,33 @@ def gallery(request):
     
     return render(request, "gallery/gallery.html", {"wallet": request.session["wallet"]})
 
-def realcreateapi(request, address):
-    return JsonResponse
+def realsaveapi(request, address):
+    if request.method == "POST":
+        curid = request.user.id
+        data = json.loads(request.body)
+        print(f"this is data: {data}")
+        print(f"lols: {data['everydata']}")
 
+        User.objects.filter(id = request.user.id).update(galleryinfo = data)
+        return render(request, "gallery/profile.html")
+
+def realcreateapi(request, address):
+    if request.method == "POST":
+        
+        if 'media' in request.FILES.keys():
+
+            handle_uploaded_file(request.FILES['media'])
+            print(f"checking for request files: {request.FILES['media']}")   
+            filename = str(request.FILES['media'])
+            return JsonResponse(filename, safe=False)
+        
+    if request.method == "PUT":
+        check =  User.objects.filter(id = request.user.id)  
+        for i in check:
+            print(f"check for the galleryinfo: {i.galleryinfo}")
+            galleryinfo = i.galleryinfo
+
+            return JsonResponse(galleryinfo, safe=False)
 
 def currentgalleryapi(request, whatkind, clicked, paginationid):
     curuser = request.user.id
@@ -172,18 +196,15 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
     return JsonResponse(return_request, safe=False)
 
 def handle_uploaded_file(profilepic):
-    
     first = "gallery/static/profile_pic/"
     profilepicname= str(profilepic)
     path = first + profilepicname
     with open(path, 'wb+') as destination:
         for chunk in profilepic.chunks():
             destination.write(chunk)
+
 def realcreate(request):
     return render(request, "gallery/realcreate.html")
-
-    
-
 
 def thegallery(request, id):
     return render(request, "gallery/thegallery.html", {"wallet": request.session["wallet"]})

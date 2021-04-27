@@ -3,7 +3,6 @@
 0x923af7b3a0a65c514c09a68d4ef331cec93d451a
 0x00bd53913a82f36e5796ed7d30f1b2a15cd31c20
 */
-
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -19,43 +18,605 @@ function getCookie(name) {
     }
     return cookieValue;
   }
+  class ShowTemplateOne extends React.Component{
+      constructor(props){
+          super(props);
+          this.tImageOne = this.tImageOne.bind(this);
+          this.state =
+          {
+              div1: <div></div>,
+              div2: <div></div>,
+              border1:"dotted",
+              border2:"dotted"
+          }
+  
+          
+      }
+      tImageOne(number, e)
+      {
+        console.log("waifu", e)
+        let t1image1 = "t1-image1" + this.props.id;
+        let t1vdo1 = "t1-vdo1" + this.props.id;
+        let t1image2 = "t1-image2" + this.props.id;
+        let t1vdo2 = "t1-vdo2" + this.props.id;
+        let url = document.querySelector('#saveurl').value
+        
+        if (url == "")
+        {
+            window.alert("You haven't choose a nft yet")
+
+        }
+        else if (url.charAt(8) == "l")
+        {
+            if (number == 1)
+            {
+                this.setState({
+                    div1: <img id={t1image1} src={url} class="testingtestimgg"></img>,
+                    border1:""
+                 })
+            }
+            else
+            {
+                this.setState({
+                    div2: <img id={t1image2} src={url} class="testingtestimgg"></img>,
+                    border2:""
+                    })
+            }
+        }
+        else
+        {
+            console.log("check url", url)
+            if (number == 1)
+            {
+                this.setState({
+                    div1: <video id={t1vdo1} src={url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={url} type = "video/mp4"></source></video>,
+                    border1:""
+                })
+            }
+            else
+            {
+                this.setState({
+                    div2: <video id={t1vdo2} src={url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={url} type = "video/mp4"></source></video>,
+                    border2:""
+                })
+            }
+        }
+        }
+  
+      render(){
+        return (
+            <div>
+            <div class="margin120 d-flex justify-content-center d-flex flex-wrap mt-2">
+                <input onChange={this.props.changeBgColor} type="color" class="changecolor form-control form-control-color col-1 mb-1" id="exampleColorInput" title="Choose your color"></input>
+                <input onChange={this.props.imageTemplate} class="filetemplate1 form-control-file col-sm-1 mr-1"id="filetemplate1" type="file"></input>
+                <button onClick={(e) => this.props.deleteTemplate(this.props.id, e)} class="deletetemplate btn btn-danger mb-1"></button>
+
+            </div>
+            <div class="d-flex justify-content-center template1 mr-4 d-flex flex-wrap">
+                <div id="wilachatww" name="imgdiv" value="false" class="templates1" >
+                    <div id="one"onClick={(e) => this.tImageOne(1, e)} class="divborder" style={{borderStyle: this.state.border1}}>
+                        {this.state.div1}
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <input class="form-control col-4 "placeholder="Title of NFT"type="text" ></input>
+                    </div>
+                    <div class="d-flex justify-content-center mt-2">
+                        <textarea class="form-control col-10"placeholder="Description of NFT"rows="3"></textarea>
+                    </div>
+                </div>
+                <div id="wilachatww" name="imgdiv" value="false" class="templates1" >
+                    <div id="two" onClick={(e) => this.tImageOne(2, e)}class="divborder" style={{borderStyle: this.state.border2}}>
+                        {this.state.div2}
+                    </div>
+                    
+                    <div class="d-flex justify-content-center mt-3">
+                        <input class="form-control col-4"placeholder="Title of NFT"type="text"></input>
+                    </div>
+                    <div class="d-flex justify-content-center mt-2">
+                        <textarea class="form-control col-10"placeholder="Description of NFT"rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            </div>
+        )
+      }
+  }
+  class ShowTemplateTwo extends React.Component{
+    constructor(props){
+        super(props);
+        this.t2ImageOne = this.t2ImageOne.bind(this);
+        this.addImage = this.addImage.bind(this);
+
+
+        
+        let array = []
+
+        this.state =
+        {
+            url:"",
+            checkifurl:"",
+            div: <div></div>,
+            border:"dotted",
+            array:array,
+            imgdiv: ""
+           
+        }
+        
+    }
+    t2ImageOne(e)
+    {
+        
+        console.log(e)
+       
+        this.setState({
+            url: document.querySelector('#saveurl').value,
+            border:""
+
+         })
+         console.log("newurl", this.state.url)
+
+    }
+    addImage(e){
+        let checkifurl = ""
+       
+        if (this.state.url.charAt(8) == "l")
+        {
+            checkifurl = "image"
+        }
+        
+        this.setState({
+        imgdiv: <div id="wilachatww" name="imgdiv" value="false" class="templates1"  >
+        <div id="one"onClick={this.t2ImageOne} class="divborder" style={{borderStyle: "dotted"}}>
+        {checkifurl == "image" ? <img class="testingtestimgg" src={this.state.url}></img>: <video src={this.state.url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={this.state.url} type = "video/mp4"></source></video>}                  
+
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <input class="form-control col-4"placeholder="Title of NFT" type="text"></input>
+        </div>
+        <div class="d-flex justify-content-center mt-2">
+            <textarea class="form-control col-10"placeholder="Description of NFT" rows="3"></textarea>
+        </div>
+        </div>
+        
+
+        //array: this.state.array.push(this.state.imgdiv)
+
+        })
+     
+        let { array, imgdiv } = this.state;
+        if (imgdiv != "")
+        {
+            array.push(imgdiv);
+        }
+        else{
+            window.alert("if u really want to add image press again!")
+        }
+
+       
+
+        
+    }
+    render(){
+        console.log("render?")
+        let checkifurl = ""
+        if (this.state.url.charAt(8) == "l")
+        {
+            checkifurl = "image"
+        }
+        else{
+            checkifurl = "video"
+        }
+        console.log("what the hell is the url", checkifurl)
+        //{this.state.array.map(item => (item))}
+
+      return (
+        <div>
+            <div class="d-flex justify-content-center d-flex flex-wrap  mt-2">
+                <input onChange={this.props.changeBgColor} type="color" class="changecolor form-control form-control-color col-1 mb-1" id="exampleColorInput" title="Choose your color"></input>
+                <input onChange={this.props.imageTemplate} id="filetemplate1"  class="filetemplate1 form-control-file col-sm-1 mr-1" type="file"></input>
+                <button onClick={(e) => this.props.deleteTemplate(this.props.id, e)} class="deletetemplate btn btn-danger mb-1"></button>
+                <button onClick={(e) => this.addImage(this.props.id, e)} class="deletetemplate btn btn-danger mb-1">Add Image</button>
+
+            </div>
+            <div id="forappend" class="d-flex justify-content-center template2 mr-4 d-flex flex-wrap">
+                
+            <div id="wilachatww" name="imgdiv" value="false" class="templates1"  >
+        <div id="one"onClick={this.t2ImageOne} class="divborder" style={{borderStyle: "dotted"}}>
+        {checkifurl == "image" ? <img class="testingtestimgg" src={this.state.url}></img>: <video src={this.state.url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={this.state.url} type = "video/mp4"></source></video>}                  
+
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <input class="form-control col-4"placeholder="Title of NFT" type="text"></input>
+        </div>
+        <div class="d-flex justify-content-center mt-2">
+            <textarea class="form-control col-10"placeholder="Description of NFT" rows="3"></textarea>
+        </div>
+        </div>
+        <div id="wilachatww" name="imgdiv" value="false" class="templates1"  >
+        <div id="one"onClick={this.t2ImageOne} class="divborder" style={{borderStyle: "dotted"}}>
+        {checkifurl == "image" ? <img class="testingtestimgg" src={this.state.url}></img>: <video src={this.state.url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={this.state.url} type = "video/mp4"></source></video>}                  
+
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <input class="form-control col-4"placeholder="Title of NFT" type="text"></input>
+        </div>
+        <div class="d-flex justify-content-center mt-2">
+            <textarea class="form-control col-10"placeholder="Description of NFT" rows="3"></textarea>
+        </div>
+        </div>
+                
+            </div>
+        </div>
+      )
+    }
+}
+  class SortNextImg extends React.Component {
+    constructor(props){
+        super(props);
+        let source = this.props.source;       
+        this.chooseImgTemplate = this.chooseImgTemplate.bind(this);
+      
+    }
+    chooseImgTemplate(e)
+    {   
+        console.log(e)
+        let i = 0
+        console.log("chekcecke", e.target.parentElement.parentElement.parentElement.childNodes.length)
+        if (e.target.id == "")
+        {
+            console.log("not in id?")
+            for (i = 0; i < e.target.parentElement.parentElement.parentElement.childNodes.length; i ++)
+            {
+                e.target.parentElement.parentElement.parentElement.childNodes[i].childNodes[0].style.backgroundColor = ""
+            }
+            console.log("check background color", e.target.parentElement.style.backgroundColor)
+
+            if (e.target.parentElement.style.backgroundColor == "")
+            {
+                e.target.parentElement.style.backgroundColor = "skyblue"
+            }            
+            else if (e.target.parentElement.style.backgroundColor == "skyblue")
+            {
+                e.target.parentElement.style.backgroundColor = ""
+            }
+        }
+        else if (e.target.id == "wilachatww")
+        {
+            console.log("not in wilachat?")
+
+            for (i = 0; i < e.target.parentElement.parentElement.childNodes.length; i ++)
+            {
+                e.target.parentElement.parentElement.childNodes[i].childNodes[0].style.backgroundColor = ""
+            }
+            
+            if (e.target.parentElement.style.backgroundColor == "")
+            {
+                e.target.style.backgroundColor = "skyblue"
+            }
+            else if (e.target.parentElement.style.backgroundColor == "skyblue")
+            {
+                e.target.style.backgroundColor = ""
+            }
+        }
+    
+        
+        let source = this.props.source
+        document.querySelector('#saveurl').value = source
+  
+    }
+ 
+    render(){
+        document.querySelector('#nextimg').hidden = false
+        document.querySelector('#showtemplates').hidden = false
+
+        let char = this.props.source.charAt(8)
+
+        return (
+            <div>
+                <div onClick={this.chooseImgTemplate} id="wilachatww" name="imgdiv" value="false" className="boxnext">
+                    {char == "l" ? <img class="nftimg" src={this.props.source}></img>: <video onClick={this.chooseImgTemplate} src={this.props.source} muted autoplay="autoplay" loop="true" class="nftvdo"><source src={this.props.source} type = "video/mp4"></source></video>}                  
+                </div>
+            </div>
+        )
+    }
+
+  }
+
+  //send delete + add background color function to template classes
+  class NextImg extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.goBack = this.goBack.bind(this)
+        this.showTemplate1 = this.showTemplate1.bind(this);
+        this.showTemplate2 = this.showTemplate2.bind(this);
+        this.changeBgColor = this.changeBgColor.bind(this);
+        this.deleteTemplate = this.deleteTemplate.bind(this);
+
+        this.imageTemplate = this.imageTemplate.bind(this);
+        this.goSave = this.goSave.bind(this)
+
+
+    }
+        
+    
+    changeBgColor(e){
+        console.log("waan")
+        console.log(e)
+        console.log("what what what what", document.querySelector('#exampleColorInput').value)
+        let color = e.target.value
+        e.target.parentElement.childNodes[1].value = ""
+        e.target.parentElement.parentElement.childNodes[1].style.backgroundImage = ""
+        e.target.parentElement.parentElement.childNodes[1].style.backgroundColor = color
+
+    }
+    deleteTemplate(id, e){
+        //without react might be wrong
+        //ReactDOM.unmountComponentAtNode(document.querySelector(`#${id}`));
+        document.querySelector(`#${id}`).remove()
+
+
+    }
+  
+    imageTemplate(e){
+        console.log("MOTHER FAKING CONFUSING")
+        console.log("faking e liar", e)
+        let fileInput =  e.target.files[0]
+        console.log("fileINput", fileInput)
+        let formData = new FormData();
+        formData.append("media", fileInput);
+        let address = document.querySelector('#walletaddress').value
+        const getcooked = getCookie('csrftoken')
+
+        fetch(`/realcreateapi/${address}`, {
+            method: 'POST',
+            headers:{'X-CSRFToken': getcooked},
+            body:formData
+        })
+        .then(response => response.json())
+    
+         .then(data => {
+            console.log("ALIBABA IS SAVING THE WORLD WITH MORG SAN!", data)
+            let first = "url(/static/profile_pic/"
+            let last = ")"
+            let source = first + data + last
+            console.log("source", source)
+            e.target.parentElement.parentElement.childNodes[1].style.backgroundColor = ""
+            e.target.parentElement.parentElement.childNodes[1].style.backgroundImage = source
+            console.log("morg x alibaba", e.target.parentElement.parentElement.childNodes[1])
+        });
+
+    }
+
+
+    goBack(e)
+    {
+        console.log("wtf")
+        document.querySelector('#nextimg').hidden = true
+        document.querySelector('#shownfts').hidden = false
+        document.querySelector('#showtemplates').hidden = true
+
+    }
+    goSave(e)
+    {
+
+        let src = ""
+        let title = ""
+        let des = ""
+        let bgcolor = ""
+        let bgimage = ""
+        let everydata = {}
+        let tryeverydata = []
+        
+        let i = 0;
+        for (i = 0; i < e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes.length - 1; i++)
+        {
+            let section = "section" + (i + 1)
+           
+            let sectiondict = {}
+
+            bgcolor = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].style.backgroundColor
+            sectiondict['bgcolor'] = bgcolor
+            bgimage = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].style.backgroundImage
+            console.log("just to make sure this is the bgimage", bgimage)
+       
+
+            //everydata[section] = sectiondict
+           tryeverydata.push(sectiondict)
+
+            
+            if (bgimage != "")
+            {
+                let check = bgimage.split('/')
+                console.log("change of heart", check)
+                let coh = check[3].split('"')
+                console.log("change of", coh)
+                sectiondict['bgimage'] = coh[0]
+
+            }
+            else{
+                sectiondict['bgimage'] = ""
+            }
+        
+            let j = 0;
+            let imagearray = []
+
+           for (j = 0; j < e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].childNodes.length; j++)
+           {
+                let imageinfo = "imageinfo" + (j + 1)
+
+                let imageinfodict = {}
+
+                let src = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].childNodes[j].childNodes[0].childNodes[0].src
+                
+                imageinfodict['src'] = src
+                
+                let title = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].childNodes[j].childNodes[1].childNodes[0].value
+                imageinfodict['title'] = title
+                
+                let des = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].childNodes[j].childNodes[2].childNodes[0].value
+                imageinfodict['des'] = des
+                console.log("this is image info dict", imageinfodict)
+                imagearray.push(imageinfodict)
+
+            } 
+            sectiondict["imageinfo"] = imagearray 
+
+        }
+        console.log("everydata", everydata)
+        console.log("try every data", tryeverydata)
+
+        let formData = new FormData();
+        formData.append("everydata", everydata)
+        let address = document.querySelector('#walletaddress').value
+        const getcooked = getCookie('csrftoken')
+
+        fetch(`/realsaveapi/${address}`, {
+            method: 'POST',
+            headers:{'X-CSRFToken': getcooked},
+            body: JSON.stringify({
+                everydata: tryeverydata
+                })
+            
+          })
+
+       
+
+    }
+    showTemplate1(count)
+    {
+        
+        const newDiv = document.createElement("div");
+        newDiv.id = "templatesidone" + count
+        let id = "templatesidone" + count
+        document.querySelector('#showtemplates').append(newDiv)
+        ReactDOM.render(<ShowTemplateOne id={id} changeBgColor={this.changeBgColor} 
+        deleteTemplate={this.deleteTemplate} imageTemplate={this.imageTemplate}/>, document.querySelector('#templatesidone' + count));
+           
+    }
+    showTemplate2(count)
+    {
+        const newDiv = document.createElement("div");
+        newDiv.id = "templatesidtwo" + count
+        let id = "templatesidtwo" + count
+
+        document.querySelector('#showtemplates').append(newDiv)
+       
+        ReactDOM.render(<ShowTemplateTwo id={id} changeBgColor={this.changeBgColor} 
+        deleteTemplate={this.deleteTemplate} imageTemplate={this.imageTemplate}/>, document.querySelector('#templatesidtwo' + count));
+    }
+
+        render() {
+
+        let counttemplate1 = 0;
+        let counttemplate2 = 0;
+
+        const img = [];
+        let i = 0
+        for (i = 0; i < this.props.array.length; i ++)
+        {
+            img.push(<SortNextImg 
+                source={this.props.array[i]}/>
+            );
+        }
+      return (
+        <div>
+            <div class="d-flex flex-wrap d-flex justify-content-center imgnextbg">
+                {img}
+            </div>
+            <div>
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-1" onClick={() => this.showTemplate1(counttemplate1++)}>Template1</button>
+                <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={() => this.showTemplate2(counttemplate2++)}>Template2</button>
+            </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-2" onClick={this.goBack}>Back</button>
+                <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.goSave}>Save</button>
+
+            </div>
+        </div>
+        );
+    }
+  }
 
 class EachNft extends React.Component{
     constructor(props){
         super(props);
         this.chooseNft = this.chooseNft.bind(this);
+        this.cancelNft = this.cancelNft.bind(this)
         let arrayurl = [];
+        let animationurl =  this.props.animationurl ;
+        let index = 65;
+
+        if (animationurl != null)
+        { 
+        index = animationurl.indexOf( '.gltf' );
+        }
         this.state = {
-            arrayurl: arrayurl
+            arrayurl: arrayurl,
+            wholeimg:
+            <div>
+                <div id="wilachatww" name="imgdiv" value="false" className="box" onClick={this.chooseNft} data-selected="false">
+                    {index == 65 ? <img class="nftimg" src={this.props.imageurl}></img>: <video src={this.props.animationurl} muted autoplay="autoplay" loop="true" class="nftvdo"><source src={this.props.animationurl} type = "video/mp4"></source></video>}                  
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href = {index == 65 ? this.props.imageurl: this.props.animationurl} target="_blank" class="btn btn-outline-dark btn-sm mt-1 mb-1">view</a>
+                </div>
+            </div>
         }
       }
       chooseNft(e){
+        let animationurl =  this.props.animationurl ;
+        let index = 65;
+
+        if (animationurl != null)
+        { 
+        index = animationurl.indexOf( '.gltf' );
+        }
+ 
         this.setState({
-            arrayurl:this.state.arrayurl.push(this.props.imageurl)
+            wholeimg:
+            <div>
+                <div id="wilachatww" name="imgdiv" value="true" className="boxcolor" data-selected="true" onClick={this.cancelNft}>
+                    {index == 65  ? <img class="nftimg" src={this.props.imageurl}></img>: <video src={this.props.animationurl} muted autoplay="autoplay" loop="true" class="nftvdo"><source src={this.props.animationurl} type = "video/mp4"></source></video>}                  
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href = {index == 65 ? this.props.imageurl: this.props.animationurl} target="_blank" class="btn btn-outline-dark btn-sm mt-1 mb-1">view</a>
+                </div>
+            </div>
         })
-        console.log(this.props.imageurl)
-        console.log("this is array", this.state.arrayurl)
             
+      }
+      cancelNft(e)
+      {
+        let animationurl =  this.props.animationurl ;
+        let index = 65;
+
+        if (animationurl != null)
+        { 
+        index = animationurl.indexOf( '.gltf' );
+        }
+ 
+        this.setState({
+            wholeimg:
+            <div>
+                <div id="wilachatww" name="imgdiv" className="box" data-selected="false" onClick={this.chooseNft}>
+                    {index == 65  ? <img class="nftimg" src={this.props.imageurl}></img>: <video src={this.props.animationurl} muted autoplay="autoplay" loop="true" class="nftvdo"><source src={this.props.animationurl} type = "video/mp4"></source></video>}                  
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href = {index == 65 ? this.props.imageurl: this.props.animationurl} target="_blank" class="btn btn-outline-dark btn-sm mt-1 mb-1">view</a>
+                </div>
+            </div>
+        })
+
       }
       render() {
           console.log("animation url", this.props.animationurl)
           console.log("img url", this.props.imageurl)
-          let animationurl =  this.props.animationurl 
-          let index = 65
-
-          if (animationurl != null)
-          { 
-            index = animationurl.indexOf( '.gltf' );
-          }
-        
           return (
             <div>
-                <div class="box" onClick={this.chooseNft}>
-                    {index == 65 ? <img class="nftimg" src={this.props.imageurl}></img>: <video autoplay="autoplay" loop="true" class="nftvdo"><source src={this.props.animationurl} type = "video/mp4"></source></video>}                  
-                </div>
-                <div class="d-flex justify-content-center">
-                    <a href = {index == 65 ? this.props.imageurl: this.props.animationurl} target="_blank" class="btn btn-outline-dark btn-sm">view</a>
-                </div>
+                {this.state.wholeimg}
             </div>
           )
       }
@@ -63,7 +624,36 @@ class EachNft extends React.Component{
   class ShowNfts extends React.Component {
     constructor(props) {
         super(props);
-}
+        this.selectedImg = this.selectedImg.bind(this);
+        console.log("check for data inside to get the address to send back to api", this.props.data)
+    }
+    selectedImg(e)
+    {   
+        let i = 0
+        let array = []
+        console.log(e)
+        for (i = 0; i < e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[0].childNodes.length; i++)
+        {
+            if (e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[0].childNodes[i].childNodes[0].childNodes[0].dataset["selected"] == "true")
+            {
+                array.push(e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[0].childNodes[i].childNodes[0].childNodes[0].childNodes[0].src)
+            }
+        }
+        if (array[0] != undefined)
+        {
+            
+           // document.querySelector('#shownfts').style.visibility = 'hidden'
+            document.querySelector('#shownfts').hidden = true
+
+
+
+            ReactDOM.render(<NextImg array={array}/>, document.querySelector('#nextimg'));
+
+        }
+        else{
+            window.alert("You need to select a nft before proceeding to create gallery")
+        }
+    }
         render() {
             const img = [];
             const counter = [];
@@ -76,12 +666,13 @@ class EachNft extends React.Component{
                     animationurl={this.props.data["assets"][i]["animation_url"]} />
                   );
             }
-          
       return (
         <div>
-            <h1></h1>
         <div class="d-flex justify-content-around d-flex flex-wrap">
             {img}
+        </div>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.selectedImg}>Next</button>
         </div>
         </div>
         );
@@ -121,9 +712,8 @@ document.addEventListener('DOMContentLoaded', function(e) {
        let orderdirection = "&order_direction=" + queryhl
     
         let address = document.querySelector('#walletaddress').value
-        console.log(`https://api.opensea.io/api/v1/assets?owner=${address}${orderby}${orderdirection}&offset=0&limit=50`)
         
-        fetch(`https://api.opensea.io/api/v1/assets?owner=${address}${orderby}${orderdirection}&offset=0&limit=50`)
+        fetch(`https://api.opensea.io/api/v1/assets?owner=${address}${orderby}${orderdirection}&offset=0&limit=20`)
       
         .then(response => response.json())
     
@@ -134,7 +724,11 @@ document.addEventListener('DOMContentLoaded', function(e) {
         });
     });
 });
-            
+export {
+    ShowTemplateOne,
+    ShowTemplateTwo,
+  }
+
       
         
           

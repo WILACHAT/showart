@@ -1,5 +1,5 @@
-import PostTable from './main.js'
-//import Grade from './grade-js'
+
+import  { ShowTemplateOne, ShowTemplateTwo } from './realcreate.js';
 
 function getCookie(name) {
     let cookieValue = null;
@@ -16,12 +16,76 @@ function getCookie(name) {
     }
     return cookieValue;
   }
+  class DisplayGallery extends React.Component{
+    constructor(props){
+        super(props);
+        this.toBack = this.toBack.bind(this);
+        let data = this.props.data;
+      
+        data = data.replaceAll("'", '"');
+        data = JSON.parse(data);
+        console.log("this is new data!", data)
+        console.log(data['everydata'].length)
+        let i = 0
+        for (i = 0; i < data['everydata'].length; i++)
+        {
+            let count = i
+            const newDiv = document.createElement("div");
+            newDiv.id = "templatesidone" + count
+            let id = "templatesidone" + count
+            document.querySelector('#gallerypage').append(newDiv)
+            if (data['everydata'][i]['imageinfo'].length == 1)
+            {
+                console.log("1")
+                ReactDOM.render( <ShowTemplateOne alldata={data['everydata'][i]['imageinfo']} />, document.querySelector('#templatesidone' + count));
+
+            }
+            if (data['everydata'][i]['imageinfo'].length == 2)
+            {
+                console.log("2")
+                ReactDOM.render(<ShowTemplateTwo alldata={data['everydata'][i]['imageinfo']}/>, document.querySelector('#templatesidone' + count));
+
+            }
+            let j = 0
+            for (j = 0; j < data['everydata'][i]['imageinfo'].length; j++)
+            {
+                console.log("src", data['everydata'][i]['imageinfo'][j]['src'])
+                console.log("title", data['everydata'][i]['imageinfo'][j]['title'])
+                console.log("des", data['everydata'][i]['imageinfo'][j]['des'])
+
+            }
+
+        }
+    }
+    toBack()
+    {
+            document.querySelector('#profileedit').hidden = false;
+            document.querySelector('#followpart').hidden = false;
+            document.querySelector('#gallerypage').hidden = true;
+    }
+
+    render(){
+        let i = 0;
+      return (
+        <div>
+            <h1>wilachat</h1>
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.toBack}>Back</button>
+            </div>
+            
+        </div>
+      )
+    }
+}
   class ProfileEdit extends React.Component {
     constructor(props) {
         super(props);
         this.sendEditPost = this.sendEditPost.bind(this);
         this.showEditPost = this.showEditPost.bind(this);
+        this.showImg = this.showImg.bind(this);
         this.cancel = this.cancel.bind(this);
+        this.toNext = this.toNext.bind(this);
+
         let contactgmail = this.props.data["contactgmail"];
         let openseaurl = this.props.data["openseaurl"];
         let profiledes = this.props.data["profiledes"];
@@ -66,7 +130,7 @@ function getCookie(name) {
     edit:  
     
     <div>
-        <div class="d-flex justify-content-center">
+        <div onClick={this.showImg} class="d-flex justify-content-center">
             <img class="imgnoedit" src={profilepic}></img>
         </div>
         
@@ -87,7 +151,6 @@ function getCookie(name) {
     </div>
    
     //in the first set state it will only show the img cannot edit an only view image
-  
 };
 
     }
@@ -104,6 +167,17 @@ function getCookie(name) {
            
         });
     
+    }
+    
+    showImg()
+    {
+        document.getElementById("overlay").style.display = "block";
+
+        document.querySelector('#uknowimg').src = this.state.profilepic
+        document.querySelector('#overlay').onclick = function() { 
+            document.getElementById("overlay").style.display = "none";
+        }
+
     }
   
     sendEditPost(profiledes,contactgmail,openseaurl, profilepic){
@@ -153,7 +227,7 @@ function getCookie(name) {
                     profilepic: profilepic,
                     edit: 
                     <div>
-                        <div class="d-flex justify-content-center">
+                        <div onClick={this.showImg} class="d-flex justify-content-center">
                             <img class="imgnoedit" src={profilepic}></img>
                         </div>
                         
@@ -182,6 +256,25 @@ function getCookie(name) {
         });
 
     }
+    toNext(){
+   
+            document.querySelector('#profileedit').hidden = true;
+            document.querySelector('#followpart').hidden = true;
+            document.querySelector('#gallerypage').hidden = false;
+            const getcooked = getCookie('csrftoken')
+            fetch(`/realcreateapi/1`, {
+                method: 'PUT',
+                headers:{'X-CSRFToken': getcooked},
+                body:"getgalleryinfo"
+            })
+            .then(response => response.json())
+            
+    
+         .then(data => {
+            ReactDOM.render(<DisplayGallery data={data}/>, document.querySelector('#gallerypage'));
+
+        });
+    }
 
     
     cancel(profilepic){
@@ -200,7 +293,7 @@ function getCookie(name) {
             profilepic: profilepic,
             edit: 
             <div>
-                <div class="d-flex justify-content-center">
+                <div onClick={this.showImg}  class="d-flex justify-content-center">
                     <img class="imgnoedit" src={profilepic}></img>
                 </div>
                 <div class="mb-2">
@@ -237,6 +330,9 @@ function getCookie(name) {
       return (
         <div>
             {this.state.edit}
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.toNext}>Gallery</button>
+            </div>
         </div>
         );
     }
@@ -464,7 +560,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const pagination = 1
     console.log("atleast")
     const whatkind = "profile"
+    Grade(document.querySelectorAll('.gradient-wrap'))
     let clicked = parseInt(window.location.pathname.split('/')[2])
+    document.querySelector('#gallerypage').hidden = true;
 
     fetch(`/currentgalleryapi/${whatkind}/${clicked}/${pagination}`)
 
@@ -473,7 +571,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(data => {
       ReactDOM.render(<ProfileEdit data={data}/>, document.querySelector('#profileedit'));
       ReactDOM.render(<FollowTable data={data}/>, document.querySelector('#followpart'));
-      ReactDOM.render(<PostTable data={data}/>, document.querySelector('#postpage'));
+
       
       console.log(data)
       
