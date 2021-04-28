@@ -184,7 +184,9 @@ var ShowTemplateTwo = function (_React$Component2) {
                     { id: 'wilachatww', name: 'imgdiv', value: 'false', 'class': 'templates1' },
                     React.createElement(
                         'div',
-                        { id: 'one', onClick: _this3.t2ImageOne, 'class': 'divborder', style: { borderStyle: "dotted" } },
+                        { id: 'one', onClick: function onClick(e) {
+                                return _this3.t2ImageOne(_this3.state.list, e);
+                            }, 'class': 'divborder', style: { borderStyle: "dotted" } },
                         checkifurl == "image" ? React.createElement('img', { 'class': 'testingtestimgg', src: _this3.state.url }) : React.createElement(
                             'video',
                             { src: _this3.state.url, muted: true, autoplay: 'autoplay', loop: 'true', 'class': 'nftvdoo' },
@@ -216,35 +218,39 @@ var ShowTemplateTwo = function (_React$Component2) {
 
         _this3.t2ImageOne = _this3.t2ImageOne.bind(_this3);
         _this3.addImage = _this3.addImage.bind(_this3);
-
         var array = [];
-
         _this3.state = {
+            url: "",
+            checkifurl: "",
             border: "dotted",
             imgdiv: "",
             value: "",
             list: []
+
         };
+
         return _this3;
     }
 
     _createClass(ShowTemplateTwo, [{
         key: 't2ImageOne',
-        value: function t2ImageOne(e) {
-            console.log(e);
+        value: function t2ImageOne(list) {
 
+            console.log("wilachat");
             this.setState({
                 url: document.querySelector('#saveurl').value,
                 border: ""
 
             });
             console.log("newurl", this.state.url);
+            console.log("LISTY", this.state.list);
         }
     }, {
         key: 'render',
         value: function render() {
             var _this4 = this;
 
+            console.log("lista", this.state.list);
             return React.createElement(
                 'div',
                 null,

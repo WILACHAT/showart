@@ -127,30 +127,32 @@ function getCookie(name) {
         super(props);
         this.t2ImageOne = this.t2ImageOne.bind(this);
         this.addImage = this.addImage.bind(this);
-  
-  
-        
         let array = []
-  
         this.state =
         {
+            url:"",
+            checkifurl:"",
             border:"dotted",
             imgdiv: "",
             value:"",
             list:[]
+           
         }
+        
     }
-    
-    t2ImageOne(e)
+    t2ImageOne(list)
     {
-        console.log(e)
-       
+        
+        console.log("wilachat")
         this.setState({
             url: document.querySelector('#saveurl').value,
             border:""
   
          })
          console.log("newurl", this.state.url)
+         console.log("LISTY", this.state.list)
+
+
   
     }
     addImage = (e) => {
@@ -162,18 +164,18 @@ function getCookie(name) {
         }
         
         this.setState({
-        imgdiv: <div id="wilachatww" name="imgdiv" value="false" class="templates1"  >
-        <div id="one"onClick={this.t2ImageOne} class="divborder" style={{borderStyle: "dotted"}}>
-        {checkifurl == "image" ? <img class="testingtestimgg" src={this.state.url}></img>: <video src={this.state.url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={this.state.url} type = "video/mp4"></source></video>}                  
-  
-        </div>
-        <div class="d-flex justify-content-center mt-3">
-            <input class="form-control col-4"placeholder="Title of NFT" type="text"></input>
-        </div>
-        <div class="d-flex justify-content-center mt-2">
-            <textarea class="form-control col-10"placeholder="Description of NFT" rows="3"></textarea>
-        </div>
-        </div>
+        imgdiv: 
+            <div id="wilachatww" name="imgdiv" value="false" class="templates1"  >
+                <div id="one" onClick={(e) => this.t2ImageOne(this.state.list, e)} class="divborder" style={{borderStyle: "dotted"}}>
+                    {checkifurl == "image" ? <img class="testingtestimgg" src={this.state.url}></img>: <video src={this.state.url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={this.state.url} type = "video/mp4"></source></video>}                  
+                </div>
+                <div class="d-flex justify-content-center mt-3">
+                    <input class="form-control col-4"placeholder="Title of NFT" type="text"></input>
+                </div>
+                <div class="d-flex justify-content-center mt-2">
+                    <textarea class="form-control col-10"placeholder="Description of NFT" rows="3"></textarea>
+                </div>
+            </div>
         })
         
         this.setState(state => {
@@ -188,9 +190,8 @@ function getCookie(name) {
       }
       
   
-        
-    
-    render(){ 
+    render(){
+        console.log("lista", this.state.list)
       return (
         <div>
             <div class="d-flex justify-content-center d-flex flex-wrap  mt-2">
