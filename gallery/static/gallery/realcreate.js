@@ -171,57 +171,24 @@ var ShowTemplateTwo = function (_React$Component2) {
 
         var _this3 = _possibleConstructorReturn(this, (ShowTemplateTwo.__proto__ || Object.getPrototypeOf(ShowTemplateTwo)).call(this, props));
 
-        _this3.t2ImageOne = _this3.t2ImageOne.bind(_this3);
-        _this3.addImage = _this3.addImage.bind(_this3);
-
-        var array = [];
-
-        _this3.state = {
-            url: "",
-            checkifurl: "",
-            div: React.createElement('div', null),
-            border: "dotted",
-            array: array,
-            imgdiv: ""
-
-        };
-
-        return _this3;
-    }
-
-    _createClass(ShowTemplateTwo, [{
-        key: 't2ImageOne',
-        value: function t2ImageOne(e) {
-
-            console.log(e);
-
-            this.setState({
-                url: document.querySelector('#saveurl').value,
-                border: ""
-
-            });
-            console.log("newurl", this.state.url);
-        }
-    }, {
-        key: 'addImage',
-        value: function addImage(e) {
+        _this3.addImage = function (e) {
             var checkifurl = "";
 
-            if (this.state.url.charAt(8) == "l") {
+            if (_this3.state.url.charAt(8) == "l") {
                 checkifurl = "image";
             }
 
-            this.setState({
+            _this3.setState({
                 imgdiv: React.createElement(
                     'div',
                     { id: 'wilachatww', name: 'imgdiv', value: 'false', 'class': 'templates1' },
                     React.createElement(
                         'div',
-                        { id: 'one', onClick: this.t2ImageOne, 'class': 'divborder', style: { borderStyle: "dotted" } },
-                        checkifurl == "image" ? React.createElement('img', { 'class': 'testingtestimgg', src: this.state.url }) : React.createElement(
+                        { id: 'one', onClick: _this3.t2ImageOne, 'class': 'divborder', style: { borderStyle: "dotted" } },
+                        checkifurl == "image" ? React.createElement('img', { 'class': 'testingtestimgg', src: _this3.state.url }) : React.createElement(
                             'video',
-                            { src: this.state.url, muted: true, autoplay: 'autoplay', loop: 'true', 'class': 'nftvdoo' },
-                            React.createElement('source', { src: this.state.url, type: 'video/mp4' })
+                            { src: _this3.state.url, muted: true, autoplay: 'autoplay', loop: 'true', 'class': 'nftvdoo' },
+                            React.createElement('source', { src: _this3.state.url, type: 'video/mp4' })
                         )
                     ),
                     React.createElement(
@@ -235,35 +202,48 @@ var ShowTemplateTwo = function (_React$Component2) {
                         React.createElement('textarea', { 'class': 'form-control col-10', placeholder: 'Description of NFT', rows: '3' })
                     )
                 )
-
-                //array: this.state.array.push(this.state.imgdiv)
-
             });
 
-            var _state = this.state,
-                array = _state.array,
-                imgdiv = _state.imgdiv;
+            _this3.setState(function (state) {
+                var list = state.list.concat(state.imgdiv);
 
-            if (imgdiv != "") {
-                array.push(imgdiv);
-            } else {
-                window.alert("if u really want to add image press again!");
-            }
+                return {
+                    list: list,
+                    value: ''
+                };
+            });
+        };
+
+        _this3.t2ImageOne = _this3.t2ImageOne.bind(_this3);
+        _this3.addImage = _this3.addImage.bind(_this3);
+
+        var array = [];
+
+        _this3.state = {
+            border: "dotted",
+            imgdiv: "",
+            value: "",
+            list: []
+        };
+        return _this3;
+    }
+
+    _createClass(ShowTemplateTwo, [{
+        key: 't2ImageOne',
+        value: function t2ImageOne(e) {
+            console.log(e);
+
+            this.setState({
+                url: document.querySelector('#saveurl').value,
+                border: ""
+
+            });
+            console.log("newurl", this.state.url);
         }
     }, {
         key: 'render',
         value: function render() {
             var _this4 = this;
-
-            console.log("render?");
-            var checkifurl = "";
-            if (this.state.url.charAt(8) == "l") {
-                checkifurl = "image";
-            } else {
-                checkifurl = "video";
-            }
-            console.log("what the hell is the url", checkifurl);
-            //{this.state.array.map(item => (item))}
 
             return React.createElement(
                 'div',
@@ -287,52 +267,9 @@ var ShowTemplateTwo = function (_React$Component2) {
                 React.createElement(
                     'div',
                     { id: 'forappend', 'class': 'd-flex justify-content-center template2 mr-4 d-flex flex-wrap' },
-                    React.createElement(
-                        'div',
-                        { id: 'wilachatww', name: 'imgdiv', value: 'false', 'class': 'templates1' },
-                        React.createElement(
-                            'div',
-                            { id: 'one', onClick: this.t2ImageOne, 'class': 'divborder', style: { borderStyle: "dotted" } },
-                            checkifurl == "image" ? React.createElement('img', { 'class': 'testingtestimgg', src: this.state.url }) : React.createElement(
-                                'video',
-                                { src: this.state.url, muted: true, autoplay: 'autoplay', loop: 'true', 'class': 'nftvdoo' },
-                                React.createElement('source', { src: this.state.url, type: 'video/mp4' })
-                            )
-                        ),
-                        React.createElement(
-                            'div',
-                            { 'class': 'd-flex justify-content-center mt-3' },
-                            React.createElement('input', { 'class': 'form-control col-4', placeholder: 'Title of NFT', type: 'text' })
-                        ),
-                        React.createElement(
-                            'div',
-                            { 'class': 'd-flex justify-content-center mt-2' },
-                            React.createElement('textarea', { 'class': 'form-control col-10', placeholder: 'Description of NFT', rows: '3' })
-                        )
-                    ),
-                    React.createElement(
-                        'div',
-                        { id: 'wilachatww', name: 'imgdiv', value: 'false', 'class': 'templates1' },
-                        React.createElement(
-                            'div',
-                            { id: 'one', onClick: this.t2ImageOne, 'class': 'divborder', style: { borderStyle: "dotted" } },
-                            checkifurl == "image" ? React.createElement('img', { 'class': 'testingtestimgg', src: this.state.url }) : React.createElement(
-                                'video',
-                                { src: this.state.url, muted: true, autoplay: 'autoplay', loop: 'true', 'class': 'nftvdoo' },
-                                React.createElement('source', { src: this.state.url, type: 'video/mp4' })
-                            )
-                        ),
-                        React.createElement(
-                            'div',
-                            { 'class': 'd-flex justify-content-center mt-3' },
-                            React.createElement('input', { 'class': 'form-control col-4', placeholder: 'Title of NFT', type: 'text' })
-                        ),
-                        React.createElement(
-                            'div',
-                            { 'class': 'd-flex justify-content-center mt-2' },
-                            React.createElement('textarea', { 'class': 'form-control col-10', placeholder: 'Description of NFT', rows: '3' })
-                        )
-                    )
+                    this.state.list.map(function (item) {
+                        return item;
+                    })
                 )
             );
         }
