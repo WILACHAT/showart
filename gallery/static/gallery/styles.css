@@ -1,7 +1,10 @@
-
 .navibar
 {
     background-color:lightseagreen;
+   
+}
+body{
+  margin: 0;
 }
 #texty{
     font-weight: 500;
@@ -224,7 +227,12 @@ input[id='choosefile'] {
 .imgnextbg
 {
   background-color: salmon;
+ /* position:fixed;
+  width:100%;
+  margin:0;
+*/
 }
+
 #overlay {
   position: fixed;
   display: none;
@@ -256,25 +264,35 @@ input[id='choosefile'] {
 
 }
 .template2{
+  display: flex;
   width:100%;
-  height:850px;
+  flex-direction: row;
+  min-height: 105vh;
   background-color:tomato;
   z-index: -1;
   background-repeat: no-repeat;
   background-size: cover;
 }
-.templates1{
+.oneimage{
   display:block;
-  width: 40%; 
+  width:40%; 
   height:60%; 
+  z-index: 1;
+  position:relative;
+  margin:auto;
+}
+.threeimage{
+  display:block;
+  width:33%; 
+  height:53%; 
   z-index: 1;
   position:relative;
   margin:auto;
 }
 .templates2{
   display:block;
-  width: 40%; 
-  height:60%; 
+  width: 60%; 
+  height:80%; 
   z-index: 1;
   position:relative;
   margin:auto;
@@ -320,18 +338,20 @@ input[id='choosefile'] {
   margin:auto;
   display: block;
   width: 100%;
-  height:100%; 
+  height:100%;
   text-align:center;
   z-index: 2;
   position: relative;
   object-fit: contain;
+  max-height:500px;
 }
 .nftvdoo
 {
   margin:auto;
   display: block;
   text-align:center;
-  width: 100%; 
+  max-height:500px;
+  width: 100%;
   height:100%;
   z-index: 2;
   position: relative;
@@ -356,4 +376,3 @@ input[id='choosefile'] {
   height:30px;
   vertical-align: middle
 }
-

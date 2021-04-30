@@ -122,68 +122,113 @@ function getCookie(name) {
         )
       }
   }
-  class ShowTemplateTwo extends React.Component{
+  class DivNewClass extends React.Component{
     constructor(props){
         super(props);
         this.t2ImageOne = this.t2ImageOne.bind(this);
+        this.deleteImgDiv = this.deleteImgDiv.bind(this);
+        console.log("this . porps . length", this.props.length)
+        let classname =  this.props.classname
+
+        this.state =
+        {
+            url:"",
+            border:"dotted"
+
+        }
+        
+    }
+    t2ImageOne(list, e)
+    {
+
+        //e.target.parentElement.parentElement.childNodes[i]
+        this.setState({
+            url: document.querySelector('#saveurl').value,
+            border:null
+  
+         })
+    }
+    deleteImgDiv(e)
+    {
+        e.target.parentElement.parentElement.remove()
+
+
+        console.log(document.querySelector(`#${this.props.name}`).childNodes.length)
+        if (document.querySelector(`#${this.props.name}`).childNodes.length == 1)
+        {
+            document.querySelector(`#${this.props.name}`).childNodes[0].className = "oneimage"
+        }
+
+    }
+
+    render(){
+    
+    let checkifurl = "video"
+    if (this.state.url.charAt(8) == "l")
+    {
+        checkifurl = "image"
+    }
+    return (
+        <div id="wilachatww" name="imgdiv" value="false" className={this.props.classname} >
+            <div id="one" onClick={(e) => this.t2ImageOne(this.state.list, e)} class="divborder"style={{borderStyle: this.state.border}}>
+                {checkifurl == "image" ? <img class="testingtestimgg" src={this.state.url}></img>: <video src={this.state.url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={this.state.url} type = "video/mp4"></source></video>}                  
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <input class="form-control col-4"placeholder="Title of NFT" type="text"></input>
+            </div>
+            <div class="d-flex justify-content-center mt-2">
+                <textarea class="form-control col-10"placeholder="Description of NFT" rows="3"></textarea>
+            </div>
+            <div class="d-flex justify-content-center mt-2">
+                <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.deleteImgDiv}>X</button>
+            </div>
+        </div>
+      )
+    }
+}
+
+  class ShowTemplateTwo extends React.Component{
+    constructor(props){
+        super(props);
         this.addImage = this.addImage.bind(this);
         let array = []
         this.state =
         {
-            url:"",
-            checkifurl:"",
-            border:"dotted",
             imgdiv: "",
-            value:"",
             list:[]
-           
         }
         
     }
-    t2ImageOne(list)
-    {
-        
-        console.log("wilachat")
-        this.setState({
-            url: document.querySelector('#saveurl').value,
-            border:""
-  
-         })
-         console.log("newurl", this.state.url)
-         console.log("LISTY", this.state.list)
-
-
-  
-    }
-    addImage = (e) => {
-        let checkifurl = ""
-       
-        if (this.state.url.charAt(8) == "l")
+   
+    addImage = (realid, e, classname) => {  
+        console.log("check e", e)
+        if (e.target.parentElement.parentElement.childNodes[1].childNodes != "")
         {
-            checkifurl = "image"
+            if (e.target.parentElement.parentElement.childNodes[1].childNodes[0] != undefined)
+            {   let i = 0
+                
+                if (e.target.parentElement.parentElement.childNodes[1].childNodes[0].className != undefined)
+                {
+                    for (i = 0; i < e.target.parentElement.parentElement.childNodes[1].childNodes.length; i++)
+                    {
+                        e.target.parentElement.parentElement.childNodes[1].childNodes[i].className = classname
+                    }
+                }
+            }
         }
-        
+
+    
+
+        let length = this.state.list.length + 1
         this.setState({
         imgdiv: 
-            <div id="wilachatww" name="imgdiv" value="false" class="templates1"  >
-                <div id="one" onClick={(e) => this.t2ImageOne(this.state.list, e)} class="divborder" style={{borderStyle: "dotted"}}>
-                    {checkifurl == "image" ? <img class="testingtestimgg" src={this.state.url}></img>: <video src={this.state.url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={this.state.url} type = "video/mp4"></source></video>}                  
-                </div>
-                <div class="d-flex justify-content-center mt-3">
-                    <input class="form-control col-4"placeholder="Title of NFT" type="text"></input>
-                </div>
-                <div class="d-flex justify-content-center mt-2">
-                    <textarea class="form-control col-10"placeholder="Description of NFT" rows="3"></textarea>
-                </div>
-            </div>
+        <DivNewClass length={length} classname={classname} name={realid}/>
         })
-        
+
         this.setState(state => {
           const list = state.list.concat(state.imgdiv);
-     
           return {
             list,
-            value: '',
           };
         });
         
@@ -191,17 +236,25 @@ function getCookie(name) {
       
   
     render(){
-        console.log("lista", this.state.list)
-      return (
+        let classname = ""
+        if (this.state.list.length + 1 == 1)
+        {
+            classname = "oneimage"
+        }
+        else
+        {
+            classname = "threeimage"
+        }
+        let realid = this.props.id + "forappend"
+        return (
         <div>
             <div class="d-flex justify-content-center d-flex flex-wrap  mt-2">
                 <input onChange={this.props.changeBgColor} type="color" class="changecolor form-control form-control-color col-1 mb-1" id="exampleColorInput" title="Choose your color"></input>
                 <input onChange={this.props.imageTemplate} id="filetemplate1"  class="filetemplate1 form-control-file col-sm-1 mr-1" type="file"></input>
                 <button onClick={(e) => this.props.deleteTemplate(this.props.id, e)} class="deletetemplate btn btn-danger mb-1"></button>
-                <button onClick={(e) => this.addImage(this.props.id, e)} class="deletetemplate btn btn-danger mb-1">Add Image</button>
-  
+                <button onClick={(e) => this.addImage(realid, e, classname)} class="deletetemplate btn btn-danger mb-1">Add Image</button>
             </div>
-            <div id="forappend" class="d-flex justify-content-center template2 mr-4 d-flex flex-wrap">
+            <div id={realid} name={this.props.id}class="d-flex justify-content-center template2 mr-4 d-flex flex-wrap">
             {this.state.list.map(item => (
               item
             ))}
@@ -219,17 +272,13 @@ function getCookie(name) {
     }
     chooseImgTemplate(e)
     {   
-        console.log(e)
         let i = 0
-        console.log("chekcecke", e.target.parentElement.parentElement.parentElement.childNodes.length)
         if (e.target.id == "")
         {
-            console.log("not in id?")
             for (i = 0; i < e.target.parentElement.parentElement.parentElement.childNodes.length; i ++)
             {
                 e.target.parentElement.parentElement.parentElement.childNodes[i].childNodes[0].style.backgroundColor = ""
             }
-            console.log("check background color", e.target.parentElement.style.backgroundColor)
   
             if (e.target.parentElement.style.backgroundColor == "")
             {
@@ -242,7 +291,6 @@ function getCookie(name) {
         }
         else if (e.target.id == "wilachatww")
         {
-            console.log("not in wilachat?")
   
             for (i = 0; i < e.target.parentElement.parentElement.childNodes.length; i ++)
             {
@@ -314,7 +362,6 @@ function getCookie(name) {
         //without react might be wrong
         //ReactDOM.unmountComponentAtNode(document.querySelector(`#${id}`));
         document.querySelector(`#${id}`).remove()
-  
   
     }
   
@@ -439,13 +486,9 @@ function getCookie(name) {
                 })
             
           })
-  
-       
-  
     }
     showTemplate1(count)
     {
-        
         const newDiv = document.createElement("div");
         newDiv.id = "templatesidone" + count
         let id = "templatesidone" + count
@@ -465,7 +508,7 @@ function getCookie(name) {
         ReactDOM.render(<ShowTemplateTwo id={id} changeBgColor={this.changeBgColor} 
         deleteTemplate={this.deleteTemplate} imageTemplate={this.imageTemplate}/>, document.querySelector('#templatesidtwo' + count));
     }
-  
+    
         render() {
   
         let counttemplate1 = 0;
@@ -484,11 +527,11 @@ function getCookie(name) {
             <div class="d-flex flex-wrap d-flex justify-content-center imgnextbg">
                 {img}
             </div>
-            <div>
-            <div class="d-flex justify-content-center">
-                <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-1" onClick={() => this.showTemplate1(counttemplate1++)}>Template1</button>
-                <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={() => this.showTemplate2(counttemplate2++)}>Template2</button>
-            </div>
+            <div class="belowimgnextbg">
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-1" onClick={() => this.showTemplate1(counttemplate1++)}>Template1</button>
+                    <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={() => this.showTemplate2(counttemplate2++)}>Template2</button>
+                </div>
             </div>
             <div class="d-flex justify-content-center">
                 <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-2" onClick={this.goBack}>Back</button>
