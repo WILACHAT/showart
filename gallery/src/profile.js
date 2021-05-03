@@ -20,40 +20,27 @@ function getCookie(name) {
     constructor(props){
         super(props);
         this.toBack = this.toBack.bind(this);
+        this.testTest = this.testTest.bind(this);
+
         let data = this.props.data;
       
         data = data.replaceAll("'", '"');
         data = JSON.parse(data);
         console.log("this is new data!", data)
+        console.log("this is data part 1", data['everydata'][0])
+        console.log("this is data part 2", data['everydata'][1])
+
         console.log(data['everydata'].length)
         let i = 0
         for (i = 0; i < data['everydata'].length; i++)
         {
             let count = i
             const newDiv = document.createElement("div");
-            newDiv.id = "templatesidone" + count
-            let id = "templatesidone" + count
-            document.querySelector('#gallerypage').append(newDiv)
-            if (data['everydata'][i]['imageinfo'].length == 1)
-            {
-                console.log("1")
-                ReactDOM.render( <ShowTemplateOne alldata={data['everydata'][i]['imageinfo']} />, document.querySelector('#templatesidone' + count));
+            newDiv.id = "templatesidtwo" + count
+            console.log("this is newDiv", newDiv);
+            document.querySelector('#gallerypageone').appendChild(newDiv);
 
-            }
-            if (data['everydata'][i]['imageinfo'].length == 2)
-            {
-                console.log("2")
-                ReactDOM.render(<ShowTemplateTwo alldata={data['everydata'][i]['imageinfo']}/>, document.querySelector('#templatesidone' + count));
-
-            }
-            let j = 0
-            for (j = 0; j < data['everydata'][i]['imageinfo'].length; j++)
-            {
-                console.log("src", data['everydata'][i]['imageinfo'][j]['src'])
-                console.log("title", data['everydata'][i]['imageinfo'][j]['title'])
-                console.log("des", data['everydata'][i]['imageinfo'][j]['des'])
-
-            }
+            ReactDOM.render(<ShowTemplateTwo alldata={data['everydata'][i]}/>,document.querySelector('#templatesidtwo' + count));
 
         }
     }
@@ -63,12 +50,15 @@ function getCookie(name) {
             document.querySelector('#followpart').hidden = false;
             document.querySelector('#gallerypage').hidden = true;
     }
+    testTest()
+    {
+        console.log("lets gooo")
+    }
 
     render(){
         let i = 0;
       return (
         <div>
-            <h1>wilachat</h1>
             <div class="d-flex justify-content-center">
                 <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.toBack}>Back</button>
             </div>
@@ -177,7 +167,6 @@ function getCookie(name) {
         document.querySelector('#overlay').onclick = function() { 
             document.getElementById("overlay").style.display = "none";
         }
-
     }
   
     sendEditPost(profiledes,contactgmail,openseaurl, profilepic){

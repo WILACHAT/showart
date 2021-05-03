@@ -122,37 +122,107 @@ function getCookie(name) {
         )
       }
   }
+  class AnotherDivNewClass extends React.Component{
+      constructor(props){
+        super(props);
+        this.hiddenOverlay = this.hiddenOverlay.bind(this);
+        this.imgvdo = this.imgvdo.bind(this);
+        
+        this.state = {
+        whatisshown: ""
+       
+        }
+      }
+      hiddenOverlay()
+      {
+        console.log("should at least print something")
+        console.log("super new vlass", document.querySelector('#supernewclass'))
+        document.querySelector('#supernewclass').hidden = true
+      }
+      imgvdo()
+      {
+        console.log("should at least imgvdo something")
+      }
+      
+    
+      render(){
+          console.log("hex", this.props.hex)
+        return (
+            <div id="overlayrc" style={{backgroundImage: this.props.bgimage, backgroundColor: this.props.bgcolor}}>
+            <div class="d-flex justify-content-end mr-2">
+                <button id="overlaybutton" onClick={this.hiddenOverlay} class="btn btn-outline-danger btn-sm mt-2 mb-2">Go Back</button>
+            </div>
+            <div>
+            <div id="forimagevdo" onClick={this.imgvdo}class="mt-5 d-flex justify-content-center">
+            {this.props.checkifurl == "image" ? <img class="testingtestimgg" src={this.props.src}></img>: 
+            <video src={this.props.src} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={this.props.src} type = "video/mp4"></source></video>}     
+            </div> 
+            {this.props.title != "" || this.props.des != "" ?
+             <div class="d-flex justify-content-center">
+                <div class="showtitledes mt-4 mb-2 bd-highlight"style={{backgroundColor: this.props.hex }}>
+                    {this.props.title != "" ? <p class="ml-2 mr-2">Title:<br></br><h6 class="yuptitle">{this.props.title}</h6></p>: null}
+                    {this.props.des != "" ? <p class="ml-2 mr-2">Description:<br></br><h6 class="yuptitle">{this.props.des}</h6></p>: null}
+                </div>
+            </div>:null}
+         </div>
+        </div>
+          )
+        }
+
+  }
   class DivNewClass extends React.Component{
     constructor(props){
         super(props);
         this.t2ImageOne = this.t2ImageOne.bind(this);
         this.deleteImgDiv = this.deleteImgDiv.bind(this);
-        console.log("this . porps . length", this.props.length)
-        let classname =  this.props.classname
-
+        this.goIntoImage = this.goIntoImage.bind(this);
+   
+       let src = ""
+       let des = ""
+       let title = ""
+       let border = "dotted"
+       let thisisfromprofile = "false"
+       if (this.props.src != undefined)
+       {
+            src = this.props.src
+            des = this.props.des
+            title = this.props.title
+            border = ""
+            thisisfromprofile = "true"
+       }
         this.state =
         {
-            url:"",
-            border:"dotted"
+            url:src,
+            border:border,
+            title:title,
+            des:des,
+            fromprofile:thisisfromprofile,
+            showtitledes:<div class="d-flex justify-content-center mt-3"><button onClick={this.showTitleDes} class="btn btn-outline-success btn-sm"></button></div>
 
         }
-        
     }
-    t2ImageOne(list, e)
+    t2ImageOne()
     {
-
-        //e.target.parentElement.parentElement.childNodes[i]
+        console.log("going inside like a pro")
         this.setState({
             url: document.querySelector('#saveurl').value,
             border:null
   
          })
     }
+    goIntoImage(checkifurl, hexy)
+    {
+        console.log("this.state.url", this.state.url)
+        console.log("this is checkifurl and i hope it works",checkifurl)
+        document.querySelector('#supernewclass').hidden = false        
+
+        ReactDOM.render(<AnotherDivNewClass src={this.state.url} title={this.state.title} des={this.state.des}
+        bgcolor={this.props.bgcolor} bgimage={this.props.bgimage} checkifurl={checkifurl} hex={hexy}/>, document.querySelector('#supernewclass'));
+
+    }
     deleteImgDiv(e)
     {
         e.target.parentElement.parentElement.remove()
-
-
         console.log(document.querySelector(`#${this.props.name}`).childNodes.length)
         if (document.querySelector(`#${this.props.name}`).childNodes.length == 1)
         {
@@ -162,26 +232,53 @@ function getCookie(name) {
     }
 
     render(){
+    console.log("this is for background image only", this.props.bgimage)
+    console.log("this is for background color only", this.props.bgcolor)
+    let bgimagesplit1 = this.props.bgimage.split('url(')
+    let bgimagesplit2 = bgimagesplit1[1].split(')')
+    console.log("sucess of a plit", bgimagesplit2[0])
+    rgb = getAverageRGB(bgimagesplit2[0])
+    console.log("rgb rgb rgb rgb rgb rgb rgb rgb rgb", rgb)
+
     
+    
+   // let bgimagesplit2 = this.props.bgimagesplit1(')')
+    console.log('bgimagesplit', bgimagesplit1)
     let checkifurl = "video"
     if (this.state.url.charAt(8) == "l")
     {
         checkifurl = "image"
     }
+    let hexy = ""
+    if (this.props.src != undefined)
+       {
+        function componentToHex(c) {
+            var hex = c.toString(16);
+            return hex.length == 1 ? "0" + hex : hex;
+          }
+      
+        let rgb = this.props.bgcolor.replace(/[^\d,]/g, '').split(',');
+        let firstcolor = rgb[0] - 30
+        let secondcolor = rgb[1] - 30
+        let thirdcolor = rgb[2] - 30
+        hexy =  "#" + componentToHex(firstcolor) + componentToHex(secondcolor) + componentToHex(thirdcolor);
+       }
+  
     return (
-        <div id="wilachatww" name="imgdiv" value="false" className={this.props.classname} >
-            <div id="one" onClick={(e) => this.t2ImageOne(this.state.list, e)} class="divborder"style={{borderStyle: this.state.border}}>
-                {checkifurl == "image" ? <img class="testingtestimgg" src={this.state.url}></img>: <video src={this.state.url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={this.state.url} type = "video/mp4"></source></video>}                  
+        <div id="wilachatww" name="imgdiv" value="false" className="threeimage" >
+            <div id="one" onClick={(e) => this.state.fromprofile =="false" ? this.t2ImageOne(e): this.goIntoImage(checkifurl, hexy)} class="divborder"style={{borderStyle: this.state.border}}>
+                {checkifurl == "image" ? <img class="testingtestimgg" src={this.state.url}></img>: 
+                <video src={this.state.url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={this.state.url} type = "video/mp4"></source></video>}                  
             </div>
-            <div class="d-flex justify-content-center mt-3">
+           {this.state.fromprofile == "false" ? <div class="d-flex justify-content-center mt-3">
                 <input class="form-control col-4"placeholder="Title of NFT" type="text"></input>
-            </div>
-            <div class="d-flex justify-content-center mt-2">
+            </div>: null}
+            {this.state.fromprofile == "false" ? <div class="d-flex justify-content-center mt-2">
                 <textarea class="form-control col-10"placeholder="Description of NFT" rows="3"></textarea>
-            </div>
-            <div class="d-flex justify-content-center mt-2">
+            </div>: null}
+            {this.state.fromprofile == "false" ? <div class="d-flex justify-content-center mt-2">
                 <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.deleteImgDiv}>X</button>
-            </div>
+            </div>: null}
         </div>
       )
     }
@@ -192,12 +289,44 @@ function getCookie(name) {
         super(props);
         this.addImage = this.addImage.bind(this);
         let array = []
+        let w = 0
+        let newlist = []
+        let imageinfo_src = ""
+        let imageinfo_title = ""
+        let imageinfo_des = ""
+        let bgcolor = ""
+        let bgimage = ""
+
+
+        if (this.props.alldata != undefined)
+        {
+            bgcolor = this.props.alldata['bgcolor']
+            bgimage = this.props.alldata['bgimage']
+            let first = "url(/static/profile_pic/"
+            let last = ")"
+            bgimage = first + bgimage + last
+            for(w = 0; w < this.props.alldata['imageinfo'].length; w++)
+            {
+                imageinfo_src = this.props.alldata['imageinfo'][w]['src']
+                imageinfo_title = this.props.alldata['imageinfo'][w]['title']
+                imageinfo_des = this.props.alldata['imageinfo'][w]['des']
+               
+                const newdivnewclass = <DivNewClass src={imageinfo_src} 
+                title={imageinfo_title} des={imageinfo_des} bgcolor={bgcolor} 
+                bgimage={bgimage}/>
+                newlist.push(newdivnewclass);
+              
+            }
+        }
+       
         this.state =
         {
             imgdiv: "",
-            list:[]
+            list:newlist,
+            bgcolor:bgcolor,
+            bgimage:bgimage
+            
         }
-        
     }
    
     addImage = (realid, e, classname) => {  
@@ -217,12 +346,11 @@ function getCookie(name) {
             }
         }
 
-    
 
         let length = this.state.list.length + 1
         this.setState({
         imgdiv: 
-        <DivNewClass length={length} classname={classname} name={realid}/>
+        <DivNewClass classname={classname} name={realid}/>
         })
 
         this.setState(state => {
@@ -246,15 +374,18 @@ function getCookie(name) {
             classname = "threeimage"
         }
         let realid = this.props.id + "forappend"
+        
+
         return (
         <div>
-            <div class="d-flex justify-content-center d-flex flex-wrap  mt-2">
-                <input onChange={this.props.changeBgColor} type="color" class="changecolor form-control form-control-color col-1 mb-1" id="exampleColorInput" title="Choose your color"></input>
-                <input onChange={this.props.imageTemplate} id="filetemplate1"  class="filetemplate1 form-control-file col-sm-1 mr-1" type="file"></input>
-                <button onClick={(e) => this.props.deleteTemplate(this.props.id, e)} class="deletetemplate btn btn-danger mb-1"></button>
-                <button onClick={(e) => this.addImage(realid, e, classname)} class="deletetemplate btn btn-danger mb-1">Add Image</button>
-            </div>
-            <div id={realid} name={this.props.id}class="d-flex justify-content-center template2 mr-4 d-flex flex-wrap">
+
+            {this.props.alldata == undefined ? <div id="boss"class="d-flex justify-content-center d-flex flex-wrap  mt-2">
+                <input id="exampleColorInput" onChange={this.props.changeBgColor} type="color" class="changecolor form-control form-control-color col-1 mb-1" title="Choose your color"></input>
+                <input id="filetemplate1" onChange={this.props.imageTemplate} class="filetemplate1 form-control-file col-sm-1 mr-1" type="file"></input>
+                <button id="deletetemplate1" onClick={(e) => this.props.deleteTemplate(this.props.id, e)} class="deletetemplate btn btn-outline-danger btn-sm mr-1 mb-1">X</button>
+                <button id="addimagetemplate1"onClick={(e) => this.addImage(realid, e, classname)} class="deletetemplate btn btn-outline-dark btn-sm mb-1">Add Image</button>
+            </div> :null}
+            <div id={realid} name={this.props.id} className="d-flex justify-content-center template2 mr-4 d-flex flex-wrap" style={{backgroundImage: this.state.bgimage, backgroundColor: this.state.bgcolor}}>
             {this.state.list.map(item => (
               item
             ))}

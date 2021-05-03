@@ -1,4 +1,4 @@
-.navibar
+@font-face {font-family: "HelveticaW01-Bold"; src: url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.eot"); src: url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.woff") format("woff"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.svg#HelveticaW01-Bold") format("svg"); }.navibar
 {
     background-color:lightseagreen;
    
@@ -237,7 +237,7 @@ input[id='choosefile'] {
   position: fixed;
   display: none;
   width: 100%;
-  height: 100%;
+  height: 105vh;
   top: 0;
   left: 0;
   right: 0;
@@ -245,6 +245,68 @@ input[id='choosefile'] {
   background-color: rgba(0,0,0,0.5);
   z-index: 2;
   cursor: pointer;
+
+}
+#overlayrc {
+  position: fixed;
+
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: cover;
+  justify-content: center;
+
+}
+.nftimageprofile{
+  margin:auto;
+  display: block;
+  top: 9%;
+  height:100%;
+  width:auto;
+  text-align:center;
+  z-index: 2;
+  position: absolute;
+  max-height:650px;
+  object-fit: contain;
+}
+.titlespan{
+  font-size:18px;
+  font-family: "HelveticaW01-Bold";
+  color:black;
+  font-weight: bold;
+}
+.realtitlespan{
+  font-size:43px;
+  font-family:"HelveticaW01-Bold";
+  color:black;
+  font-weight: bold;
+}
+.realdesspan{
+  display:flex;
+  flex-direction: row;
+  font-size:23px;
+  font-family:"HelveticaW01-Bold";
+  color:black;
+  font-weight: bold;
+}
+.yuptitle{
+  font-family:"HelveticaW01-Bold";
+  font-weight: bold;
+  font-size:20px;
+}
+
+.spans{
+  display:flex;
+  flex-direction: column;
+  max-width:300px;
+  background-color: white;
+  height:auto;
 }
 .testingtestimg{
   height:70%;
@@ -282,7 +344,8 @@ input[id='choosefile'] {
   margin:auto;
 }
 .threeimage{
-  display:block;
+  display:flex;
+  flex-direction:column;
   width:33%; 
   height:53%; 
   z-index: 1;
@@ -297,7 +360,6 @@ input[id='choosefile'] {
   position:relative;
   margin:auto;
 }
-
 
 .nftimgg
 {
@@ -334,6 +396,7 @@ input[id='choosefile'] {
   text-align: center;
   position:relative;
 }
+
 .testingtestimgg{
   margin:auto;
   display: block;
@@ -365,7 +428,6 @@ input[id='choosefile'] {
   height:30px;
   vertical-align: middle;
   text-align:center;
- 
 }
 .changecolor{
   height:30px;
@@ -376,3 +438,17 @@ input[id='choosefile'] {
   height:30px;
   vertical-align: middle
 }
+.okshowtitledes{
+  max-width:300px;
+  
+}
+.showtitledes{
+  border-radius:15px;
+  width:50%;
+  text-align:center;
+  max-height: 150px;
+  margin-bottom:10px;
+  overflow: scroll;
+
+}
+

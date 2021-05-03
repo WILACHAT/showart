@@ -33,33 +33,26 @@ var DisplayGallery = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (DisplayGallery.__proto__ || Object.getPrototypeOf(DisplayGallery)).call(this, props));
 
         _this.toBack = _this.toBack.bind(_this);
+        _this.testTest = _this.testTest.bind(_this);
+
         var data = _this.props.data;
 
         data = data.replaceAll("'", '"');
         data = JSON.parse(data);
         console.log("this is new data!", data);
+        console.log("this is data part 1", data['everydata'][0]);
+        console.log("this is data part 2", data['everydata'][1]);
+
         console.log(data['everydata'].length);
         var i = 0;
         for (i = 0; i < data['everydata'].length; i++) {
             var count = i;
             var newDiv = document.createElement("div");
-            newDiv.id = "templatesidone" + count;
-            var id = "templatesidone" + count;
-            document.querySelector('#gallerypage').append(newDiv);
-            if (data['everydata'][i]['imageinfo'].length == 1) {
-                console.log("1");
-                ReactDOM.render(React.createElement(ShowTemplateOne, { alldata: data['everydata'][i]['imageinfo'] }), document.querySelector('#templatesidone' + count));
-            }
-            if (data['everydata'][i]['imageinfo'].length == 2) {
-                console.log("2");
-                ReactDOM.render(React.createElement(ShowTemplateTwo, { alldata: data['everydata'][i]['imageinfo'] }), document.querySelector('#templatesidone' + count));
-            }
-            var j = 0;
-            for (j = 0; j < data['everydata'][i]['imageinfo'].length; j++) {
-                console.log("src", data['everydata'][i]['imageinfo'][j]['src']);
-                console.log("title", data['everydata'][i]['imageinfo'][j]['title']);
-                console.log("des", data['everydata'][i]['imageinfo'][j]['des']);
-            }
+            newDiv.id = "templatesidtwo" + count;
+            console.log("this is newDiv", newDiv);
+            document.querySelector('#gallerypageone').appendChild(newDiv);
+
+            ReactDOM.render(React.createElement(ShowTemplateTwo, { alldata: data['everydata'][i] }), document.querySelector('#templatesidtwo' + count));
         }
         return _this;
     }
@@ -72,17 +65,17 @@ var DisplayGallery = function (_React$Component) {
             document.querySelector('#gallerypage').hidden = true;
         }
     }, {
+        key: 'testTest',
+        value: function testTest() {
+            console.log("lets gooo");
+        }
+    }, {
         key: 'render',
         value: function render() {
             var i = 0;
             return React.createElement(
                 'div',
                 null,
-                React.createElement(
-                    'h1',
-                    null,
-                    'wilachat'
-                ),
                 React.createElement(
                     'div',
                     { 'class': 'd-flex justify-content-center' },
