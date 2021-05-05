@@ -52,7 +52,7 @@ var DisplayGallery = function (_React$Component) {
             console.log("this is newDiv", newDiv);
             document.querySelector('#gallerypageone').appendChild(newDiv);
 
-            ReactDOM.render(React.createElement(ShowTemplateTwo, { alldata: data['everydata'][i] }), document.querySelector('#templatesidtwo' + count));
+            ReactDOM.render(React.createElement(ShowTemplateTwo, { alldata: data['everydata'][i], type: 'profile' }), document.querySelector('#templatesidtwo' + count));
         }
         return _this;
     }
@@ -63,6 +63,7 @@ var DisplayGallery = function (_React$Component) {
             document.querySelector('#profileedit').hidden = false;
             document.querySelector('#followpart').hidden = false;
             document.querySelector('#gallerypage').hidden = true;
+            document.querySelector('#gallerypageone').hidden = true;
         }
     }, {
         key: 'testTest',
@@ -81,7 +82,7 @@ var DisplayGallery = function (_React$Component) {
                     { 'class': 'd-flex justify-content-center' },
                     React.createElement(
                         'button',
-                        { 'class': 'btn btn-outline-dark btn-sm mt-2 mb-2', onClick: this.toBack },
+                        { 'class': 'btn btn-outline-danger btn-sm mt-2 mb-2', onClick: this.toBack },
                         'Back'
                     )
                 )
@@ -384,6 +385,7 @@ var ProfileEdit = function (_React$Component2) {
         value: function toNext() {
 
             document.querySelector('#profileedit').hidden = true;
+            document.querySelector('#gallerypageone').hidden = false;
             document.querySelector('#followpart').hidden = true;
             document.querySelector('#gallerypage').hidden = false;
             var getcooked = getCookie('csrftoken');

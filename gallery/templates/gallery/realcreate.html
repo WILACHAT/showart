@@ -4,20 +4,28 @@
 
 {% block body %}
 <div id="askforwallet">
-    <input type="text" id="walletaddress">
-    <select name="sort" id="sorting">
+    <h1 class="quertfornfttext">Query For The NFTs you own!</h1>
+
+<div class="d-flex justify-content-center align-middle">
+    <input class="askforwallet mr-2" type="text" id="walletaddress">
+   
+    <select class="askforwallet mr-2 " name="sort" id="newsorting">
         <option value="None"></option>
-        <option value="sale_date">Date</option>
-        <option value="visitor_count">Visitor Count</option>
-        <option value="sale_price">Price</option>
-        <option value="sale_count">Number of Sales</option>
-      </select>
-    <select name="sort" id="highlow">
-        <option value="desc"></option>
-        <option value="asc">Ascending</option>
-        <option value="desc">Descending</option>
+       
+        <option value="&order_by=sale_date&order_direction=desc">Date(Latest)</option>
+        <option value="&order_by=sale_date&order_direction=asc">Date(Oldest)</option>
+
+        <option value="&order_by=visitor_count&order_direction=desc">Visitor Count(Highest)</option>
+        <option value="&order_by=visitor_count&order_direction=asc">Visitor Count(Lowest)</option>
+
+        <option value="&order_by=sale_price&order_direction=desc">Price(Highest)</option>
+        <option value="&order_by=sale_price&order_direction=asc">Price(Lowest)</option>
+
+        <option value="&order_by=sale_count&order_direction=desc">Number of Sales(Highest)</option>
+        <option value="&order_by=sale_count&order_direction=asc">Number of Sales(Lowest)</option>
     </select>
-    <button id="wallclick"type="button" class="btn btn-primary" value="button">button</button>
+    <button id="wallclick"type="button" class="btn btn-outline-dark btn-sm" value="button">Search</button>
+</div>
 </div>
 
 <div id="shownfts">
@@ -28,8 +36,11 @@
 <div id="nextimg">
 </div>
 
+<div id="savedtemplates"></div>
+
 <div id="showtemplates">
 </div>
+
 
 <input id="saveurl" value="" type="hidden">
 

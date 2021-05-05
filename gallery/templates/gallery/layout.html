@@ -11,8 +11,7 @@
         <script src="{% static 'gallery/dropzone/dist/dropzone.js' %}"></script>
         <script src="{% static 'gallery/dropzone/dist/dropzone.js' %}"></script>
         <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
-        
-
+      
         {% block script %}
         {% endblock %}
     </head>
@@ -24,78 +23,61 @@
               <ul class="navbar-nav mr-auto">
                 
 
-                {% if user.is_authenticated and wallet != None %}
 
                 <li class="nav-item">
-                      <a class="nav-link" href="{% url 'profile' user.id %}"><strong>{{ user.username }}</strong></a>
+                      <a class="showart nav-link" href="{% url 'profile' user.id %}"><strong>{{ user.username }}</strong></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'gallery' %}">Gallery</a>
+                    <a class="showart nav-link" href="{% url 'gallery' %}">Gallery</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="{% url 'explore' %}">Explore</a>
+                      <a class="showart nav-link" href="{% url 'explore' %}">Explore</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'newcreate' %}">Create</a>
+                        <a class="showart nav-link" href="{% url 'newcreate' %}">Create</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="{% url 'connectwallet' %}">Add Wallet</a>
+                        <a class="showart nav-link" href="{% url 'connectwallet' %}">Add Wallet</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="{% url 'connectwallet' %}">Saved</a>
+                        <a class="showart nav-link" href="{% url 'connectwallet' %}">Saved</a>
                       </li>
+                      {% if user.galleryinfo == None %}
                       <li class="nav-item">
-                        <a class="nav-link" href="{% url 'realcreate' %}">Real Create</a>
-                    </li>
+                        <a class="showart nav-link" href="{% url 'realcreate' %}">Real Create</a>
+                      </li>
+                      
+                      {% else %}
+                      <li class="nav-item">
+                        <a class="showart nav-link" href="{% url 'realcreate' %}">Edit Gallery</a>
+                      </li>
+                      {% endif %}
+
 
                       <li class="nav-item">
-                          <a class="nav-link" href="{% url 'following' %}">Following</a>
+                          <a class="showart nav-link" href="{% url 'following' %}">Following</a>
                       </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                      <li showart class="nav-item">
+                          <a class="showart nav-link" href="{% url 'logout' %}">Log Out</a>
                       </li>
                      
                       
-                {% endif %}
-              <!---
-                {% if user.is_authenticated and wallet == None %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'gallery' %}">Gallery</a>
-                  </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'index' %}">Explore</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{% url 'connectwallet' %}">Create</a>
-                    </li>
-
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'newcreate' %}">new create to test</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'explore' %}">Following</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-                    </li>
-                {% endif %}
-                  -->
+          
                                       
                 {% if user.is_authenticated %}
                   
                 {% else %}  
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'gallery' %}">Gallery</a>
+                    <a class="showart nav-link" href="{% url 'gallery' %}">Gallery</a>
                   </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">About Us</a>
+                        <a class="showart nav-link" href="{% url 'login' %}">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                        <a class="showart nav-link" href="{% url 'login' %}">Log In</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        <a class="showart nav-link" href="{% url 'register' %}">Register</a>
                     </li>
                 {% endif %}
               </ul>

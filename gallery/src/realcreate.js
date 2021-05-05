@@ -3,7 +3,10 @@
 0xce9b6da25e5b9578305f9c593c670736754ed4c5
 0x923af7b3a0a65c514c09a68d4ef331cec93d451a
 0x00bd53913a82f36e5796ed7d30f1b2a15cd31c20
+0x50dd57f50a17d57304e7a4f262da30beb31c2e87
+0x3f16d081113c613743ce1d7da6858dc4d26352c3
 */
+
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -30,8 +33,6 @@ function getCookie(name) {
               border1:"dotted",
               border2:"dotted"
           }
-  
-          
       }
       tImageOne(number, e)
       {
@@ -135,16 +136,29 @@ function getCookie(name) {
       }
       hiddenOverlay()
       {
+        if (document.querySelector('#vdovdovdo') != null)
+        {
+            document.querySelector('#vdovdovdo').muted = true
+        }
+
         console.log("should at least print something")
         console.log("super new vlass", document.querySelector('#supernewclass'))
         document.querySelector('#supernewclass').hidden = true
       }
       imgvdo()
       {
-        console.log("should at least imgvdo something")
+        if(this.props.checkifurl != "image")
+        {
+            if (document.querySelector('#vdovdovdo').muted == true)
+            {
+                document.querySelector('#vdovdovdo').muted = false
+            }
+            else{
+                document.querySelector('#vdovdovdo').muted = true
+            }
+        }
       }
       
-    
       render(){
           console.log("hex", this.props.hex)
         return (
@@ -155,7 +169,7 @@ function getCookie(name) {
             <div>
             <div id="forimagevdo" onClick={this.imgvdo}class="mt-5 d-flex justify-content-center">
             {this.props.checkifurl == "image" ? <img class="testingtestimgg" src={this.props.src}></img>: 
-            <video src={this.props.src} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={this.props.src} type = "video/mp4"></source></video>}     
+            <video id="vdovdovdo" src={this.props.src} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={this.props.src} type = "video/mp4"></source></video>}     
             </div> 
             {this.props.title != "" || this.props.des != "" ?
              <div class="d-flex justify-content-center">
@@ -176,7 +190,10 @@ function getCookie(name) {
         this.t2ImageOne = this.t2ImageOne.bind(this);
         this.deleteImgDiv = this.deleteImgDiv.bind(this);
         this.goIntoImage = this.goIntoImage.bind(this);
-   
+        this.checkDesArea = this.checkDesArea.bind(this);
+        this.checkTitleArea = this.checkTitleArea.bind(this);
+
+
        let src = ""
        let des = ""
        let title = ""
@@ -201,6 +218,25 @@ function getCookie(name) {
 
         }
     }
+    checkDesArea(e)
+    {
+        if (e.target.value.length > 0) {
+            this.setState({des: e.target.value});
+        }
+        else {
+            this.setState({des: ""});
+        }
+    }
+    checkTitleArea(e)
+    {  if (e.target.value.length > 0) {
+        this.setState({title: e.target.value});
+    }
+    else {
+        this.setState({title: ""});
+    }
+
+    }
+    
     t2ImageOne()
     {
         console.log("going inside like a pro")
@@ -228,27 +264,27 @@ function getCookie(name) {
         {
             document.querySelector(`#${this.props.name}`).childNodes[0].className = "oneimage"
         }
-
     }
-
     render(){
-    console.log("this is for background image only", this.props.bgimage)
-    console.log("this is for background color only", this.props.bgcolor)
-    let bgimagesplit1 = this.props.bgimage.split('url(')
-    let bgimagesplit2 = bgimagesplit1[1].split(')')
-    console.log("sucess of a plit", bgimagesplit2[0])
-    rgb = getAverageRGB(bgimagesplit2[0])
-    console.log("rgb rgb rgb rgb rgb rgb rgb rgb rgb", rgb)
-
     
-    
-   // let bgimagesplit2 = this.props.bgimagesplit1(')')
-    console.log('bgimagesplit', bgimagesplit1)
-    let checkifurl = "video"
+        let checkifurl = "video"
     if (this.state.url.charAt(8) == "l")
     {
         checkifurl = "image"
     }
+
+  //  let bgimagesplit1 = this.props.bgimage.split('url(')
+  //  let bgimagesplit2 = bgimagesplit1[1].split(')')
+   // const fac = new FastAverageColor();
+    //    fac.getColorAsync(bgimagesplit2[0])
+      //      .then(color => {
+      //      color = color.hex
+         // container.style.backgroundColor = color.rgba;
+        // container.style.color = color.isDark ? '#fff' : '#000';
+       //   })
+        //  console.log("what the fak", document.querySelector('#hiddenforhex'))
+        //   console.log("what.log",document.querySelector('#hiddenforhex').value)
+    
     let hexy = ""
     if (this.props.src != undefined)
        {
@@ -262,21 +298,24 @@ function getCookie(name) {
         let secondcolor = rgb[1] - 30
         let thirdcolor = rgb[2] - 30
         hexy =  "#" + componentToHex(firstcolor) + componentToHex(secondcolor) + componentToHex(thirdcolor);
-       }
+        if (hexy == "#-1eNaNNaN"){
+            console.log("ok dumbass")
+        }
+    }
   
     return (
         <div id="wilachatww" name="imgdiv" value="false" className="threeimage" >
-            <div id="one" onClick={(e) => this.state.fromprofile =="false" ? this.t2ImageOne(e): this.goIntoImage(checkifurl, hexy)} class="divborder"style={{borderStyle: this.state.border}}>
-                {checkifurl == "image" ? <img class="testingtestimgg" src={this.state.url}></img>: 
-                <video src={this.state.url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={this.state.url} type = "video/mp4"></source></video>}                  
+            <div id="oneinamillion" onClick={(e) => this.props.type != "profile" ? this.t2ImageOne(e): this.goIntoImage(checkifurl, hexy)} class="divborder"style={{borderStyle: this.state.border}}>
+                {checkifurl == "image" ? <img id="oneintwo"class="testingtestimgg" src={this.state.url}></img>: 
+                 <video src={this.state.url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={this.state.url} type = "video/mp4"></source></video>}                  
             </div>
-           {this.state.fromprofile == "false" ? <div class="d-flex justify-content-center mt-3">
-                <input class="form-control col-4"placeholder="Title of NFT" type="text"></input>
+           {this.props.type != "profile" ? <div class="d-flex justify-content-center mt-3">
+                <input class="form-control col-4"placeholder="Title of NFT" type="text" onChange={this.checkTitleArea} value={this.state.title}></input>
             </div>: null}
-            {this.state.fromprofile == "false" ? <div class="d-flex justify-content-center mt-2">
-                <textarea class="form-control col-10"placeholder="Description of NFT" rows="3"></textarea>
+            {this.props.type != "profile" ? <div class="d-flex justify-content-center mt-2">
+                <textarea class="form-control col-10"placeholder="Description of NFT" rows="3" onChange={this.checkDesArea} value={this.state.des}></textarea>
             </div>: null}
-            {this.state.fromprofile == "false" ? <div class="d-flex justify-content-center mt-2">
+            {this.props.type != "profile" ? <div class="d-flex justify-content-center mt-2">
                 <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.deleteImgDiv}>X</button>
             </div>: null}
         </div>
@@ -297,7 +336,7 @@ function getCookie(name) {
         let bgcolor = ""
         let bgimage = ""
 
-
+        console.log("type", this.props.type)
         if (this.props.alldata != undefined)
         {
             bgcolor = this.props.alldata['bgcolor']
@@ -313,7 +352,7 @@ function getCookie(name) {
                
                 const newdivnewclass = <DivNewClass src={imageinfo_src} 
                 title={imageinfo_title} des={imageinfo_des} bgcolor={bgcolor} 
-                bgimage={bgimage}/>
+                bgimage={bgimage} type={this.props.type}/>
                 newlist.push(newdivnewclass);
               
             }
@@ -379,7 +418,7 @@ function getCookie(name) {
         return (
         <div>
 
-            {this.props.alldata == undefined ? <div id="boss"class="d-flex justify-content-center d-flex flex-wrap  mt-2">
+            {this.props.type != "profile" ? <div id="boss"class="d-flex justify-content-center d-flex flex-wrap  mt-2">
                 <input id="exampleColorInput" onChange={this.props.changeBgColor} type="color" class="changecolor form-control form-control-color col-1 mb-1" title="Choose your color"></input>
                 <input id="filetemplate1" onChange={this.props.imageTemplate} class="filetemplate1 form-control-file col-sm-1 mr-1" type="file"></input>
                 <button id="deletetemplate1" onClick={(e) => this.props.deleteTemplate(this.props.id, e)} class="deletetemplate btn btn-outline-danger btn-sm mr-1 mb-1">X</button>
@@ -474,7 +513,38 @@ function getCookie(name) {
   
         this.imageTemplate = this.imageTemplate.bind(this);
         this.goSave = this.goSave.bind(this)
-  
+        
+        const getcooked = getCookie('csrftoken')
+        fetch(`/realcreateapi/1`, {
+            method: 'PUT',
+            headers:{'X-CSRFToken': getcooked},
+            body:"getgalleryinfo"
+        })
+        .then(response => response.json())
+     .then(data => {
+        
+        data = data.replaceAll("'", '"');
+        data = JSON.parse(data);
+        console.log("checking for new data", data)
+        if (data != "")
+        {
+            let i = 0
+            for (i = 0; i < data['everydata'].length; i++)
+            {
+                let count = i
+                const newDiv = document.createElement("div");
+                newDiv.id = "saveddata" + count
+                console.log("this is newDiv", newDiv);
+                let id = "saveddata" + count
+
+                document.querySelector('#showtemplates').append(newDiv);
+
+                ReactDOM.render(<ShowTemplateTwo alldata={data['everydata'][i]} type="edit" id={id} changeBgColor={this.changeBgColor} 
+                deleteTemplate={this.deleteTemplate} imageTemplate={this.imageTemplate}/>,document.querySelector('#saveddata' + count));
+            }
+        }    
+    });
+        
   
     }
         
@@ -546,61 +616,89 @@ function getCookie(name) {
         let everydata = {}
         let tryeverydata = []
         
-        let i = 0;
-        for (i = 0; i < e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes.length - 1; i++)
-        {
-            let section = "section" + (i + 1)
-           
-            let sectiondict = {}
-  
-            bgcolor = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].style.backgroundColor
-            sectiondict['bgcolor'] = bgcolor
-            bgimage = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].style.backgroundImage
-            console.log("just to make sure this is the bgimage", bgimage)
-       
-  
-            //everydata[section] = sectiondict
-           tryeverydata.push(sectiondict)
-  
-            
-            if (bgimage != "")
-            {
-                let check = bgimage.split('/')
-                console.log("change of heart", check)
-                let coh = check[3].split('"')
-                console.log("change of", coh)
-                sectiondict['bgimage'] = coh[0]
-  
-            }
-            else{
-                sectiondict['bgimage'] = ""
-            }
+        let l = 0;
+        console.log("this is in go save!")
+        console.log("e", e)
+        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[0])
+        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[1])
+        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[2])
+        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[3])
+        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[4])
+        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[5])
+        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[6])
+        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7])
+        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[8])
+        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9])
+        console.log("length", e.target.parentElement.parentElement.parentElement.parentElement.childNodes.length)
         
-            let j = 0;
-            let imagearray = []
-  
-           for (j = 0; j < e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].childNodes.length; j++)
-           {
-                let imageinfo = "imageinfo" + (j + 1)
-  
-                let imageinfodict = {}
-  
-                let src = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].childNodes[j].childNodes[0].childNodes[0].src
-                
-                imageinfodict['src'] = src
-                
-                let title = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].childNodes[j].childNodes[1].childNodes[0].value
-                imageinfodict['title'] = title
-                
-                let des = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].childNodes[j].childNodes[2].childNodes[0].value
-                imageinfodict['des'] = des
-                console.log("this is image info dict", imageinfodict)
-                imagearray.push(imageinfodict)
-  
-            } 
-            sectiondict["imageinfo"] = imagearray 
-  
+        let z = 0;
+        let num = 0
+        for (z = 0; z < e.target.parentElement.parentElement.parentElement.parentElement.childNodes.length; z++)
+        {
+            if (z == 7 || z == 9)
+            {
+                console.log("should console twice")
+                num = z
+                console.log(num)
+            }
         }
+            let i = 0;
+            
+            for (i = 0; i < e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].childNodes.length - 1; i++)
+            { 
+                let sectiondict = {}
+                console.log("c1", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0])
+                console.log("c2", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1])
+                
+                bgcolor = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].style.backgroundColor
+                sectiondict['bgcolor'] = bgcolor
+                bgimage = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].style.backgroundImage
+                console.log("just to make sure this is the bgimage", bgimage)
+        
+    
+                //everydata[section] = sectiondict
+                tryeverydata.push(sectiondict)
+    
+                
+                if (bgimage != "")
+                {
+                    let check = bgimage.split('/')
+                    console.log("change of heart", check)
+                    let coh = check[3].split('"')
+                    console.log("change of", coh)
+                    sectiondict['bgimage'] = coh[0]
+    
+                }
+                else{
+                    sectiondict['bgimage'] = ""
+                }
+            
+                let j = 0;
+                let imagearray = []
+    
+            for (j = 0; j < e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes.length; j++)
+            {
+                    let imageinfo = "imageinfo" + (j + 1)
+    
+                    let imageinfodict = {}
+    
+                    let src = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes[j].childNodes[0].childNodes[0].src
+                    
+                    imageinfodict['src'] = src
+                    
+                    let title = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes[j].childNodes[1].childNodes[0].value
+                    imageinfodict['title'] = title
+                    
+                    let des = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes[j].childNodes[2].childNodes[0].value
+                    imageinfodict['des'] = des
+                    console.log("this is image info dict", imageinfodict)
+                    imagearray.push(imageinfodict)
+    
+                } 
+                sectiondict["imageinfo"] = imagearray 
+    
+            }
+     
         console.log("everydata", everydata)
         console.log("try every data", tryeverydata)
   
@@ -630,6 +728,7 @@ function getCookie(name) {
     }
     showTemplate2(count)
     {
+      
         const newDiv = document.createElement("div");
         newDiv.id = "templatesidtwo" + count
         let id = "templatesidtwo" + count
@@ -763,6 +862,7 @@ function getCookie(name) {
     }
     selectedImg(e)
     {   
+
         let i = 0
         let array = []
         console.log(e)
@@ -820,34 +920,22 @@ function getCookie(name) {
     let wallclick = document.querySelector('#wallclick')
     wallclick.addEventListener('click', (e) => {
         let query = ""
-        let queryhl = ""
         let i = 0
-        for (i = 0; i < 4; i++)
+        console.log("e", e)
+        for (i = 0; i < e.path[1].childNodes[3].length; i++)
         {
             if (e.path[1].childNodes[3].options[i].selected == true)
             {
                 query = e.path[1].childNodes[3].options[i].value
             }
         }
-        let j = 0
-        for (j = 0; j < 3; j++)
-        {
-            if (e.path[1].childNodes[5].options[j].selected == true)
-            {
-                queryhl = e.path[1].childNodes[5].options[j].value
-            }
-        }
-        let orderby = "asc"
-        if (query != "None")
-        {
-            orderby = "&order_by=" + query
-        }
         
-       let orderdirection = "&order_direction=" + queryhl
+       console.log("query", query)
+        
     
         let address = document.querySelector('#walletaddress').value
         
-        fetch(`https://api.opensea.io/api/v1/assets?owner=${address}${orderby}${orderdirection}&offset=0&limit=20`)
+        fetch(`https://api.opensea.io/api/v1/assets?owner=${address}${query}&offset=0&limit=20`)
       
         .then(response => response.json())
     

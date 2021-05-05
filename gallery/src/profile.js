@@ -40,7 +40,7 @@ function getCookie(name) {
             console.log("this is newDiv", newDiv);
             document.querySelector('#gallerypageone').appendChild(newDiv);
 
-            ReactDOM.render(<ShowTemplateTwo alldata={data['everydata'][i]}/>,document.querySelector('#templatesidtwo' + count));
+            ReactDOM.render(<ShowTemplateTwo alldata={data['everydata'][i]} type="profile" />,document.querySelector('#templatesidtwo' + count));
 
         }
     }
@@ -49,6 +49,9 @@ function getCookie(name) {
             document.querySelector('#profileedit').hidden = false;
             document.querySelector('#followpart').hidden = false;
             document.querySelector('#gallerypage').hidden = true;
+            document.querySelector('#gallerypageone').hidden = true;
+
+            
     }
     testTest()
     {
@@ -60,7 +63,7 @@ function getCookie(name) {
       return (
         <div>
             <div class="d-flex justify-content-center">
-                <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.toBack}>Back</button>
+                <button class="btn btn-outline-danger btn-sm mt-2 mb-2" onClick={this.toBack}>Back</button>
             </div>
             
         </div>
@@ -247,7 +250,8 @@ function getCookie(name) {
     }
     toNext(){
    
-            document.querySelector('#profileedit').hidden = true;
+            document.querySelector('#profileedit').hidden = true;           
+            document.querySelector('#gallerypageone').hidden = false;
             document.querySelector('#followpart').hidden = true;
             document.querySelector('#gallerypage').hidden = false;
             const getcooked = getCookie('csrftoken')

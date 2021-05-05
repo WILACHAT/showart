@@ -1,7 +1,10 @@
-@font-face {font-family: "HelveticaW01-Bold"; src: url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.eot"); src: url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.woff") format("woff"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.svg#HelveticaW01-Bold") format("svg"); }.navibar
+@font-face {font-family: "HelveticaW01-Bold"; src: url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.eot"); src: url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.woff") format("woff"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.svg#HelveticaW01-Bold") format("svg"); }
+.navibar
 {
-    background-color:lightseagreen;
-   
+  background-color:white;
+}
+.nav-link{
+  color:white;
 }
 body{
   margin: 0;
@@ -103,7 +106,9 @@ div {
 }
 .showart
 {
-    font-family:"Transport New HeavyBuying Choices";
+  color:white;
+  font-family:"HelveticaW01-Bold";
+    
 }
 input[id='choosefile'] {
   opacity:0  
@@ -451,4 +456,16 @@ input[id='choosefile'] {
   overflow: scroll;
 
 }
+#askforwallet
+{
+  margin-top:15%;
+}
+.quertfornfttext{
+  text-align: center;
+  font-family: "HelveticaW01-Bold";
 
+}
+.galleryname
+{
+  padding-top:-30px;
+}

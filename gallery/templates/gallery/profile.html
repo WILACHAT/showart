@@ -5,15 +5,13 @@
 <div id="supernewclass">
 </div>
 
-<div class="d-flex mt-3 mb-5 justify-content-center">
     <div id="overlay">
         <div class="mt-5 d-flex justify-content-center">
             <img id="uknowimg" class="testingtestimg"></img>
         </div> 
     </div>
-</div>
 
-
+<input id="hiddenforhex" value="" type="hidden">
 
 
 <div id="profileedit">
@@ -21,15 +19,22 @@
 
 <div id="followpart">
 </div>
+
+
+<div class="gallerypageone" id="gallerypageone">
+</div>
+
 <div id="gallerypage">
 </div>
-<div id="gallerypageone">
-</div>
+
+
 
 {% endblock %}
 
 {% block script %}
     <script type="module" src="{% static 'gallery/profile.js' %}"></script>
+    <script src="https://unpkg.com/fast-average-color/dist/index.min.js"></script>
+
     <script src="{% static 'gallery/grade-master/docs/dist/grade.js' %}"></script>
 
 {% endblock %}

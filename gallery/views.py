@@ -60,6 +60,7 @@ def realsaveapi(request, address):
         data = json.loads(request.body)
         print(f"this is data: {data}")
         print(f"lols: {data['everydata']}")
+        
 
         User.objects.filter(id = request.user.id).update(galleryinfo = data)
         return render(request, "gallery/profile.html")

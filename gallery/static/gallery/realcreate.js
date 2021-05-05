@@ -10,7 +10,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 0xce9b6da25e5b9578305f9c593c670736754ed4c5
 0x923af7b3a0a65c514c09a68d4ef331cec93d451a
 0x00bd53913a82f36e5796ed7d30f1b2a15cd31c20
+0x50dd57f50a17d57304e7a4f262da30beb31c2e87
+0x3f16d081113c613743ce1d7da6858dc4d26352c3
 */
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -42,7 +45,6 @@ var ShowTemplateOne = function (_React$Component) {
             border1: "dotted",
             border2: "dotted"
         };
-
         return _this;
     }
 
@@ -184,6 +186,10 @@ var AnotherDivNewClass = function (_React$Component2) {
     _createClass(AnotherDivNewClass, [{
         key: 'hiddenOverlay',
         value: function hiddenOverlay() {
+            if (document.querySelector('#vdovdovdo') != null) {
+                document.querySelector('#vdovdovdo').muted = true;
+            }
+
             console.log("should at least print something");
             console.log("super new vlass", document.querySelector('#supernewclass'));
             document.querySelector('#supernewclass').hidden = true;
@@ -191,7 +197,13 @@ var AnotherDivNewClass = function (_React$Component2) {
     }, {
         key: 'imgvdo',
         value: function imgvdo() {
-            console.log("should at least imgvdo something");
+            if (this.props.checkifurl != "image") {
+                if (document.querySelector('#vdovdovdo').muted == true) {
+                    document.querySelector('#vdovdovdo').muted = false;
+                } else {
+                    document.querySelector('#vdovdovdo').muted = true;
+                }
+            }
         }
     }, {
         key: 'render',
@@ -217,7 +229,7 @@ var AnotherDivNewClass = function (_React$Component2) {
                         { id: 'forimagevdo', onClick: this.imgvdo, 'class': 'mt-5 d-flex justify-content-center' },
                         this.props.checkifurl == "image" ? React.createElement('img', { 'class': 'testingtestimgg', src: this.props.src }) : React.createElement(
                             'video',
-                            { src: this.props.src, muted: true, autoplay: 'autoplay', loop: 'true', 'class': 'nftvdoo' },
+                            { id: 'vdovdovdo', src: this.props.src, muted: true, autoplay: 'autoplay', loop: 'true', 'class': 'nftvdoo' },
                             React.createElement('source', { src: this.props.src, type: 'video/mp4' })
                         )
                     ),
@@ -270,6 +282,8 @@ var DivNewClass = function (_React$Component3) {
         _this4.t2ImageOne = _this4.t2ImageOne.bind(_this4);
         _this4.deleteImgDiv = _this4.deleteImgDiv.bind(_this4);
         _this4.goIntoImage = _this4.goIntoImage.bind(_this4);
+        _this4.checkDesArea = _this4.checkDesArea.bind(_this4);
+        _this4.checkTitleArea = _this4.checkTitleArea.bind(_this4);
 
         var src = "";
         var des = "";
@@ -300,6 +314,24 @@ var DivNewClass = function (_React$Component3) {
     }
 
     _createClass(DivNewClass, [{
+        key: 'checkDesArea',
+        value: function checkDesArea(e) {
+            if (e.target.value.length > 0) {
+                this.setState({ des: e.target.value });
+            } else {
+                this.setState({ des: "" });
+            }
+        }
+    }, {
+        key: 'checkTitleArea',
+        value: function checkTitleArea(e) {
+            if (e.target.value.length > 0) {
+                this.setState({ title: e.target.value });
+            } else {
+                this.setState({ title: "" });
+            }
+        }
+    }, {
         key: 't2ImageOne',
         value: function t2ImageOne() {
             console.log("going inside like a pro");
@@ -333,20 +365,23 @@ var DivNewClass = function (_React$Component3) {
         value: function render() {
             var _this5 = this;
 
-            console.log("this is for background image only", this.props.bgimage);
-            console.log("this is for background color only", this.props.bgcolor);
-            var bgimagesplit1 = this.props.bgimage.split('url(');
-            var bgimagesplit2 = bgimagesplit1[1].split(')');
-            console.log("sucess of a plit", bgimagesplit2[0]);
-            rgb = getAverageRGB(bgimagesplit2[0]);
-            console.log("rgb rgb rgb rgb rgb rgb rgb rgb rgb", rgb);
-
-            // let bgimagesplit2 = this.props.bgimagesplit1(')')
-            console.log('bgimagesplit', bgimagesplit1);
             var checkifurl = "video";
             if (this.state.url.charAt(8) == "l") {
                 checkifurl = "image";
             }
+
+            //  let bgimagesplit1 = this.props.bgimage.split('url(')
+            //  let bgimagesplit2 = bgimagesplit1[1].split(')')
+            // const fac = new FastAverageColor();
+            //    fac.getColorAsync(bgimagesplit2[0])
+            //      .then(color => {
+            //      color = color.hex
+            // container.style.backgroundColor = color.rgba;
+            // container.style.color = color.isDark ? '#fff' : '#000';
+            //   })
+            //  console.log("what the fak", document.querySelector('#hiddenforhex'))
+            //   console.log("what.log",document.querySelector('#hiddenforhex').value)
+
             var hexy = "";
             if (this.props.src != undefined) {
                 var componentToHex = function componentToHex(c) {
@@ -354,11 +389,14 @@ var DivNewClass = function (_React$Component3) {
                     return hex.length == 1 ? "0" + hex : hex;
                 };
 
-                var _rgb = this.props.bgcolor.replace(/[^\d,]/g, '').split(',');
-                var firstcolor = _rgb[0] - 30;
-                var secondcolor = _rgb[1] - 30;
-                var thirdcolor = _rgb[2] - 30;
+                var rgb = this.props.bgcolor.replace(/[^\d,]/g, '').split(',');
+                var firstcolor = rgb[0] - 30;
+                var secondcolor = rgb[1] - 30;
+                var thirdcolor = rgb[2] - 30;
                 hexy = "#" + componentToHex(firstcolor) + componentToHex(secondcolor) + componentToHex(thirdcolor);
+                if (hexy == "#-1eNaNNaN") {
+                    console.log("ok dumbass");
+                }
             }
 
             return React.createElement(
@@ -366,26 +404,26 @@ var DivNewClass = function (_React$Component3) {
                 { id: 'wilachatww', name: 'imgdiv', value: 'false', className: 'threeimage' },
                 React.createElement(
                     'div',
-                    { id: 'one', onClick: function onClick(e) {
-                            return _this5.state.fromprofile == "false" ? _this5.t2ImageOne(e) : _this5.goIntoImage(checkifurl, hexy);
+                    { id: 'oneinamillion', onClick: function onClick(e) {
+                            return _this5.props.type != "profile" ? _this5.t2ImageOne(e) : _this5.goIntoImage(checkifurl, hexy);
                         }, 'class': 'divborder', style: { borderStyle: this.state.border } },
-                    checkifurl == "image" ? React.createElement('img', { 'class': 'testingtestimgg', src: this.state.url }) : React.createElement(
+                    checkifurl == "image" ? React.createElement('img', { id: 'oneintwo', 'class': 'testingtestimgg', src: this.state.url }) : React.createElement(
                         'video',
                         { src: this.state.url, muted: true, autoplay: 'autoplay', loop: 'true', 'class': 'nftvdoo' },
                         React.createElement('source', { src: this.state.url, type: 'video/mp4' })
                     )
                 ),
-                this.state.fromprofile == "false" ? React.createElement(
+                this.props.type != "profile" ? React.createElement(
                     'div',
                     { 'class': 'd-flex justify-content-center mt-3' },
-                    React.createElement('input', { 'class': 'form-control col-4', placeholder: 'Title of NFT', type: 'text' })
+                    React.createElement('input', { 'class': 'form-control col-4', placeholder: 'Title of NFT', type: 'text', onChange: this.checkTitleArea, value: this.state.title })
                 ) : null,
-                this.state.fromprofile == "false" ? React.createElement(
+                this.props.type != "profile" ? React.createElement(
                     'div',
                     { 'class': 'd-flex justify-content-center mt-2' },
-                    React.createElement('textarea', { 'class': 'form-control col-10', placeholder: 'Description of NFT', rows: '3' })
+                    React.createElement('textarea', { 'class': 'form-control col-10', placeholder: 'Description of NFT', rows: '3', onChange: this.checkDesArea, value: this.state.des })
                 ) : null,
-                this.state.fromprofile == "false" ? React.createElement(
+                this.props.type != "profile" ? React.createElement(
                     'div',
                     { 'class': 'd-flex justify-content-center mt-2' },
                     React.createElement(
@@ -446,6 +484,7 @@ var ShowTemplateTwo = function (_React$Component4) {
         var bgcolor = "";
         var bgimage = "";
 
+        console.log("type", _this6.props.type);
         if (_this6.props.alldata != undefined) {
             bgcolor = _this6.props.alldata['bgcolor'];
             bgimage = _this6.props.alldata['bgimage'];
@@ -459,7 +498,7 @@ var ShowTemplateTwo = function (_React$Component4) {
 
                 var newdivnewclass = React.createElement(DivNewClass, { src: imageinfo_src,
                     title: imageinfo_title, des: imageinfo_des, bgcolor: bgcolor,
-                    bgimage: bgimage });
+                    bgimage: bgimage, type: _this6.props.type });
                 newlist.push(newdivnewclass);
             }
         }
@@ -490,7 +529,7 @@ var ShowTemplateTwo = function (_React$Component4) {
             return React.createElement(
                 'div',
                 null,
-                this.props.alldata == undefined ? React.createElement(
+                this.props.type != "profile" ? React.createElement(
                     'div',
                     { id: 'boss', 'class': 'd-flex justify-content-center d-flex flex-wrap  mt-2' },
                     React.createElement('input', { id: 'exampleColorInput', onChange: this.props.changeBgColor, type: 'color', 'class': 'changecolor form-control form-control-color col-1 mb-1', title: 'Choose your color' }),
@@ -615,6 +654,35 @@ var NextImg = function (_React$Component6) {
         _this9.imageTemplate = _this9.imageTemplate.bind(_this9);
         _this9.goSave = _this9.goSave.bind(_this9);
 
+        var getcooked = getCookie('csrftoken');
+        fetch('/realcreateapi/1', {
+            method: 'PUT',
+            headers: { 'X-CSRFToken': getcooked },
+            body: "getgalleryinfo"
+        }).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+
+            data = data.replaceAll("'", '"');
+            data = JSON.parse(data);
+            console.log("checking for new data", data);
+            if (data != "") {
+                var i = 0;
+                for (i = 0; i < data['everydata'].length; i++) {
+                    var count = i;
+                    var newDiv = document.createElement("div");
+                    newDiv.id = "saveddata" + count;
+                    console.log("this is newDiv", newDiv);
+                    var id = "saveddata" + count;
+
+                    document.querySelector('#showtemplates').append(newDiv);
+
+                    ReactDOM.render(React.createElement(ShowTemplateTwo, { alldata: data['everydata'][i], type: 'edit', id: id, changeBgColor: _this9.changeBgColor,
+                        deleteTemplate: _this9.deleteTemplate, imageTemplate: _this9.imageTemplate }), document.querySelector('#saveddata' + count));
+                }
+            }
+        });
+
         return _this9;
     }
 
@@ -685,15 +753,40 @@ var NextImg = function (_React$Component6) {
             var everydata = {};
             var tryeverydata = [];
 
+            var l = 0;
+            console.log("this is in go save!");
+            console.log("e", e);
+            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[0]);
+            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[1]);
+            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[2]);
+            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[3]);
+            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[4]);
+            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[5]);
+            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[6]);
+            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7]);
+            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[8]);
+            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9]);
+            console.log("length", e.target.parentElement.parentElement.parentElement.parentElement.childNodes.length);
+
+            var z = 0;
+            var num = 0;
+            for (z = 0; z < e.target.parentElement.parentElement.parentElement.parentElement.childNodes.length; z++) {
+                if (z == 7 || z == 9) {
+                    console.log("should console twice");
+                    num = z;
+                    console.log(num);
+                }
+            }
             var i = 0;
-            for (i = 0; i < e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes.length - 1; i++) {
-                var section = "section" + (i + 1);
 
+            for (i = 0; i < e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].childNodes.length - 1; i++) {
                 var sectiondict = {};
+                console.log("c1", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0]);
+                console.log("c2", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1]);
 
-                bgcolor = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].style.backgroundColor;
+                bgcolor = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].style.backgroundColor;
                 sectiondict['bgcolor'] = bgcolor;
-                bgimage = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].style.backgroundImage;
+                bgimage = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].style.backgroundImage;
                 console.log("just to make sure this is the bgimage", bgimage);
 
                 //everydata[section] = sectiondict
@@ -712,25 +805,26 @@ var NextImg = function (_React$Component6) {
                 var j = 0;
                 var imagearray = [];
 
-                for (j = 0; j < e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].childNodes.length; j++) {
+                for (j = 0; j < e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes.length; j++) {
                     var imageinfo = "imageinfo" + (j + 1);
 
                     var imageinfodict = {};
 
-                    var _src = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].childNodes[j].childNodes[0].childNodes[0].src;
+                    var _src = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes[j].childNodes[0].childNodes[0].src;
 
                     imageinfodict['src'] = _src;
 
-                    var _title = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].childNodes[j].childNodes[1].childNodes[0].value;
+                    var _title = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes[j].childNodes[1].childNodes[0].value;
                     imageinfodict['title'] = _title;
 
-                    var _des = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7].childNodes[i + 1].childNodes[0].childNodes[1].childNodes[j].childNodes[2].childNodes[0].value;
+                    var _des = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes[j].childNodes[2].childNodes[0].value;
                     imageinfodict['des'] = _des;
                     console.log("this is image info dict", imageinfodict);
                     imagearray.push(imageinfodict);
                 }
                 sectiondict["imageinfo"] = imagearray;
             }
+
             console.log("everydata", everydata);
             console.log("try every data", tryeverydata);
 
@@ -761,6 +855,7 @@ var NextImg = function (_React$Component6) {
     }, {
         key: 'showTemplate2',
         value: function showTemplate2(count) {
+
             var newDiv = document.createElement("div");
             newDiv.id = "templatesidtwo" + count;
             var id = "templatesidtwo" + count;
@@ -982,6 +1077,7 @@ var ShowNfts = function (_React$Component8) {
     _createClass(ShowNfts, [{
         key: 'selectedImg',
         value: function selectedImg(e) {
+
             var i = 0;
             var array = [];
             console.log(e);
@@ -1042,29 +1138,19 @@ document.addEventListener('DOMContentLoaded', function (e) {
     var wallclick = document.querySelector('#wallclick');
     wallclick.addEventListener('click', function (e) {
         var query = "";
-        var queryhl = "";
         var i = 0;
-        for (i = 0; i < 4; i++) {
+        console.log("e", e);
+        for (i = 0; i < e.path[1].childNodes[3].length; i++) {
             if (e.path[1].childNodes[3].options[i].selected == true) {
                 query = e.path[1].childNodes[3].options[i].value;
             }
         }
-        var j = 0;
-        for (j = 0; j < 3; j++) {
-            if (e.path[1].childNodes[5].options[j].selected == true) {
-                queryhl = e.path[1].childNodes[5].options[j].value;
-            }
-        }
-        var orderby = "asc";
-        if (query != "None") {
-            orderby = "&order_by=" + query;
-        }
 
-        var orderdirection = "&order_direction=" + queryhl;
+        console.log("query", query);
 
         var address = document.querySelector('#walletaddress').value;
 
-        fetch('https://api.opensea.io/api/v1/assets?owner=' + address + orderby + orderdirection + '&offset=0&limit=20').then(function (response) {
+        fetch('https://api.opensea.io/api/v1/assets?owner=' + address + query + '&offset=0&limit=20').then(function (response) {
             return response.json();
         }).then(function (data) {
             document.querySelector('#askforwallet').hidden = true;
