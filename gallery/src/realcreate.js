@@ -192,6 +192,7 @@ function getCookie(name) {
         this.goIntoImage = this.goIntoImage.bind(this);
         this.checkDesArea = this.checkDesArea.bind(this);
         this.checkTitleArea = this.checkTitleArea.bind(this);
+        
 
 
        let src = ""
@@ -214,6 +215,7 @@ function getCookie(name) {
             title:title,
             des:des,
             fromprofile:thisisfromprofile,
+            hexy:"",
             showtitledes:<div class="d-flex justify-content-center mt-3"><button onClick={this.showTitleDes} class="btn btn-outline-success btn-sm"></button></div>
 
         }
@@ -246,6 +248,54 @@ function getCookie(name) {
   
          })
     }
+    componentDidMount() {
+        console.log("this.props.bgimage", this.props.bgimage)
+        if (this.props.bgimage != undefined)
+        {
+
+        let bgimagesplit1 = this.props.bgimage.split('url(')
+        console.log("bgimagesplit1", bgimagesplit1)
+        let bgimagesplit2 = bgimagesplit1[1].split(')')
+        let bgimagesplitcheck = bgimagesplit2[0].split('/')
+        console.log("bgimagesplit2", bgimagesplit2)
+
+        console.log("bgimagesplitcheck", bgimagesplitcheck)
+        
+
+        if (bgimagesplitcheck[3] != "")
+       {
+           console.log("in if bgimagesplit")
+           const fac = new FastAverageColor();
+           fac.getColorAsync(bgimagesplit2[0])
+               .then(color => {
+                 this.setState({
+                  hexy:color.hex
+                 })
+            // container.style.backgroundColor = color.rgba;
+            // container.style.color = color.isDark ? '#fff' : '#000';
+              })
+             }
+            }
+              if (this.props.src != undefined)
+              {
+               function componentToHex(c) {
+                   var hex = c.toString(16);
+                   return hex.length == 1 ? "0" + hex : hex;
+                 }
+             
+               let rgb = this.props.bgcolor.replace(/[^\d,]/g, '').split(',');
+               let firstcolor = rgb[0] - 30
+               let secondcolor = rgb[1] - 30
+               let thirdcolor = rgb[2] - 30
+               let hexyy =  "#" + componentToHex(firstcolor) + componentToHex(secondcolor) + componentToHex(thirdcolor);
+               this.setState({
+                   hexy:hexyy
+               })
+               
+           }
+    
+    }
+
     goIntoImage(checkifurl, hexy)
     {
         console.log("this.state.url", this.state.url)
@@ -267,45 +317,15 @@ function getCookie(name) {
     }
     render(){
     
-        let checkifurl = "video"
+    let checkifurl = "video"
     if (this.state.url.charAt(8) == "l")
     {
         checkifurl = "image"
     }
 
-  //  let bgimagesplit1 = this.props.bgimage.split('url(')
-  //  let bgimagesplit2 = bgimagesplit1[1].split(')')
-   // const fac = new FastAverageColor();
-    //    fac.getColorAsync(bgimagesplit2[0])
-      //      .then(color => {
-      //      color = color.hex
-         // container.style.backgroundColor = color.rgba;
-        // container.style.color = color.isDark ? '#fff' : '#000';
-       //   })
-        //  console.log("what the fak", document.querySelector('#hiddenforhex'))
-        //   console.log("what.log",document.querySelector('#hiddenforhex').value)
-    
-    let hexy = ""
-    if (this.props.src != undefined)
-       {
-        function componentToHex(c) {
-            var hex = c.toString(16);
-            return hex.length == 1 ? "0" + hex : hex;
-          }
-      
-        let rgb = this.props.bgcolor.replace(/[^\d,]/g, '').split(',');
-        let firstcolor = rgb[0] - 30
-        let secondcolor = rgb[1] - 30
-        let thirdcolor = rgb[2] - 30
-        hexy =  "#" + componentToHex(firstcolor) + componentToHex(secondcolor) + componentToHex(thirdcolor);
-        if (hexy == "#-1eNaNNaN"){
-            console.log("ok dumbass")
-        }
-    }
-  
     return (
         <div id="wilachatww" name="imgdiv" value="false" className="threeimage" >
-            <div id="oneinamillion" onClick={(e) => this.props.type != "profile" ? this.t2ImageOne(e): this.goIntoImage(checkifurl, hexy)} class="divborder"style={{borderStyle: this.state.border}}>
+            <div id="oneinamillion" onClick={(e) => this.props.type != "profile" ? this.t2ImageOne(e): this.goIntoImage(checkifurl, this.state.hexy)} class="divborder"style={{borderStyle: this.state.border}}>
                 {checkifurl == "image" ? <img id="oneintwo"class="testingtestimgg" src={this.state.url}></img>: 
                  <video src={this.state.url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={this.state.url} type = "video/mp4"></source></video>}                  
             </div>
@@ -510,36 +530,61 @@ function getCookie(name) {
         this.showTemplate2 = this.showTemplate2.bind(this);
         this.changeBgColor = this.changeBgColor.bind(this);
         this.deleteTemplate = this.deleteTemplate.bind(this);
+        this.checkGalleryTitleArea = this.checkGalleryTitleArea.bind(this);
+
+        let bgimagetitle = "";
+        let bgcolortitle = "";
   
         this.imageTemplate = this.imageTemplate.bind(this);
         this.goSave = this.goSave.bind(this)
+        this.state = {
+            gallerytitleedit:"",
+            bgcolortitle:"",
+            bgimagetitle:""
+        }
         
         const getcooked = getCookie('csrftoken')
         fetch(`/realcreateapi/1`, {
             method: 'PUT',
             headers:{'X-CSRFToken': getcooked},
-            body:"getgalleryinfo"
+            body: JSON.stringify({
+                edit:"edit"
+                })
         })
         .then(response => response.json())
      .then(data => {
-        
-        data = data.replaceAll("'", '"');
-        data = JSON.parse(data);
-        console.log("checking for new data", data)
+        console.log("checking the data", data)
+        let dataa = data['galleryinfo']
+        let gallerybgcolor= data['gallerybgcolor']
+        let gallerybgimage = data['gallerybgimage']
+        let gallerytitle = data['gallerytitle']
+        console.log("gallerytitle", gallerytitle)
+        console.log("gallerybgimage", gallerybgimage)
+        console.log("gallerybgcolor", gallerybgcolor)
+
+        this.setState({
+            gallerytitleedit: gallerytitle,
+            bgcolortitle: gallerybgcolor,
+            bgimagetitle: gallerybgimage
+        })
+       
+
+        dataa = dataa.replaceAll("'", '"');
+        dataa = JSON.parse(dataa);
+        console.log("checking for new data", dataa)
         if (data != "")
         {
             let i = 0
-            for (i = 0; i < data['everydata'].length; i++)
+            for (i = 0; i < dataa['everydata'].length; i++)
             {
                 let count = i
                 const newDiv = document.createElement("div");
                 newDiv.id = "saveddata" + count
-                console.log("this is newDiv", newDiv);
                 let id = "saveddata" + count
 
                 document.querySelector('#showtemplates').append(newDiv);
 
-                ReactDOM.render(<ShowTemplateTwo alldata={data['everydata'][i]} type="edit" id={id} changeBgColor={this.changeBgColor} 
+                ReactDOM.render(<ShowTemplateTwo alldata={dataa['everydata'][i]} type="edit" id={id} changeBgColor={this.changeBgColor} 
                 deleteTemplate={this.deleteTemplate} imageTemplate={this.imageTemplate}/>,document.querySelector('#saveddata' + count));
             }
         }    
@@ -576,7 +621,7 @@ function getCookie(name) {
         let address = document.querySelector('#walletaddress').value
         const getcooked = getCookie('csrftoken')
   
-        fetch(`/realcreateapi/${address}`, {
+        fetch(`/realcreateapi/1`, {
             method: 'POST',
             headers:{'X-CSRFToken': getcooked},
             body:formData
@@ -616,21 +661,12 @@ function getCookie(name) {
         let everydata = {}
         let tryeverydata = []
         
+        let gallerytitle = e.target.parentElement.parentElement.parentElement.childNodes[0].childNodes[3].childNodes[1].childNodes[0].value
+        let gallerybgcolor = e.target.parentElement.parentElement.parentElement.childNodes[0].childNodes[3].childNodes[1].style.backgroundColor
+        let gallerybgimage = e.target.parentElement.parentElement.parentElement.childNodes[0].childNodes[3].childNodes[1].style.backgroundImage
+  
         let l = 0;
-        console.log("this is in go save!")
-        console.log("e", e)
-        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[0])
-        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[1])
-        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[2])
-        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[3])
-        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[4])
-        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[5])
-        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[6])
-        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7])
-        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[8])
-        console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9])
-        console.log("length", e.target.parentElement.parentElement.parentElement.parentElement.childNodes.length)
-        
+      
         let z = 0;
         let num = 0
         for (z = 0; z < e.target.parentElement.parentElement.parentElement.parentElement.childNodes.length; z++)
@@ -706,13 +742,19 @@ function getCookie(name) {
         formData.append("everydata", everydata)
         let address = document.querySelector('#walletaddress').value
         const getcooked = getCookie('csrftoken')
-  
+        let lastdata = {}
+        lastdata["everydata"] = tryeverydata;
         fetch(`/realsaveapi/${address}`, {
             method: 'POST',
             headers:{'X-CSRFToken': getcooked},
             body: JSON.stringify({
-                everydata: tryeverydata
+                everydataa: lastdata,
+                gallerybgcolor: gallerybgcolor,
+                gallerybgimage: gallerybgimage,
+                gallerytitle:  gallerytitle
+
                 })
+   
             
           })
     }
@@ -738,35 +780,66 @@ function getCookie(name) {
         ReactDOM.render(<ShowTemplateTwo id={id} changeBgColor={this.changeBgColor} 
         deleteTemplate={this.deleteTemplate} imageTemplate={this.imageTemplate}/>, document.querySelector('#templatesidtwo' + count));
     }
+    checkGalleryTitleArea(e)
+    {  if (e.target.value.length > 0) {
+        this.setState({gallerytitleedit: e.target.value});
+    }
+    else {
+        this.setState({gallerytitleedit: ""});
+    }
+
+    }
     
         render() {
   
         let counttemplate1 = 0;
         let counttemplate2 = 0;
-  
-        const img = [];
-        let i = 0
-        for (i = 0; i < this.props.array.length; i ++)
-        {
-            img.push(<SortNextImg 
-                source={this.props.array[i]}/>
-            );
-        }
+        console.log("STATE COLOR STATE IMAGE MOFOOOO")
+        console.log("state image", this.state.bgimagetitle)
+        console.log("state color", this.state.bgcolortitle)
+      
+       
+            const img = [];
+            let i = 0
+            if (this.props.type != "gallerycoverprofile")
+            {
+                for (i = 0; i < this.props.array.length; i ++)
+                {
+                    img.push(<SortNextImg 
+                        source={this.props.array[i]}/>
+                    );
+                }
+            }
+        //creating new template just for title page and when to click
       return (
         <div>
-            <div class="d-flex flex-wrap d-flex justify-content-center imgnextbg">
+           {this.props.type != "gallerycoverprofile" ? <div class="d-flex flex-wrap d-flex justify-content-center imgnextbg">
                 {img}
-            </div>
-            <div class="belowimgnextbg">
+            </div>: null}
+           
+            {this.props.type != "gallerycoverprofile" ?  <div class="belowimgnextbg">
                 <div class="d-flex justify-content-center">
                     <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-1" onClick={() => this.showTemplate1(counttemplate1++)}>Template1</button>
                     <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={() => this.showTemplate2(counttemplate2++)}>Template2</button>
                 </div>
-            </div>
-            <div class="d-flex justify-content-center">
+            </div> :null}
+           
+            {this.props.type != "gallerycoverprofile" ?  <div class="d-flex justify-content-center">
                 <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-2" onClick={this.goBack}>Back</button>
                 <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.goSave}>Save</button>
   
+            </div>:null}
+            <div>
+            {this.props.type != "gallerycoverprofile" ? <div id="boss"class="d-flex justify-content-center d-flex flex-wrap  mt-2">
+                <input id="exampleColorInput" onChange={this.changeBgColor} type="color" class="changecolor form-control form-control-color col-1 mb-1" title="Choose your color"></input>
+                <input id="filetemplate1" onChange={this.imageTemplate} class="filetemplate1 form-control-file col-sm-1 mr-1" type="file"></input>
+                 </div> :null}
+         
+            <div id="titlecolor" className="d-flex justify-content-center template2 mr-4" style={this.props.type != "gallerycoverprofile" ? {backgroundImage: this.state.bgimagetitle, backgroundColor: this.state.bgcolortitle} :{backgroundImage: this.props.gallerybgimage, backgroundColor: this.props.gallerybgcolor}}>
+            {this.props.type != "gallerycoverprofile" ? <input class="gallerytitleinput form-control col-4"placeholder="Title of Gallery" type="text" onChange={this.checkGalleryTitleArea} value={this.state.gallerytitleedit} required></input> : <h6 class="yuptitlee">{this.props.gallerytitle}</h6>}
+            </div>
+            
+
             </div>
         </div>
         );
@@ -919,6 +992,7 @@ function getCookie(name) {
   
     let wallclick = document.querySelector('#wallclick')
     wallclick.addEventListener('click', (e) => {
+        console.log("what")
         let query = ""
         let i = 0
         console.log("e", e)
@@ -932,7 +1006,6 @@ function getCookie(name) {
         
        console.log("query", query)
         
-    
         let address = document.querySelector('#walletaddress').value
         
         fetch(`https://api.opensea.io/api/v1/assets?owner=${address}${query}&offset=0&limit=20`)
@@ -947,6 +1020,6 @@ function getCookie(name) {
     });
   });
   export {
-    ShowTemplateOne,
+    NextImg,
     ShowTemplateTwo,
   }

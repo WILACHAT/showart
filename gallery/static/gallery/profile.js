@@ -1,12 +1,14 @@
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-import { ShowTemplateOne, ShowTemplateTwo } from './realcreate.js';
+import { NextImg, ShowTemplateTwo } from './realcreate.js';
 
 function getCookie(name) {
     var cookieValue = null;
@@ -33,17 +35,21 @@ var DisplayGallery = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (DisplayGallery.__proto__ || Object.getPrototypeOf(DisplayGallery)).call(this, props));
 
         _this.toBack = _this.toBack.bind(_this);
-        _this.testTest = _this.testTest.bind(_this);
 
         var data = _this.props.data;
+        console.log("what kind of data is really showing", data);
 
         data = data.replaceAll("'", '"');
         data = JSON.parse(data);
-        console.log("this is new data!", data);
-        console.log("this is data part 1", data['everydata'][0]);
-        console.log("this is data part 2", data['everydata'][1]);
+        var newerdiv = document.createElement("div");
+        newerdiv.id = "gallerycoverid";
+        document.querySelector('#gallerypageone').appendChild(newerdiv);
 
-        console.log(data['everydata'].length);
+        ReactDOM.render(React.createElement(NextImg, { gallerybgcolor: _this.props.gallerybgcolor,
+            gallerybgimage: _this.props.gallerybgimage, gallerytitle: _this.props.gallerytitle,
+            type: 'gallerycoverprofile' }), document.querySelector('#gallerycoverid'));
+
+        console.log("dataeverydata", data['everydata']);
         var i = 0;
         for (i = 0; i < data['everydata'].length; i++) {
             var count = i;
@@ -64,11 +70,7 @@ var DisplayGallery = function (_React$Component) {
             document.querySelector('#followpart').hidden = false;
             document.querySelector('#gallerypage').hidden = true;
             document.querySelector('#gallerypageone').hidden = true;
-        }
-    }, {
-        key: 'testTest',
-        value: function testTest() {
-            console.log("lets gooo");
+            document.querySelector('#navibarid').hidden = false;
         }
     }, {
         key: 'render',
@@ -112,6 +114,7 @@ var ProfileEdit = function (_React$Component2) {
         var profiledes = _this2.props.data["profiledes"];
         var username = _this2.props.data["username"];
         var profilepic = _this2.props.data["profilepic"];
+        var numvotes = _this2.props.data["howmanyvotes"];
 
         console.log("username", username);
 
@@ -141,6 +144,7 @@ var ProfileEdit = function (_React$Component2) {
 
         _this2.state = {
             username: username,
+            numvotes: numvotes,
             profiledes: profiledes,
             openseaurl: openseaurl,
             contactgmail: contactgmail,
@@ -382,27 +386,38 @@ var ProfileEdit = function (_React$Component2) {
         }
     }, {
         key: 'toNext',
-        value: function toNext() {
-
+        value: function toNext(e) {
+            //unhide the profileedit to make the gallery in the same page as profile info
             document.querySelector('#profileedit').hidden = true;
             document.querySelector('#gallerypageone').hidden = false;
             document.querySelector('#followpart').hidden = true;
             document.querySelector('#gallerypage').hidden = false;
+            console.log(e);
+            document.querySelector('#navibarid').hidden = true;
+            var clicked = parseInt(window.location.pathname.split('/')[2]);
+
             var getcooked = getCookie('csrftoken');
-            fetch('/realcreateapi/1', {
+            fetch('/realcreateapi/' + clicked, {
                 method: 'PUT',
                 headers: { 'X-CSRFToken': getcooked },
-                body: "getgalleryinfo"
+                body: JSON.stringify({
+                    edit: "gallery"
+                })
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                ReactDOM.render(React.createElement(DisplayGallery, { data: data }), document.querySelector('#gallerypage'));
+                console.log("gallery faking info", data['galleryinfo']);
+                console.log("gallery title", data['gallerytitle']);
+                console.log("gallery bg image", data['gallerybgimage']);
+                console.log("gallery bg color", data['gallerybgcolor']);
+
+                ReactDOM.render(React.createElement(DisplayGallery, { data: data['galleryinfo'], gallerytitle: data['gallerytitle'],
+                    gallerybgimage: data['gallerybgimage'], gallerybgcolor: data['gallerybgcolor'] }), document.querySelector('#gallerypage'));
             });
         }
     }, {
         key: 'cancel',
         value: function cancel(profilepic) {
-            console.log("we will be testing profilepic", profilepic);
             var username = this.state.username;
             var edit_button = React.createElement(
                 'button',
@@ -629,7 +644,7 @@ var EditPost = function (_React$Component3) {
                     React.createElement(
                         'div',
                         { id: 'coverschoosefile' },
-                        clicked == 1 ? React.createElement('input', { id: 'choosefile', 'class': 'choosefile', onChange: this.chooseFile, type: 'file' }) : null
+                        React.createElement('input', { id: 'choosefile', 'class': 'choosefile', onChange: this.chooseFile, type: 'file' })
                     )
                 ),
                 React.createElement(
@@ -695,12 +710,14 @@ var FollowTable = function (_React$Component4) {
 
         var _this6 = _possibleConstructorReturn(this, (FollowTable.__proto__ || Object.getPrototypeOf(FollowTable)).call(this, props));
 
-        var followname = _this6.props.data["following"] > 0 ? "Unfollow" : "Follow";
+        var followname = _this6.props.data["following"] > 0 ? "Unvote" : "Vote";
         _this6.followPost = _this6.followPost.bind(_this6);
         console.log("followname", followname);
 
         _this6.state = {
-            followname: followname
+            followname: followname,
+            current_howmanyfollow: _this6.props.data["howmanyfollow"]
+
         };
         return _this6;
     }
@@ -710,14 +727,17 @@ var FollowTable = function (_React$Component4) {
         value: function followPost(e) {
 
             var whatkind = "profile";
+            var updated_csl = 0;
+
             console.log(e);
             var clicked = parseInt(window.location.pathname.split('/')[2]);
             var current = this.props.data["user"];
             var pagination = 1;
             var getcooked = getCookie('csrftoken');
 
-            if (this.state.followname == "Follow") {
-                this.setState({ followname: "Unfollow" });
+            if (this.state.followname == "Vote") {
+                updated_csl = this.state.current_howmanyfollow + 1;
+                this.setState({ current_howmanyfollow: updated_csl, followname: "Unvote" });
                 fetch('/currentgalleryapi/' + whatkind + '/' + clicked + '/' + pagination, {
                     method: 'PUT',
                     headers: { 'X-CSRFToken': getcooked },
@@ -728,9 +748,9 @@ var FollowTable = function (_React$Component4) {
                     })
                 });
             }
-            if (this.state.followname == "Unfollow") {
-
-                this.setState({ followname: "Follow" });
+            if (this.state.followname == "Unvote") {
+                updated_csl = this.state.current_howmanyfollow - 1;
+                this.setState({ current_howmanyfollow: updated_csl, followname: "Vote" });
                 console.log("whatever man");
                 fetch('/currentgalleryapi/' + whatkind + '/' + clicked + '/' + pagination, {
                     method: 'PUT',
@@ -774,6 +794,29 @@ var FollowTable = function (_React$Component4) {
             return React.createElement(
                 'div',
                 null,
+                React.createElement(
+                    'div',
+                    { 'class': 'd-flex justify-content-center' },
+                    React.createElement(
+                        'div',
+                        { 'class': 'postexplore2 d-flex justify-content-between' },
+                        React.createElement(
+                            'p',
+                            _defineProperty({ 'class': 'ptitle d-flex justify-content-end', name: 'timestamp' }, 'class', 'font-weight-light timestamp'),
+                            this.state.current_howmanyfollow,
+                            ' ',
+                            this.state.current_howmanyfollow > 1 ? "votes" : "vote"
+                        ),
+                        React.createElement('p', null),
+                        React.createElement(
+                            'p',
+                            _defineProperty({ 'class': 'titlep d-flex justify-content-end', name: 'timestamp' }, 'class', 'font-weight-light timestamp'),
+                            this.props.data["view"],
+                            ' ',
+                            this.props.data["view"] > 1 ? "views" : "view"
+                        )
+                    )
+                ),
                 follow_button
             );
         }

@@ -9,8 +9,31 @@ class User(AbstractUser, models.Model):
     profile_des = models.TextField(null=True)
     profile_pic = models.URLField(max_length=256, null=True)
     galleryinfo = models.TextField(null=True)
+    gallerytitle = models.CharField(max_length=256, null=True)
+    gallerybgcolor = models.CharField(max_length=256, null=True)
+    gallerybgimage = models.URLField(max_length=256, null=True)
+    modify_date = models.DateTimeField(auto_now=True)
+    views = models.IntegerField(null=True)
 
-    
+
+    def serializeuser(self, usercurrent):
+        return {
+            "id": self.id,
+           # "openseaurl": self.opensea_url,
+          #  "contactgmail": self.contactgmail,
+           # "profiledes": self.profile_des,
+           # "profilepic": self.profile_pic,
+            "username": self.username,
+            "galleryinfo": self.galleryinfo,
+            "gallerytitle":  self.gallerytitle,
+            "gallerybgcolor": self.gallerybgcolor,
+            "gallerybgimage": self.gallerybgimage, 
+            "views": self.views, 
+            "modifiedtime":self.modify_date.strftime("%b %-d %Y, %-I:%M %p")
+        }   
+
+
+  
 
 
 class User_Wallet(models.Model):   
@@ -65,7 +88,7 @@ class Follower(models.Model):
 
 class Vote(models.Model):
     like = models.BooleanField(default=True)
-    gallery_id = models.ForeignKey(Gallery, on_delete=models.CASCADE)
+    current_id = models.IntegerField(null=True)
     user_id = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
 
 

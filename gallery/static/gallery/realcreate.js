@@ -303,6 +303,7 @@ var DivNewClass = function (_React$Component3) {
             title: title,
             des: des,
             fromprofile: thisisfromprofile,
+            hexy: "",
             showtitledes: React.createElement(
                 'div',
                 { 'class': 'd-flex justify-content-center mt-3' },
@@ -342,6 +343,50 @@ var DivNewClass = function (_React$Component3) {
             });
         }
     }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this5 = this;
+
+            console.log("this.props.bgimage", this.props.bgimage);
+            if (this.props.bgimage != undefined) {
+
+                var bgimagesplit1 = this.props.bgimage.split('url(');
+                console.log("bgimagesplit1", bgimagesplit1);
+                var bgimagesplit2 = bgimagesplit1[1].split(')');
+                var bgimagesplitcheck = bgimagesplit2[0].split('/');
+                console.log("bgimagesplit2", bgimagesplit2);
+
+                console.log("bgimagesplitcheck", bgimagesplitcheck);
+
+                if (bgimagesplitcheck[3] != "") {
+                    console.log("in if bgimagesplit");
+                    var fac = new FastAverageColor();
+                    fac.getColorAsync(bgimagesplit2[0]).then(function (color) {
+                        _this5.setState({
+                            hexy: color.hex
+                        });
+                        // container.style.backgroundColor = color.rgba;
+                        // container.style.color = color.isDark ? '#fff' : '#000';
+                    });
+                }
+            }
+            if (this.props.src != undefined) {
+                var componentToHex = function componentToHex(c) {
+                    var hex = c.toString(16);
+                    return hex.length == 1 ? "0" + hex : hex;
+                };
+
+                var rgb = this.props.bgcolor.replace(/[^\d,]/g, '').split(',');
+                var firstcolor = rgb[0] - 30;
+                var secondcolor = rgb[1] - 30;
+                var thirdcolor = rgb[2] - 30;
+                var hexyy = "#" + componentToHex(firstcolor) + componentToHex(secondcolor) + componentToHex(thirdcolor);
+                this.setState({
+                    hexy: hexyy
+                });
+            }
+        }
+    }, {
         key: 'goIntoImage',
         value: function goIntoImage(checkifurl, hexy) {
             console.log("this.state.url", this.state.url);
@@ -363,40 +408,11 @@ var DivNewClass = function (_React$Component3) {
     }, {
         key: 'render',
         value: function render() {
-            var _this5 = this;
+            var _this6 = this;
 
             var checkifurl = "video";
             if (this.state.url.charAt(8) == "l") {
                 checkifurl = "image";
-            }
-
-            //  let bgimagesplit1 = this.props.bgimage.split('url(')
-            //  let bgimagesplit2 = bgimagesplit1[1].split(')')
-            // const fac = new FastAverageColor();
-            //    fac.getColorAsync(bgimagesplit2[0])
-            //      .then(color => {
-            //      color = color.hex
-            // container.style.backgroundColor = color.rgba;
-            // container.style.color = color.isDark ? '#fff' : '#000';
-            //   })
-            //  console.log("what the fak", document.querySelector('#hiddenforhex'))
-            //   console.log("what.log",document.querySelector('#hiddenforhex').value)
-
-            var hexy = "";
-            if (this.props.src != undefined) {
-                var componentToHex = function componentToHex(c) {
-                    var hex = c.toString(16);
-                    return hex.length == 1 ? "0" + hex : hex;
-                };
-
-                var rgb = this.props.bgcolor.replace(/[^\d,]/g, '').split(',');
-                var firstcolor = rgb[0] - 30;
-                var secondcolor = rgb[1] - 30;
-                var thirdcolor = rgb[2] - 30;
-                hexy = "#" + componentToHex(firstcolor) + componentToHex(secondcolor) + componentToHex(thirdcolor);
-                if (hexy == "#-1eNaNNaN") {
-                    console.log("ok dumbass");
-                }
             }
 
             return React.createElement(
@@ -405,7 +421,7 @@ var DivNewClass = function (_React$Component3) {
                 React.createElement(
                     'div',
                     { id: 'oneinamillion', onClick: function onClick(e) {
-                            return _this5.props.type != "profile" ? _this5.t2ImageOne(e) : _this5.goIntoImage(checkifurl, hexy);
+                            return _this6.props.type != "profile" ? _this6.t2ImageOne(e) : _this6.goIntoImage(checkifurl, _this6.state.hexy);
                         }, 'class': 'divborder', style: { borderStyle: this.state.border } },
                     checkifurl == "image" ? React.createElement('img', { id: 'oneintwo', 'class': 'testingtestimgg', src: this.state.url }) : React.createElement(
                         'video',
@@ -445,9 +461,9 @@ var ShowTemplateTwo = function (_React$Component4) {
     function ShowTemplateTwo(props) {
         _classCallCheck(this, ShowTemplateTwo);
 
-        var _this6 = _possibleConstructorReturn(this, (ShowTemplateTwo.__proto__ || Object.getPrototypeOf(ShowTemplateTwo)).call(this, props));
+        var _this7 = _possibleConstructorReturn(this, (ShowTemplateTwo.__proto__ || Object.getPrototypeOf(ShowTemplateTwo)).call(this, props));
 
-        _this6.addImage = function (realid, e, classname) {
+        _this7.addImage = function (realid, e, classname) {
             console.log("check e", e);
             if (e.target.parentElement.parentElement.childNodes[1].childNodes != "") {
                 if (e.target.parentElement.parentElement.childNodes[1].childNodes[0] != undefined) {
@@ -461,12 +477,12 @@ var ShowTemplateTwo = function (_React$Component4) {
                 }
             }
 
-            var length = _this6.state.list.length + 1;
-            _this6.setState({
+            var length = _this7.state.list.length + 1;
+            _this7.setState({
                 imgdiv: React.createElement(DivNewClass, { classname: classname, name: realid })
             });
 
-            _this6.setState(function (state) {
+            _this7.setState(function (state) {
                 var list = state.list.concat(state.imgdiv);
                 return {
                     list: list
@@ -474,7 +490,7 @@ var ShowTemplateTwo = function (_React$Component4) {
             });
         };
 
-        _this6.addImage = _this6.addImage.bind(_this6);
+        _this7.addImage = _this7.addImage.bind(_this7);
         var array = [];
         var w = 0;
         var newlist = [];
@@ -484,39 +500,39 @@ var ShowTemplateTwo = function (_React$Component4) {
         var bgcolor = "";
         var bgimage = "";
 
-        console.log("type", _this6.props.type);
-        if (_this6.props.alldata != undefined) {
-            bgcolor = _this6.props.alldata['bgcolor'];
-            bgimage = _this6.props.alldata['bgimage'];
+        console.log("type", _this7.props.type);
+        if (_this7.props.alldata != undefined) {
+            bgcolor = _this7.props.alldata['bgcolor'];
+            bgimage = _this7.props.alldata['bgimage'];
             var first = "url(/static/profile_pic/";
             var last = ")";
             bgimage = first + bgimage + last;
-            for (w = 0; w < _this6.props.alldata['imageinfo'].length; w++) {
-                imageinfo_src = _this6.props.alldata['imageinfo'][w]['src'];
-                imageinfo_title = _this6.props.alldata['imageinfo'][w]['title'];
-                imageinfo_des = _this6.props.alldata['imageinfo'][w]['des'];
+            for (w = 0; w < _this7.props.alldata['imageinfo'].length; w++) {
+                imageinfo_src = _this7.props.alldata['imageinfo'][w]['src'];
+                imageinfo_title = _this7.props.alldata['imageinfo'][w]['title'];
+                imageinfo_des = _this7.props.alldata['imageinfo'][w]['des'];
 
                 var newdivnewclass = React.createElement(DivNewClass, { src: imageinfo_src,
                     title: imageinfo_title, des: imageinfo_des, bgcolor: bgcolor,
-                    bgimage: bgimage, type: _this6.props.type });
+                    bgimage: bgimage, type: _this7.props.type });
                 newlist.push(newdivnewclass);
             }
         }
 
-        _this6.state = {
+        _this7.state = {
             imgdiv: "",
             list: newlist,
             bgcolor: bgcolor,
             bgimage: bgimage
 
         };
-        return _this6;
+        return _this7;
     }
 
     _createClass(ShowTemplateTwo, [{
         key: 'render',
         value: function render() {
-            var _this7 = this;
+            var _this8 = this;
 
             var classname = "";
             if (this.state.list.length + 1 == 1) {
@@ -537,14 +553,14 @@ var ShowTemplateTwo = function (_React$Component4) {
                     React.createElement(
                         'button',
                         { id: 'deletetemplate1', onClick: function onClick(e) {
-                                return _this7.props.deleteTemplate(_this7.props.id, e);
+                                return _this8.props.deleteTemplate(_this8.props.id, e);
                             }, 'class': 'deletetemplate btn btn-outline-danger btn-sm mr-1 mb-1' },
                         'X'
                     ),
                     React.createElement(
                         'button',
                         { id: 'addimagetemplate1', onClick: function onClick(e) {
-                                return _this7.addImage(realid, e, classname);
+                                return _this8.addImage(realid, e, classname);
                             }, 'class': 'deletetemplate btn btn-outline-dark btn-sm mb-1' },
                         'Add Image'
                     )
@@ -569,12 +585,12 @@ var SortNextImg = function (_React$Component5) {
     function SortNextImg(props) {
         _classCallCheck(this, SortNextImg);
 
-        var _this8 = _possibleConstructorReturn(this, (SortNextImg.__proto__ || Object.getPrototypeOf(SortNextImg)).call(this, props));
+        var _this9 = _possibleConstructorReturn(this, (SortNextImg.__proto__ || Object.getPrototypeOf(SortNextImg)).call(this, props));
 
-        var source = _this8.props.source;
-        _this8.chooseImgTemplate = _this8.chooseImgTemplate.bind(_this8);
+        var source = _this9.props.source;
+        _this9.chooseImgTemplate = _this9.chooseImgTemplate.bind(_this9);
 
-        return _this8;
+        return _this9;
     }
 
     _createClass(SortNextImg, [{
@@ -643,47 +659,71 @@ var NextImg = function (_React$Component6) {
     function NextImg(props) {
         _classCallCheck(this, NextImg);
 
-        var _this9 = _possibleConstructorReturn(this, (NextImg.__proto__ || Object.getPrototypeOf(NextImg)).call(this, props));
+        var _this10 = _possibleConstructorReturn(this, (NextImg.__proto__ || Object.getPrototypeOf(NextImg)).call(this, props));
 
-        _this9.goBack = _this9.goBack.bind(_this9);
-        _this9.showTemplate1 = _this9.showTemplate1.bind(_this9);
-        _this9.showTemplate2 = _this9.showTemplate2.bind(_this9);
-        _this9.changeBgColor = _this9.changeBgColor.bind(_this9);
-        _this9.deleteTemplate = _this9.deleteTemplate.bind(_this9);
+        _this10.goBack = _this10.goBack.bind(_this10);
+        _this10.showTemplate1 = _this10.showTemplate1.bind(_this10);
+        _this10.showTemplate2 = _this10.showTemplate2.bind(_this10);
+        _this10.changeBgColor = _this10.changeBgColor.bind(_this10);
+        _this10.deleteTemplate = _this10.deleteTemplate.bind(_this10);
+        _this10.checkGalleryTitleArea = _this10.checkGalleryTitleArea.bind(_this10);
 
-        _this9.imageTemplate = _this9.imageTemplate.bind(_this9);
-        _this9.goSave = _this9.goSave.bind(_this9);
+        var bgimagetitle = "";
+        var bgcolortitle = "";
+
+        _this10.imageTemplate = _this10.imageTemplate.bind(_this10);
+        _this10.goSave = _this10.goSave.bind(_this10);
+        _this10.state = {
+            gallerytitleedit: "",
+            bgcolortitle: "",
+            bgimagetitle: ""
+        };
 
         var getcooked = getCookie('csrftoken');
         fetch('/realcreateapi/1', {
             method: 'PUT',
             headers: { 'X-CSRFToken': getcooked },
-            body: "getgalleryinfo"
+            body: JSON.stringify({
+                edit: "edit"
+            })
         }).then(function (response) {
             return response.json();
         }).then(function (data) {
+            console.log("checking the data", data);
+            var dataa = data['galleryinfo'];
+            var gallerybgcolor = data['gallerybgcolor'];
+            var gallerybgimage = data['gallerybgimage'];
+            var gallerytitle = data['gallerytitle'];
+            console.log("gallerytitle", gallerytitle);
+            console.log("gallerybgimage", gallerybgimage);
+            console.log("gallerybgcolor", gallerybgcolor);
 
-            data = data.replaceAll("'", '"');
-            data = JSON.parse(data);
-            console.log("checking for new data", data);
+            _this10.setState({
+                gallerytitleedit: gallerytitle,
+                bgcolortitle: gallerybgcolor,
+                bgimagetitle: gallerybgimage
+            });
+
+            dataa = dataa.replaceAll("'", '"');
+            dataa = JSON.parse(dataa);
+            console.log("checking for new data", dataa);
             if (data != "") {
                 var i = 0;
-                for (i = 0; i < data['everydata'].length; i++) {
+                for (i = 0; i < dataa['everydata'].length; i++) {
                     var count = i;
                     var newDiv = document.createElement("div");
                     newDiv.id = "saveddata" + count;
-                    console.log("this is newDiv", newDiv);
                     var id = "saveddata" + count;
 
                     document.querySelector('#showtemplates').append(newDiv);
 
-                    ReactDOM.render(React.createElement(ShowTemplateTwo, { alldata: data['everydata'][i], type: 'edit', id: id, changeBgColor: _this9.changeBgColor,
-                        deleteTemplate: _this9.deleteTemplate, imageTemplate: _this9.imageTemplate }), document.querySelector('#saveddata' + count));
+                    ReactDOM.render(React.createElement(ShowTemplateTwo, { alldata: dataa['everydata'][i], type: 'edit', id: id, changeBgColor: _this10.changeBgColor,
+                        deleteTemplate: _this10.deleteTemplate, imageTemplate: _this10.imageTemplate }), document.querySelector('#saveddata' + count));
                 }
             }
         });
 
-        return _this9;
+        return _this10;
     }
 
     _createClass(NextImg, [{
@@ -716,7 +756,7 @@ var NextImg = function (_React$Component6) {
             var address = document.querySelector('#walletaddress').value;
             var getcooked = getCookie('csrftoken');
 
-            fetch('/realcreateapi/' + address, {
+            fetch('/realcreateapi/1', {
                 method: 'POST',
                 headers: { 'X-CSRFToken': getcooked },
                 body: formData
@@ -753,20 +793,11 @@ var NextImg = function (_React$Component6) {
             var everydata = {};
             var tryeverydata = [];
 
+            var gallerytitle = e.target.parentElement.parentElement.parentElement.childNodes[0].childNodes[3].childNodes[1].childNodes[0].value;
+            var gallerybgcolor = e.target.parentElement.parentElement.parentElement.childNodes[0].childNodes[3].childNodes[1].style.backgroundColor;
+            var gallerybgimage = e.target.parentElement.parentElement.parentElement.childNodes[0].childNodes[3].childNodes[1].style.backgroundImage;
+
             var l = 0;
-            console.log("this is in go save!");
-            console.log("e", e);
-            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[0]);
-            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[1]);
-            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[2]);
-            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[3]);
-            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[4]);
-            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[5]);
-            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[6]);
-            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[7]);
-            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[8]);
-            console.log("check this check that", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9]);
-            console.log("length", e.target.parentElement.parentElement.parentElement.parentElement.childNodes.length);
 
             var z = 0;
             var num = 0;
@@ -832,12 +863,17 @@ var NextImg = function (_React$Component6) {
             formData.append("everydata", everydata);
             var address = document.querySelector('#walletaddress').value;
             var getcooked = getCookie('csrftoken');
-
+            var lastdata = {};
+            lastdata["everydata"] = tryeverydata;
             fetch('/realsaveapi/' + address, {
                 method: 'POST',
                 headers: { 'X-CSRFToken': getcooked },
                 body: JSON.stringify({
-                    everydata: tryeverydata
+                    everydataa: lastdata,
+                    gallerybgcolor: gallerybgcolor,
+                    gallerybgimage: gallerybgimage,
+                    gallerytitle: gallerytitle
+
                 })
 
             });
@@ -866,28 +902,43 @@ var NextImg = function (_React$Component6) {
                 deleteTemplate: this.deleteTemplate, imageTemplate: this.imageTemplate }), document.querySelector('#templatesidtwo' + count));
         }
     }, {
+        key: 'checkGalleryTitleArea',
+        value: function checkGalleryTitleArea(e) {
+            if (e.target.value.length > 0) {
+                this.setState({ gallerytitleedit: e.target.value });
+            } else {
+                this.setState({ gallerytitleedit: "" });
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
-            var _this10 = this;
+            var _this11 = this;
 
             var counttemplate1 = 0;
             var counttemplate2 = 0;
+            console.log("STATE COLOR STATE IMAGE MOFOOOO");
+            console.log("state image", this.state.bgimagetitle);
+            console.log("state color", this.state.bgcolortitle);
 
             var img = [];
             var i = 0;
-            for (i = 0; i < this.props.array.length; i++) {
-                img.push(React.createElement(SortNextImg, {
-                    source: this.props.array[i] }));
+            if (this.props.type != "gallerycoverprofile") {
+                for (i = 0; i < this.props.array.length; i++) {
+                    img.push(React.createElement(SortNextImg, {
+                        source: this.props.array[i] }));
+                }
             }
+            //creating new template just for title page and when to click
             return React.createElement(
                 'div',
                 null,
-                React.createElement(
+                this.props.type != "gallerycoverprofile" ? React.createElement(
                     'div',
                     { 'class': 'd-flex flex-wrap d-flex justify-content-center imgnextbg' },
                     img
-                ),
-                React.createElement(
+                ) : null,
+                this.props.type != "gallerycoverprofile" ? React.createElement(
                     'div',
                     { 'class': 'belowimgnextbg' },
                     React.createElement(
@@ -896,20 +947,20 @@ var NextImg = function (_React$Component6) {
                         React.createElement(
                             'button',
                             { 'class': 'btn btn-outline-dark btn-sm mt-2 mb-2 mr-1', onClick: function onClick() {
-                                    return _this10.showTemplate1(counttemplate1++);
+                                    return _this11.showTemplate1(counttemplate1++);
                                 } },
                             'Template1'
                         ),
                         React.createElement(
                             'button',
                             { 'class': 'btn btn-outline-dark btn-sm mt-2 mb-2', onClick: function onClick() {
-                                    return _this10.showTemplate2(counttemplate2++);
+                                    return _this11.showTemplate2(counttemplate2++);
                                 } },
                             'Template2'
                         )
                     )
-                ),
-                React.createElement(
+                ) : null,
+                this.props.type != "gallerycoverprofile" ? React.createElement(
                     'div',
                     { 'class': 'd-flex justify-content-center' },
                     React.createElement(
@@ -921,6 +972,25 @@ var NextImg = function (_React$Component6) {
                         'button',
                         { 'class': 'btn btn-outline-dark btn-sm mt-2 mb-2', onClick: this.goSave },
                         'Save'
+                    )
+                ) : null,
+                React.createElement(
+                    'div',
+                    null,
+                    this.props.type != "gallerycoverprofile" ? React.createElement(
+                        'div',
+                        { id: 'boss', 'class': 'd-flex justify-content-center d-flex flex-wrap  mt-2' },
+                        React.createElement('input', { id: 'exampleColorInput', onChange: this.changeBgColor, type: 'color', 'class': 'changecolor form-control form-control-color col-1 mb-1', title: 'Choose your color' }),
+                        React.createElement('input', { id: 'filetemplate1', onChange: this.imageTemplate, 'class': 'filetemplate1 form-control-file col-sm-1 mr-1', type: 'file' })
+                    ) : null,
+                    React.createElement(
+                        'div',
+                        { id: 'titlecolor', className: 'd-flex justify-content-center template2 mr-4', style: this.props.type != "gallerycoverprofile" ? { backgroundImage: this.state.bgimagetitle, backgroundColor: this.state.bgcolortitle } : { backgroundImage: this.props.gallerybgimage, backgroundColor: this.props.gallerybgcolor } },
+                        this.props.type != "gallerycoverprofile" ? React.createElement('input', { 'class': 'gallerytitleinput form-control col-4', placeholder: 'Title of Gallery', type: 'text', onChange: this.checkGalleryTitleArea, value: this.state.gallerytitleedit, required: true }) : React.createElement(
+                            'h6',
+                            { 'class': 'yuptitlee' },
+                            this.props.gallerytitle
+                        )
                     )
                 )
             );
@@ -936,29 +1006,29 @@ var EachNft = function (_React$Component7) {
     function EachNft(props) {
         _classCallCheck(this, EachNft);
 
-        var _this11 = _possibleConstructorReturn(this, (EachNft.__proto__ || Object.getPrototypeOf(EachNft)).call(this, props));
+        var _this12 = _possibleConstructorReturn(this, (EachNft.__proto__ || Object.getPrototypeOf(EachNft)).call(this, props));
 
-        _this11.chooseNft = _this11.chooseNft.bind(_this11);
-        _this11.cancelNft = _this11.cancelNft.bind(_this11);
+        _this12.chooseNft = _this12.chooseNft.bind(_this12);
+        _this12.cancelNft = _this12.cancelNft.bind(_this12);
         var arrayurl = [];
-        var animationurl = _this11.props.animationurl;
+        var animationurl = _this12.props.animationurl;
         var index = 65;
 
         if (animationurl != null) {
             index = animationurl.indexOf('.gltf');
         }
-        _this11.state = {
+        _this12.state = {
             arrayurl: arrayurl,
             wholeimg: React.createElement(
                 'div',
                 null,
                 React.createElement(
                     'div',
-                    { id: 'wilachatww', name: 'imgdiv', value: 'false', className: 'box', onClick: _this11.chooseNft, 'data-selected': 'false' },
-                    index == 65 ? React.createElement('img', { 'class': 'nftimg', src: _this11.props.imageurl }) : React.createElement(
+                    { id: 'wilachatww', name: 'imgdiv', value: 'false', className: 'box', onClick: _this12.chooseNft, 'data-selected': 'false' },
+                    index == 65 ? React.createElement('img', { 'class': 'nftimg', src: _this12.props.imageurl }) : React.createElement(
                         'video',
-                        { src: _this11.props.animationurl, muted: true, autoplay: 'autoplay', loop: 'true', 'class': 'nftvdo' },
-                        React.createElement('source', { src: _this11.props.animationurl, type: 'video/mp4' })
+                        { src: _this12.props.animationurl, muted: true, autoplay: 'autoplay', loop: 'true', 'class': 'nftvdo' },
+                        React.createElement('source', { src: _this12.props.animationurl, type: 'video/mp4' })
                     )
                 ),
                 React.createElement(
@@ -966,13 +1036,13 @@ var EachNft = function (_React$Component7) {
                     { 'class': 'd-flex justify-content-center' },
                     React.createElement(
                         'a',
-                        { href: index == 65 ? _this11.props.imageurl : _this11.props.animationurl, target: '_blank', 'class': 'btn btn-outline-dark btn-sm mt-1 mb-1' },
+                        { href: index == 65 ? _this12.props.imageurl : _this12.props.animationurl, target: '_blank', 'class': 'btn btn-outline-dark btn-sm mt-1 mb-1' },
                         'view'
                     )
                 )
             )
         };
-        return _this11;
+        return _this12;
     }
 
     _createClass(EachNft, [{
@@ -1067,11 +1137,11 @@ var ShowNfts = function (_React$Component8) {
     function ShowNfts(props) {
         _classCallCheck(this, ShowNfts);
 
-        var _this12 = _possibleConstructorReturn(this, (ShowNfts.__proto__ || Object.getPrototypeOf(ShowNfts)).call(this, props));
+        var _this13 = _possibleConstructorReturn(this, (ShowNfts.__proto__ || Object.getPrototypeOf(ShowNfts)).call(this, props));
 
-        _this12.selectedImg = _this12.selectedImg.bind(_this12);
-        console.log("check for data inside to get the address to send back to api", _this12.props.data);
-        return _this12;
+        _this13.selectedImg = _this13.selectedImg.bind(_this13);
+        console.log("check for data inside to get the address to send back to api", _this13.props.data);
+        return _this13;
     }
 
     _createClass(ShowNfts, [{
@@ -1137,6 +1207,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
     var wallclick = document.querySelector('#wallclick');
     wallclick.addEventListener('click', function (e) {
+        console.log("what");
         var query = "";
         var i = 0;
         console.log("e", e);
@@ -1158,4 +1229,4 @@ document.addEventListener('DOMContentLoaded', function (e) {
         });
     });
 });
-export { ShowTemplateOne, ShowTemplateTwo };
+export { NextImg, ShowTemplateTwo };

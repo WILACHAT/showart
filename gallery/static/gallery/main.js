@@ -1,5 +1,7 @@
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -12,21 +14,21 @@ var PostRow = function (_React$Component) {
   function PostRow(props) {
     _classCallCheck(this, PostRow);
 
-    return _possibleConstructorReturn(this, (PostRow.__proto__ || Object.getPrototypeOf(PostRow)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (PostRow.__proto__ || Object.getPrototypeOf(PostRow)).call(this, props));
+
+    console.log(_this.props.id);
+
+    console.log(_this.props.username);
+    console.log(_this.props.gallerytitle);
+    console.log(_this.props.gallerybgimage);
+    console.log(_this.props.gallerybgcolor);
+    console.log(_this.props.modifiedtime);
+    console.log("views", _this.props.views);
+    return _this;
   }
 
   _createClass(PostRow, [{
-    key: 'toEdit',
-    value: function toEdit() {
-      ReactDOM.unmountComponentAtNode(document.querySelector('#postpage'));
-      ReactDOM.render(React.createElement(EditPage, {
-        id: this.props.id,
-        postinfo: this.props.post_info,
-        curuser: this.props.curuser,
-        timestamp: this.props.time_stamp }), document.querySelector('#posting_view'));
-    }
-  }, {
-    key: 'render',
+    key: "render",
     value: function render() {
 
       var createdDate = this.props.time_stamp;
@@ -39,34 +41,82 @@ var PostRow = function (_React$Component) {
       }
 
       var info = this.props.post_info;
-      var profilelink = "/profile/" + this.props.user_id;
+      var profilelink = "/profile/" + this.props.id;
 
       return React.createElement(
-        'div',
-        { 'class': this.props.user_id == this.props.curuser ? "container border border-black rounded post_style" : "container border border-black rounded post_style_noedit" },
+        "div",
+        null,
         React.createElement(
-          'a',
-          { href: profilelink, name: 'posterr', 'class': 'h4 colorstyle' },
-          this.props.user_name
-        ),
-        React.createElement('input', { type: 'hidden', value: this.props.id }),
-        React.createElement(
-          'a',
-          { href: thegallery, 'class': 'postinfo', name: 'post_info' },
-          info
-        ),
-        React.createElement('input', { type: 'hidden', value: this.props.user_id }),
-        React.createElement(
-          'p',
-          { name: 'timestamp', 'class': 'font-weight-light timestamp' },
-          changedTime
-        ),
-        createdDate != changedTime ? React.createElement(
-          'p',
-          { name: 'timestamp', 'class': 'font-weight-light timestamp' },
-          'Last Updated: ',
-          createdDate
-        ) : null
+          "a",
+          { "class": "aeexplore", href: profilelink },
+          React.createElement(
+            "div",
+            { "class": "coversall" },
+            React.createElement(
+              "div",
+              { "class": "d-flex justify-content-center mt-5" },
+              React.createElement(
+                "div",
+                { "class": "postexplore2" },
+                this.props.title != "" ? React.createElement(
+                  "p",
+                  _defineProperty({ "class": "titlep d-flex justify-content-end", id: "aescape" }, "class", "font-weight-light timestamp"),
+                  "Title: ",
+                  React.createElement(
+                    "h6",
+                    null,
+                    this.props.gallerytitle
+                  )
+                ) : null
+              )
+            ),
+            React.createElement(
+              "div",
+              { "class": "d-flex justify-content-center" },
+              React.createElement("div", { "class": "postexplore", style: { backgroundColor: this.props.gallerybgcolor, backgroundImage: this.props.gallerybgimage } })
+            ),
+            React.createElement(
+              "div",
+              { "class": "d-flex justify-content-center" },
+              React.createElement(
+                "div",
+                { "class": "postexplore2 d-flex justify-content-between" },
+                React.createElement(
+                  "p",
+                  _defineProperty({ "class": "d-flex justify-content-start", href: profilelink, id: "aescape" }, "class", "h4 colorstyle"),
+                  this.props.username
+                ),
+                React.createElement("p", null),
+                React.createElement(
+                  "p",
+                  _defineProperty({ id: "aescape", "class": "titlep d-flex justify-content-end", name: "timestamp" }, "class", "font-weight-light timestamp"),
+                  this.props.views,
+                  " ",
+                  this.props.views > 1 ? "views" : "view"
+                )
+              )
+            ),
+            React.createElement(
+              "div",
+              { "class": "d-flex justify-content-center" },
+              React.createElement(
+                "div",
+                { "class": "postexplore2" },
+                React.createElement(
+                  "p",
+                  { id: "aescape", "class": "font-weight-light timestamp mb-5" },
+                  "Last Updated: ",
+                  this.props.modifiedtime
+                )
+              )
+            ),
+            React.createElement(
+              "div",
+              { "class": "d-flex justify-content-center" },
+              React.createElement("input", { type: "hidden", value: this.props.id })
+            )
+          )
+        )
       );
     }
   }]);
@@ -87,7 +137,7 @@ var PostTable = function (_React$Component2) {
   }
 
   _createClass(PostTable, [{
-    key: 'changePage',
+    key: "changePage",
     value: function changePage(e) {
       var pagination = e.target.id;
       var innerhtmlpage = e.target.innerHTML;
@@ -109,16 +159,17 @@ var PostTable = function (_React$Component2) {
         clicked = 0;
       }
 
-      fetch('/currentgalleryapi/' + whatkind + '/' + clicked + '/' + pagination).then(function (response) {
+      fetch("/currentgalleryapi/" + whatkind + "/" + clicked + "/" + pagination).then(function (response) {
         return response.json();
       }).then(function (data) {
+
         ReactDOM.render(React.createElement(PostTable, { data: data }), document.querySelector('#postpage'));
       });
 
       window.scrollTo(0, 0);
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
 
       var h1nopost = "";
@@ -126,16 +177,18 @@ var PostTable = function (_React$Component2) {
       var rows = [];
       var button = [];
       var curuser = this.props.data["user"];
+      console.log("whatkind", this.props.data["whatkind"]);
+
       var paginationid = this.props.data["paginationid"];
 
       for (var j = 0; j < this.props.data["num_pages"]; j++) {
         var thej = j + 1;
         button.push(React.createElement(
-          'li',
-          { 'class': paginationid == thej ? "page-item active" : "page-item", onClick: this.changePage },
+          "li",
+          { "class": paginationid == thej ? "page-item active" : "page-item", onClick: this.changePage },
           React.createElement(
-            'a',
-            { 'class': 'page-link' },
+            "a",
+            { "class": "page-link" },
             thej
           )
         ));
@@ -144,53 +197,49 @@ var PostTable = function (_React$Component2) {
       for (var i = 0; i < this.props.data["data"].length; i++) {
         rows.push(React.createElement(PostRow, {
           id: this.props.data["data"][i].id,
-          post_info: this.props.data["data"][i].post_info,
-          user_id: this.props.data["data"][i].user_id,
-          user_name: this.props.data["data"][i].user_name,
-          time_stamp: this.props.data["data"][i].timestamp,
-          changedtime: this.props.data["data"][i].changedtime,
+          username: this.props.data["data"][i].username,
+          gallerytitle: this.props.data["data"][i].gallerytitle,
+          gallerybgcolor: this.props.data["data"][i].gallerybgcolor,
+          gallerybgimage: this.props.data["data"][i].gallerybgimage,
+          modifiedtime: this.props.data["data"][i].modifiedtime,
+          views: this.props.data["data"][i].views,
+
           curuser: curuser }));
       }
       return React.createElement(
-        'div',
+        "div",
         null,
-        datalength != 0 ? React.createElement(
-          'table',
-          { className: 'table table-hover table-sm' },
-          React.createElement(
-            'tbody',
-            null,
-            ' ',
-            rows,
-            ' '
-          )
-        ) : React.createElement(
-          'div',
-          null,
-          h1nopost
+        React.createElement(
+          "div",
+          { "class": "flex-column" },
+          rows
         ),
-        this.props.data["num_pages"] != 0 ? React.createElement(
-          'ul',
-          { 'class': 'pagination container justify-content-center' },
-          React.createElement(
-            'li',
-            { 'class': 'page-item' },
-            paginationid != 1 ? React.createElement(
-              'span',
-              { id: paginationid, 'class': 'page-link', onClick: this.changePage },
-              'Previous'
-            ) : null
-          ),
-          button,
-          React.createElement(
-            'li',
-            { 'class': 'page-item' },
-            paginationid != this.props.data["num_pages"] ? React.createElement(
-              'span',
-              { id: paginationid, 'class': 'page-link', onClick: this.changePage },
-              'Next'
-            ) : null
-          )
+        this.props.data["whatkind"] == "explore" ? React.createElement(
+          "div",
+          null,
+          this.props.data["num_pages"] != 0 ? React.createElement(
+            "ul",
+            { "class": "pagination container justify-content-center " },
+            React.createElement(
+              "li",
+              { "class": "page-item" },
+              paginationid != 1 ? React.createElement(
+                "span",
+                { id: paginationid, "class": "page-link", onClick: this.changePage },
+                "Previous"
+              ) : null
+            ),
+            button,
+            React.createElement(
+              "li",
+              { "class": "page-item" },
+              paginationid != this.props.data["num_pages"] ? React.createElement(
+                "span",
+                { id: paginationid, "class": "page-link", onClick: this.changePage },
+                "Next"
+              ) : null
+            )
+          ) : null
         ) : null
       );
     }

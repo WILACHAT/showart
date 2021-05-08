@@ -16,6 +16,8 @@ import os
 from django.conf import settings
 from django.contrib.staticfiles.views import serve
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.db.models import F
+from django.db.models import Count
 
 
 def index(request):
@@ -54,18 +56,21 @@ def gallery(request):
     
     return render(request, "gallery/gallery.html", {"wallet": request.session["wallet"]})
 
+
 def realsaveapi(request, address):
     if request.method == "POST":
         curid = request.user.id
         data = json.loads(request.body)
-        print(f"this is data: {data}")
-        print(f"lols: {data['everydata']}")
-        
 
-        User.objects.filter(id = request.user.id).update(galleryinfo = data)
+        tz = pytz.timezone('Asia/Bangkok')
+        currenttime = datetime.now(tz)
+   
+        User.objects.filter(id = request.user.id).update(galleryinfo = data['everydataa'], gallerybgcolor = data['gallerybgcolor']
+        ,gallerybgimage = data['gallerybgimage'], gallerytitle = data['gallerytitle'], modify_date = currenttime)
+        
         return render(request, "gallery/profile.html")
 
-def realcreateapi(request, address):
+def realcreateapi(request, clicked):
     if request.method == "POST":
         
         if 'media' in request.FILES.keys():
@@ -76,16 +81,33 @@ def realcreateapi(request, address):
             return JsonResponse(filename, safe=False)
         
     if request.method == "PUT":
-        check =  User.objects.filter(id = request.user.id)  
+        data = json.loads(request.body)
+        if (data['edit'] == "edit"):
+            check =  User.objects.filter(id = request.user.id)  
+        else:
+            check =  User.objects.filter(id = clicked)  
+
         for i in check:
             print(f"check for the galleryinfo: {i.galleryinfo}")
             galleryinfo = i.galleryinfo
+            gallerybgimage = i.gallerybgimage
+            gallerybgcolor = i.gallerybgcolor
+            gallerytitle = i.gallerytitle
+            print(f"this is gallery info:{galleryinfo}")
 
-            return JsonResponse(galleryinfo, safe=False)
+            return_request = {"galleryinfo": galleryinfo, "gallerybgimage": gallerybgimage, "gallerybgcolor": gallerybgcolor, "gallerytitle": gallerytitle}
+
+            return JsonResponse(return_request, safe=False)
 
 def currentgalleryapi(request, whatkind, clicked, paginationid):
     curuser = request.user.id
+    allgallery = ""
     following = Follower.objects.filter(user_id_follower = clicked, user_id_following = curuser, follow_qm = 1).count()
+    howmanyvotes = Vote.objects.filter(user_id_id = clicked, like = 1).count()
+  
+
+    if howmanyvotes == 0:
+            howmanyvotes = 0
     if following == 0:
         following = 0
     else:
@@ -95,10 +117,21 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
     profiledes = None
     username = None
     profpic = None
+    view = 0
 
     listfollowing = []
 
     if whatkind == "profile":
+        viewview = User.objects.filter(id = clicked)
+        view = 0
+        for i in viewview:
+            view = i.views
+            if view == None:
+                view = 0
+            
+        print(f"how many views: {view}")
+        view = view + 1
+        viewcheck = User.objects.filter(id = clicked).update(views = view)
         currentgallery = Dummypost.objects.filter(user_id_id = clicked, activedummy = 1)
         currentuserinfo = User.objects.filter(id = clicked)
         for i in currentuserinfo:
@@ -106,6 +139,7 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
             contactgmail = i.contactgmail 
             openseaurl = i.opensea_url
             profiledes = i.profile_des
+            view = i.views
 
         first = "gallery/"   
         nogal = "/static/profile_pic/"   
@@ -168,8 +202,24 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
                     following = 0
 
     elif whatkind == "explore":
-        currentgallery = Dummypost.objects.filter(activedummy = 1)
+        print("is this in explore")
+        allgallery = User.objects.all()
     
+    elif whatkind == "gallery":
+        kuku = Follower.objects.values('user_id_follower').annotate(count=Count('user_id_follower')).filter(follow_qm = 1).order_by('-count')[:3]
+        kulist = []
+        print(kuku)
+        for i in kuku:
+            print("i.user.id.follower", i['user_id_follower'])
+            kulist.append(i['user_id_follower'])
+            
+        
+        print(f"kulist: {kulist}")
+        allgallery = User.objects.filter(id__in = kulist)
+
+
+        print(f"kutoo: {allgallery}")
+            
     elif whatkind == "following":
         print("this is whatkind and it should be in whatkind")
         following_f = Follower.objects.filter(user_id_following = request.user.id, follow_qm = 1)
@@ -177,19 +227,21 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
         for i in following_f:
             listfollowing.append(i.user_id_follower.id)
         
-        currentgallery = Dummypost.objects.filter(user_id_id__in = listfollowing, activedummy = 1)
+        allgallery = User.objects.filter(id__in = listfollowing)
 
     newdata = []
-    for gallery in currentgallery:
-        newdata.append(gallery.serialize(request.user.id))
+    for gallery in allgallery:
+        newdata.append(gallery.serializeuser(request.user.id))
     
     pagination = Paginator(newdata, 5)
     num_pages = pagination.num_pages
     paginationid = int(paginationid)
     print(f"this is profpic", profpic)
+    howmanyfollow = Follower.objects.filter(user_id_follower = clicked, follow_qm = 1).count()
+
 
     return_request = {"user":curuser, "username":username, "whatkind":whatkind, "following":following,"contactgmail":contactgmail, "openseaurl":openseaurl, "profiledes":profiledes, "data":[], "num_pages":num_pages, "paginationid":paginationid,
-    "profilepic":profpic}
+    "profilepic":profpic, "howmanyvotes":howmanyvotes, "howmanyfollow":howmanyfollow, "view":view}
 
     for row in pagination.page(paginationid).object_list:  
         return_request["data"].append(row)

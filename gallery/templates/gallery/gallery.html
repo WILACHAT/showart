@@ -1,5 +1,11 @@
 {% extends "gallery/layout.html" %}
+{% load static %}
 
 {% block body %}
-    TODO
+    <div id="topgallery">
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script type="module" src="{% static 'gallery/gallery.js' %}"></script>
 {% endblock %}

@@ -305,6 +305,12 @@ input[id='choosefile'] {
   font-weight: bold;
   font-size:20px;
 }
+.yuptitlee{
+  font-family:"HelveticaW01-Bold";
+  font-weight: bold;
+  font-size:50px;
+  margin-top:20%;
+}
 
 .spans{
   display:flex;
@@ -314,8 +320,15 @@ input[id='choosefile'] {
   height:auto;
 }
 .testingtestimg{
-  height:70%;
-  width:70%;
+  margin:auto;
+  display: block;
+  width: 100%;
+  height:100%;
+  text-align:center;
+  z-index: 2;
+  position: relative;
+  object-fit: contain;
+  max-height:700px;
 
 
 }
@@ -460,6 +473,10 @@ input[id='choosefile'] {
 {
   margin-top:15%;
 }
+.gallerytitleinput
+{  margin-top:25%;
+
+}
 .quertfornfttext{
   text-align: center;
   font-family: "HelveticaW01-Bold";
@@ -468,4 +485,41 @@ input[id='choosefile'] {
 .galleryname
 {
   padding-top:-30px;
+}
+.postexplore
+{
+  width:700px;
+  height:400px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  justify-content: center;
+
+}
+.postexplore2
+{
+  width:700px;
+  height:auto;
+
+}
+.ptitle{
+  margin-bottom:-10px;
+}
+.titlep{
+  color:black;
+}
+.titlespan{
+  font-weight: bold;
+}
+#aescape
+{
+  color:black;
+}
+.aeexplore:hover{
+  text-decoration: none;
+
+}
+.coversall
+{
+  border-bottom: 1px solid #dadada;
+
 }

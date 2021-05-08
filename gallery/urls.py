@@ -20,12 +20,14 @@ urlpatterns = [
     path("register", views.register, name="register"),
     path("thegallery/<int:id>", views.thegallery, name="thegallery"),
     path("profile/<int:id>", views.profile, name="profile"),
+        
+
 
 
 
 
     #APIS
-    path("realcreateapi/<str:address>", views.realcreateapi, name="realcreateapi"),
+    path("realcreateapi/<int:clicked>", views.realcreateapi, name="realcreateapi"),
     path("realsaveapi/<str:address>", views.realsaveapi, name="realsaveapi"),
 
     path("currentgalleryapi/<str:whatkind>/<int:clicked>/<int:paginationid>", views.currentgalleryapi, name="currentgalleryapi")

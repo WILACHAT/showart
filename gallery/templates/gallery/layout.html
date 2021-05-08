@@ -11,18 +11,19 @@
         <script src="{% static 'gallery/dropzone/dist/dropzone.js' %}"></script>
         <script src="{% static 'gallery/dropzone/dist/dropzone.js' %}"></script>
         <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
-      
+        <script src="https://unpkg.com/fast-average-color/dist/index.min.js"></script>
         {% block script %}
         {% endblock %}
     </head>
     <body>
 
-        <nav class="navibar navbar navbar-expand-lg navbar-light">
+        <nav id="navibarid" class="navibar navbar navbar-expand-lg navbar-light">
             <a class="showart navbar-brand" href="{% url 'explore' %}">showArt</a>
             <div>
               <ul class="navbar-nav mr-auto">
                 
 
+                {% if user.is_authenticated %}
 
                 <li class="nav-item">
                       <a class="showart nav-link" href="{% url 'profile' user.id %}"><strong>{{ user.username }}</strong></a>
@@ -33,9 +34,7 @@
                   <li class="nav-item">
                       <a class="showart nav-link" href="{% url 'explore' %}">Explore</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="showart nav-link" href="{% url 'newcreate' %}">Create</a>
-                      </li>
+           
                       <li class="nav-item">
                         <a class="showart nav-link" href="{% url 'connectwallet' %}">Add Wallet</a>
                       </li>
@@ -55,7 +54,7 @@
 
 
                       <li class="nav-item">
-                          <a class="showart nav-link" href="{% url 'following' %}">Following</a>
+                          <a class="showart nav-link" href="{% url 'following' %}">Voted</a>
                       </li>
                       <li showart class="nav-item">
                           <a class="showart nav-link" href="{% url 'logout' %}">Log Out</a>
@@ -64,7 +63,6 @@
                       
           
                                       
-                {% if user.is_authenticated %}
                   
                 {% else %}  
                 <li class="nav-item">

@@ -1,5 +1,5 @@
 
-import  { ShowTemplateOne, ShowTemplateTwo } from './realcreate.js';
+import  { NextImg, ShowTemplateTwo } from './realcreate.js';
 
 function getCookie(name) {
     let cookieValue = null;
@@ -20,17 +20,21 @@ function getCookie(name) {
     constructor(props){
         super(props);
         this.toBack = this.toBack.bind(this);
-        this.testTest = this.testTest.bind(this);
 
         let data = this.props.data;
+        console.log("what kind of data is really showing", data)
       
         data = data.replaceAll("'", '"');
         data = JSON.parse(data);
-        console.log("this is new data!", data)
-        console.log("this is data part 1", data['everydata'][0])
-        console.log("this is data part 2", data['everydata'][1])
+        const newerdiv = document.createElement("div");
+        newerdiv.id = "gallerycoverid"
+        document.querySelector('#gallerypageone').appendChild(newerdiv);
+        
+        ReactDOM.render(<NextImg gallerybgcolor={this.props.gallerybgcolor}
+            gallerybgimage={this.props.gallerybgimage} gallerytitle={this.props.gallerytitle} 
+            type="gallerycoverprofile" />,document.querySelector('#gallerycoverid'));
 
-        console.log(data['everydata'].length)
+        console.log("dataeverydata", data['everydata'])
         let i = 0
         for (i = 0; i < data['everydata'].length; i++)
         {
@@ -39,9 +43,8 @@ function getCookie(name) {
             newDiv.id = "templatesidtwo" + count
             console.log("this is newDiv", newDiv);
             document.querySelector('#gallerypageone').appendChild(newDiv);
-
+            
             ReactDOM.render(<ShowTemplateTwo alldata={data['everydata'][i]} type="profile" />,document.querySelector('#templatesidtwo' + count));
-
         }
     }
     toBack()
@@ -50,13 +53,12 @@ function getCookie(name) {
             document.querySelector('#followpart').hidden = false;
             document.querySelector('#gallerypage').hidden = true;
             document.querySelector('#gallerypageone').hidden = true;
+            document.querySelector('#navibarid').hidden = false;
+
 
             
     }
-    testTest()
-    {
-        console.log("lets gooo")
-    }
+   
 
     render(){
         let i = 0;
@@ -84,6 +86,8 @@ function getCookie(name) {
         let profiledes = this.props.data["profiledes"];
         let username = this.props.data["username"];
         let profilepic = this.props.data["profilepic"];
+        let numvotes = this.props.data["howmanyvotes"];
+
 
         console.log("username", username)
 
@@ -116,6 +120,7 @@ function getCookie(name) {
 
   this.state = {
     username: username,
+    numvotes: numvotes,
     profiledes: profiledes,
     openseaurl: openseaurl,
     contactgmail: contactgmail,
@@ -140,6 +145,7 @@ function getCookie(name) {
                 <div class="d-flex justify-content-center">
                     <h3 class="profiledescss">{profiledes}</h3>
                 </div>
+              
         </div>
     </div>
    
@@ -147,6 +153,7 @@ function getCookie(name) {
 };
 
     }
+   
     showEditPost(e) {
         console.log("in showEditPost", this.state.profiledes);
         this.setState({
@@ -248,30 +255,43 @@ function getCookie(name) {
         });
 
     }
-    toNext(){
-   
+    toNext(e){
+            //unhide the profileedit to make the gallery in the same page as profile info
             document.querySelector('#profileedit').hidden = true;           
             document.querySelector('#gallerypageone').hidden = false;
             document.querySelector('#followpart').hidden = true;
             document.querySelector('#gallerypage').hidden = false;
+            console.log(e)
+            document.querySelector('#navibarid').hidden = true;
+            let clicked = parseInt(window.location.pathname.split('/')[2])
+
+
             const getcooked = getCookie('csrftoken')
-            fetch(`/realcreateapi/1`, {
+            fetch(`/realcreateapi/${clicked}`, {
                 method: 'PUT',
                 headers:{'X-CSRFToken': getcooked},
-                body:"getgalleryinfo"
+                body: JSON.stringify({
+                    edit:"gallery"
+                    })
             })
             .then(response => response.json())
             
-    
+            
          .then(data => {
-            ReactDOM.render(<DisplayGallery data={data}/>, document.querySelector('#gallerypage'));
+            console.log("gallery faking info", data['galleryinfo'])
+            console.log("gallery title", data['gallerytitle'])
+            console.log("gallery bg image", data['gallerybgimage'])
+            console.log("gallery bg color", data['gallerybgcolor'])
+
+
+            ReactDOM.render(<DisplayGallery data={data['galleryinfo']} gallerytitle={data['gallerytitle']}
+            gallerybgimage={data['gallerybgimage']} gallerybgcolor={data['gallerybgcolor']}/>, document.querySelector('#gallerypage'));
 
         });
     }
 
     
     cancel(profilepic){
-       console.log("we will be testing profilepic", profilepic)
        let username = this.state.username
        let edit_button = <button type="button" name="edit_button" onClick={this.showEditPost} className="loll btn btn-outline-dark btn-sm">edit</button> 
        let clicked = parseInt(window.location.pathname.split('/')[2])
@@ -323,6 +343,7 @@ function getCookie(name) {
       return (
         <div>
             {this.state.edit}
+
             <div class="d-flex justify-content-center">
                 <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.toNext}>Gallery</button>
             </div>
@@ -441,7 +462,7 @@ function getCookie(name) {
                 </div>
                 <div class="d-flex justify-content-center">
                     <div id="coverschoosefile">
-                        {clicked == 1 ? <input id="choosefile" class="choosefile" onChange={this.chooseFile} type="file"></input> : null}
+                        {<input id="choosefile" class="choosefile" onChange={this.chooseFile} type="file"></input>}
                     </div>
                 </div>
                 <div className="form-floating">
@@ -473,28 +494,33 @@ function getCookie(name) {
   class FollowTable extends React.Component {
     constructor(props) {
         super(props);
-        const followname = this.props.data["following"] > 0 ? "Unfollow" : "Follow";
+        const followname = this.props.data["following"] > 0 ? "Unvote" : "Vote";
         this.followPost = this.followPost.bind(this);
         console.log("followname",
          followname)
 
         this.state = {
-            followname: followname
+            followname: followname,
+            current_howmanyfollow: this.props.data["howmanyfollow"]
+
           };
       }
       followPost(e)
       {
         
         let whatkind = "profile"
+        let updated_csl = 0
+
         console.log(e)
         let clicked = parseInt(window.location.pathname.split('/')[2])
         let current = this.props.data["user"]
         const pagination = 1
         const getcooked = getCookie('csrftoken')
         
-        if (this.state.followname == "Follow"){
-            this.setState({followname: "Unfollow"})
-          fetch(`/currentgalleryapi/${whatkind}/${clicked}/${pagination}`, {
+        if (this.state.followname == "Vote"){
+            updated_csl = this.state.current_howmanyfollow + 1
+            this.setState({current_howmanyfollow: updated_csl, followname: "Unvote"})         
+            fetch(`/currentgalleryapi/${whatkind}/${clicked}/${pagination}`, {
             method: 'PUT',
             headers:{'X-CSRFToken': getcooked},
                 body: JSON.stringify({
@@ -504,9 +530,9 @@ function getCookie(name) {
                 })
           })
         }
-        if (this.state.followname == "Unfollow"){
-           
-          this.setState({followname: "Follow"})
+        if (this.state.followname == "Unvote"){
+            updated_csl = this.state.current_howmanyfollow - 1
+            this.setState({current_howmanyfollow: updated_csl, followname: "Vote"})
           console.log("whatever man")
           fetch(`/currentgalleryapi/${whatkind}/${clicked}/${pagination}`, {
             method: 'PUT',
@@ -542,6 +568,13 @@ function getCookie(name) {
       
       return (
         <div>
+             <div class="d-flex justify-content-center">
+                    <div class="postexplore2 d-flex justify-content-between">
+                        <p class="ptitle d-flex justify-content-end"name="timestamp" class="font-weight-light timestamp">{this.state.current_howmanyfollow} {this.state.current_howmanyfollow > 1 ? "votes":"vote"}</p>
+                        <p></p>
+                        <p class="titlep d-flex justify-content-end"name="timestamp" class="font-weight-light timestamp">{this.props.data["view"]} {this.props.data["view"] > 1 ? "views":"view"}</p>
+                    </div>
+                </div>
             {follow_button}
         </div>
   

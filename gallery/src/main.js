@@ -2,18 +2,17 @@
   class PostRow extends React.Component {
     constructor(props) {
       super(props);
-      
+      console.log(this.props.id)
+
+      console.log(this.props.username)
+      console.log(this.props.gallerytitle)
+      console.log(this.props.gallerybgimage)
+      console.log(this.props.gallerybgcolor)
+      console.log(this.props.modifiedtime)
+      console.log("views", this.props.views)
       };
  
-    toEdit()
-    {
-      ReactDOM.unmountComponentAtNode(document.querySelector('#postpage'));
-      ReactDOM.render(<EditPage 
-      id={this.props.id} 
-      postinfo={this.props.post_info}
-      curuser={this.props.curuser}
-      timestamp={this.props.time_stamp}/>, document.querySelector('#posting_view'));
-    }
+  
 
     render() {
      
@@ -28,20 +27,47 @@
       }
      
       const info = this.props.post_info
-      const profilelink = "/profile/"+this.props.user_id
+      const profilelink = "/profile/"+this.props.id
 
      
         return (
-          <div class={this.props.user_id == this.props.curuser ? "container border border-black rounded post_style" : "container border border-black rounded post_style_noedit"} >
-            <a href={profilelink} name="posterr" class="h4 colorstyle">{this.props.user_name}</a> 
-              <input type="hidden" value={this.props.id}></input>
-              <a href={thegallery} class="postinfo"name="post_info">{info}</a>
-              <input type="hidden" value={this.props.user_id}></input>
-              <p name="timestamp" class="font-weight-light timestamp">{changedTime}</p>
-              {createdDate != changedTime ? <p name="timestamp" class="font-weight-light timestamp">Last Updated: {createdDate}</p>: null}
+          <div>
+        <a class="aeexplore" href={profilelink}>
+          <div class="coversall">
+            <div class="d-flex justify-content-center mt-5">
+              <div class="postexplore2">
+                {this.props.title != "" ? <p class="titlep d-flex justify-content-end"id="aescape" class="font-weight-light timestamp">Title: <h6>{this.props.gallerytitle}</h6></p>:null}
+              </div>
+            </div>
+            
+            <div class="d-flex justify-content-center">
+                <div class="postexplore"style={{backgroundColor: this.props.gallerybgcolor, backgroundImage: this.props.gallerybgimage}}></div>
+            </div>
+
+          <div class="d-flex justify-content-center">
+            <div class="postexplore2 d-flex justify-content-between">
+              <p class="d-flex justify-content-start"href={profilelink} id="aescape" class="h4 colorstyle">{this.props.username}</p> 
+              <p></p>
+              <p id="aescape" class="titlep d-flex justify-content-end"name="timestamp" class="font-weight-light timestamp">{this.props.views} {this.props.views > 1 ? "views":"view"}</p>
+            </div>
+          </div>
+            
+            <div class="d-flex justify-content-center">
+              <div class="postexplore2">
+                    <p id="aescape" class="font-weight-light timestamp mb-5">Last Updated: {this.props.modifiedtime}</p>
+
+              </div>           
+            </div>  
+           
+         
+           
+            <div class="d-flex justify-content-center">
+                <input type="hidden" value={this.props.id}></input>
+            </div>    
+            </div>
+            </a>
           </div>
         )
-
     }
   }
 
@@ -82,6 +108,7 @@ class PostTable extends React.Component
     fetch(`/currentgalleryapi/${whatkind}/${clicked}/${pagination}`)
     .then(response => response.json())
     .then(data => {
+
     ReactDOM.render(<PostTable data={data}/>, document.querySelector('#postpage'));
     });
 
@@ -92,10 +119,11 @@ class PostTable extends React.Component
     
     let h1nopost = ""
     
-
     const rows = [];
     const button = [];
     const curuser = this.props.data["user"]
+    console.log("whatkind", this.props.data["whatkind"])
+
     const paginationid = this.props.data["paginationid"]
 
     for (let j = 0; j < this.props.data["num_pages"]; j++)
@@ -113,25 +141,28 @@ class PostTable extends React.Component
       rows.push(
         <PostRow
           id={this.props.data["data"][i].id}
-          post_info={this.props.data["data"][i].post_info}
-          user_id={this.props.data["data"][i].user_id}
-          user_name={this.props.data["data"][i].user_name}
-          time_stamp={this.props.data["data"][i].timestamp}
-          changedtime={this.props.data["data"][i].changedtime}
+          username={this.props.data["data"][i].username}
+          gallerytitle={this.props.data["data"][i].gallerytitle}
+          gallerybgcolor={this.props.data["data"][i].gallerybgcolor}
+          gallerybgimage={this.props.data["data"][i].gallerybgimage}
+          modifiedtime={this.props.data["data"][i].modifiedtime}
+          views={this.props.data["data"][i].views}
+          
+
           curuser={curuser}/>
       );
 
     }
     return (
       <div>
-        {datalength != 0 ?
-        <table className="table table-hover table-sm">
-        <tbody> {rows} </tbody>
-        </table>: <div>{h1nopost}</div> }
+      <div class="flex-column">
+        {rows}
+      </div>
         
+        {this.props.data["whatkind"] == "explore" ? 
+        <div>
         {this.props.data["num_pages"] != 0 ?
-        
-        <ul class="pagination container justify-content-center">
+        <ul class="pagination container justify-content-center ">
             <li class="page-item">
               {paginationid != 1 ? <span id={paginationid} class="page-link" onClick={this.changePage}>Previous</span>: null}
               </li>
@@ -140,6 +171,7 @@ class PostTable extends React.Component
               {paginationid != this.props.data["num_pages"] ? <span id={paginationid} class="page-link" onClick={this.changePage}>Next</span>: null}
             </li>
         </ul>: null}
+        </div>: null}
       </div>
     );
   }
