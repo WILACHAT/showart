@@ -1,14 +1,30 @@
 @font-face {font-family: "HelveticaW01-Bold"; src: url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.eot"); src: url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.woff") format("woff"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.svg#HelveticaW01-Bold") format("svg"); }
+@font-face {font-family: "HelveticaW01-Cn"; src: url("//db.onlinewebfonts.com/t/13142f2ecc33e8151867bd44ea4eb4dc.eot"); src: url("//db.onlinewebfonts.com/t/13142f2ecc33e8151867bd44ea4eb4dc.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/13142f2ecc33e8151867bd44ea4eb4dc.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/13142f2ecc33e8151867bd44ea4eb4dc.woff") format("woff"), url("//db.onlinewebfonts.com/t/13142f2ecc33e8151867bd44ea4eb4dc.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/13142f2ecc33e8151867bd44ea4eb4dc.svg#HelveticaW01-Cn") format("svg"); }
+
 .navibar
 {
   background-color:white;
 }
+
+body{
+  background-image: url(/static/profile_pic/marble.jpg)
+}
+
 .nav-link{
   color:white;
 }
-body{
-  margin: 0;
+.aboutustitle
+{
+  font-family:"HelveticaW01-Bold";
+  font-weight: bold;
+  font-size:100px;
+  margin-top:20%;
+  
 }
+/*
+ABOUT US CSS
+*/
+/* END */
 #texty{
     font-weight: 500;
     font-size: 30px;
@@ -108,6 +124,24 @@ div {
 {
   color:white;
   font-family:"HelveticaW01-Bold";
+    
+}
+.showartt
+{
+  font-family: "HelveticaW01-Bold";
+  font-size:15px;
+  text-align:center;
+  display:inline-block;
+  float: none;
+    
+
+}
+.showartt:hover
+{
+  background-color:#d3d3d3;
+  border-radius:20px;
+
+
     
 }
 input[id='choosefile'] {
@@ -229,13 +263,23 @@ input[id='choosefile'] {
   height:120px; 
   z-index: 1;
 }
+
+.templteimgdiv{
+  margin-top:8%;
+
+}
+
 .imgnextbg
 {
   background-color: salmon;
- /* position:fixed;
+  z-index:99;
   width:100%;
-  margin:0;
-*/
+  max-height:100px;
+  position:fixed;
+  top:0;
+  overflow: scroll;
+
+
 }
 
 #overlay {
@@ -522,4 +566,15 @@ input[id='choosefile'] {
 {
   border-bottom: 1px solid #dadada;
 
+}
+#profileedit{
+  margin-top:8%;
+  
+}
+.connectwalletclass{
+  margin-top:8%;
+
+}
+#titlecolor{
+  margin-top:-20px;
 }

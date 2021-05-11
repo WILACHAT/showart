@@ -84,8 +84,8 @@ var DisplayGallery = function (_React$Component) {
                     { 'class': 'd-flex justify-content-center' },
                     React.createElement(
                         'button',
-                        { 'class': 'btn btn-outline-danger btn-sm mt-2 mb-2', onClick: this.toBack },
-                        'Back'
+                        { 'class': 'btn btn-outline-dark btn-sm mt-2 mb-2', onClick: this.toBack },
+                        'return'
                     )
                 )
             );
@@ -394,6 +394,9 @@ var ProfileEdit = function (_React$Component2) {
             document.querySelector('#gallerypage').hidden = false;
             console.log(e);
             document.querySelector('#navibarid').hidden = true;
+            //document.getElementById("gallerycoverid").style.marginTop = "0px";
+
+
             var clicked = parseInt(window.location.pathname.split('/')[2]);
 
             var getcooked = getCookie('csrftoken');

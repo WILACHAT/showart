@@ -1,0 +1,76 @@
+
+.backgrounddumb, .backgrounddumbtwo, .backgrounddumbthree, .backgrounddumbfour,
+.backgrounddumbfive, .backgrounddumbsix
+{
+    width:100;
+    margin-top:-15px;
+
+}
+.backgrounddumb{
+    background:skyblue;
+    height:90vh;
+}
+.backgrounddumbtwo{
+    background-color:steelblue;
+    height:80vh;
+}
+
+.backgrounddumbthree{
+    background-color: #00B4AB ;
+    height:40vh;
+}
+
+.backgrounddumbfour, .backgrounddumbfive ,.backgrounddumbsix{
+    height:60vh;
+}
+.backgrounddumbfour{
+    background-color: #72A0C1 ;
+}.backgrounddumbfive{
+    background-color: #7CB9E8 ;
+}.backgrounddumbsix{
+    background-color: #318CE7 ;
+}
+
+  .is-visible .headwhatever{
+    animation: backInDown; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1s;
+  }
+
+  .is-visible .headwhatevertwo{
+    animation: backInRight; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 2s;
+  }
+  .is-visible .whatis{
+    animation: backInLeft; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1s;
+  }
+
+  .is-visible .whatisthree{
+    animation: zoomIn; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.5s;
+  }
+
+  .is-visible .whatisfour{
+    animation: backInRight; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.5s;
+  }
+  
+
+  .is-visible .whatisfive{
+    animation: backInLeft; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.5s;
+  }
+  
+
+  .is-visible .whatissix{
+    animation: backInRight; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.5s;
+  }
+  
+
+  
+
+  
+
+ 
+  

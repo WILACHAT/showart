@@ -777,6 +777,8 @@ var NextImg = function (_React$Component6) {
         key: 'goBack',
         value: function goBack(e) {
             console.log("wtf");
+            document.querySelector('#navibarid').hidden = false;
+
             document.querySelector('#nextimg').hidden = true;
             document.querySelector('#shownfts').hidden = false;
             document.querySelector('#showtemplates').hidden = true;
@@ -943,7 +945,7 @@ var NextImg = function (_React$Component6) {
                     { 'class': 'belowimgnextbg' },
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'templteimgdiv d-flex justify-content-center' },
                         React.createElement(
                             'button',
                             { 'class': 'btn btn-outline-dark btn-sm mt-2 mb-2 mr-1', onClick: function onClick() {
@@ -976,7 +978,7 @@ var NextImg = function (_React$Component6) {
                 ) : null,
                 React.createElement(
                     'div',
-                    null,
+                    { 'class': 'titlecolor' },
                     this.props.type != "gallerycoverprofile" ? React.createElement(
                         'div',
                         { id: 'boss', 'class': 'd-flex justify-content-center d-flex flex-wrap  mt-2' },
@@ -985,7 +987,7 @@ var NextImg = function (_React$Component6) {
                     ) : null,
                     React.createElement(
                         'div',
-                        { id: 'titlecolor', className: 'd-flex justify-content-center template2 mr-4', style: this.props.type != "gallerycoverprofile" ? { backgroundImage: this.state.bgimagetitle, backgroundColor: this.state.bgcolortitle } : { backgroundImage: this.props.gallerybgimage, backgroundColor: this.props.gallerybgcolor } },
+                        { id: this.props.type != "gallerycoverprofile" ? "nottitlecolor" : "titlecolor", className: 'd-flex justify-content-center template2 mr-4', style: this.props.type != "gallerycoverprofile" ? { backgroundImage: this.state.bgimagetitle, backgroundColor: this.state.bgcolortitle } : { backgroundImage: this.props.gallerybgimage, backgroundColor: this.props.gallerybgcolor } },
                         this.props.type != "gallerycoverprofile" ? React.createElement('input', { 'class': 'gallerytitleinput form-control col-4', placeholder: 'Title of Gallery', type: 'text', onChange: this.checkGalleryTitleArea, value: this.state.gallerytitleedit, required: true }) : React.createElement(
                             'h6',
                             { 'class': 'yuptitlee' },
@@ -1147,6 +1149,7 @@ var ShowNfts = function (_React$Component8) {
     _createClass(ShowNfts, [{
         key: 'selectedImg',
         value: function selectedImg(e) {
+            document.querySelector('#navibarid').hidden = true;
 
             var i = 0;
             var array = [];
@@ -1221,7 +1224,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
         var address = document.querySelector('#walletaddress').value;
 
-        fetch('https://api.opensea.io/api/v1/assets?owner=' + address + query + '&offset=0&limit=20').then(function (response) {
+        fetch('https://api.opensea.io/api/v1/assets?owner=' + address + query + '&offset=0&limit=50').then(function (response) {
             return response.json();
         }).then(function (data) {
             document.querySelector('#askforwallet').hidden = true;

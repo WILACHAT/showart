@@ -5,86 +5,113 @@
     <head>
         <title>{% block title %}NFTs Gallery{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+          <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
         <link href="{% static 'gallery/styles.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
         <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
         <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>      
         <script src="{% static 'gallery/dropzone/dist/dropzone.js' %}"></script>
         <script src="{% static 'gallery/dropzone/dist/dropzone.js' %}"></script>
         <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
         <script src="https://unpkg.com/fast-average-color/dist/index.min.js"></script>
+        <script>
+          function myFunction() {
+            console.log("lols")
+
+          }
+          </script>
         {% block script %}
         {% endblock %}
     </head>
-    <body>
-
-        <nav id="navibarid" class="navibar navbar navbar-expand-lg navbar-light">
-            <a class="showart navbar-brand" href="{% url 'explore' %}">showArt</a>
-            <div>
-              <ul class="navbar-nav mr-auto">
-                
-
-                {% if user.is_authenticated %}
-
-                <li class="nav-item">
-                      <a class="showart nav-link" href="{% url 'profile' user.id %}"><strong>{{ user.username }}</strong></a>
-                </li>
-                <li class="nav-item">
-                    <a class="showart nav-link" href="{% url 'gallery' %}">Gallery</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="showart nav-link" href="{% url 'explore' %}">Explore</a>
-                    </li>
-           
-                      <li class="nav-item">
-                        <a class="showart nav-link" href="{% url 'connectwallet' %}">Add Wallet</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="showart nav-link" href="{% url 'connectwallet' %}">Saved</a>
-                      </li>
-                      {% if user.galleryinfo == None %}
-                      <li class="nav-item">
-                        <a class="showart nav-link" href="{% url 'realcreate' %}">Real Create</a>
-                      </li>
-                      
-                      {% else %}
-                      <li class="nav-item">
-                        <a class="showart nav-link" href="{% url 'realcreate' %}">Edit Gallery</a>
-                      </li>
-                      {% endif %}
-
-
-                      <li class="nav-item">
-                          <a class="showart nav-link" href="{% url 'following' %}">Voted</a>
-                      </li>
-                      <li showart class="nav-item">
-                          <a class="showart nav-link" href="{% url 'logout' %}">Log Out</a>
-                      </li>
-                     
-                      
-          
-                                      
-                  
-                {% else %}  
-                <li class="nav-item">
-                    <a class="showart nav-link" href="{% url 'gallery' %}">Gallery</a>
-                  </li>
-                    <li class="nav-item">
-                        <a class="showart nav-link" href="{% url 'login' %}">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="showart nav-link" href="{% url 'login' %}">Log In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="showart nav-link" href="{% url 'register' %}">Register</a>
-                    </li>
-                {% endif %}
-              </ul>
-            </div>
-          </nav>
+<body>
+      <nav id="navibarid" class="navbar fixed-top navbar-expand-md navbar-light bg-light">
+        <div class="d-flex justify-content-between">
+        <a class="showart navbar-brand" href="{% url 'explore' %}">showArt</a>
+       
+        <button onclick="myFunction()" class="navbutton navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
         
-        <div class="body">
+          <div class="navbar-collapse" id="navbar">
+            <div class="naviout d-flex justify-content-center">
+
+                <ul class="navbar-nav navigation mt-lg-0 ">
+                   
+              
+                  {% if user.is_authenticated %}
+
+                  <li class="nav-item ml-3">
+                        <a class="showartt nav-link" href="{% url 'profile' user.id %}"><strong>{{ user.username }}</strong></a>
+                  </li>
+                  <li class="nav-item ml-3">
+                      <a class="showartt nav-link" href="{% url 'gallery' %}">Gallery</a>
+                    </li>
+                    <li class="nav-item ml-3">
+                        <a class="showartt nav-link" href="{% url 'explore' %}">Explore</a>
+                      </li>
+
+                      <li class="nav-item ml-3">
+                        <a class="showartt nav-link" href="{% url 'following' %}">Voted</a>
+                    </li>
+
+                    {% if user.galleryinfo == None %}
+                        <li class="nav-item ml-3">
+                          <a class="showartt nav-link" href="{% url 'realcreate' %}">Real Create</a>
+                        </li>
+                        
+                        {% else %}
+                        <li class="nav-item ml-3">
+                          <a class="showartt nav-link" href="{% url 'realcreate' %}">Edit Gallery</a>
+                        </li>
+                        {% endif %}
+             
+                        <li class="nav-item ml-3">
+                          <a class="showartt nav-link" href="{% url 'connectwallet' %}">Add Wallet</a>
+                        </li>
+                       
+              
+  
+                        <li class="nav-item ml-3">
+                          <a class="showartt nav-link" href="{% url 'index' %}">About Us</a>
+                      </li>
+
+                        <li class="nav-item ml-3">
+                            <a class="showartt nav-link" href="{% url 'logout' %}">Log Out</a>
+                        </li>
+                   
+                  {% else %}  
+                  <li class="nav-item ml-3">
+                    <a class="showartt nav-link" href="{% url 'index' %}">About Us</a>
+                  </li>
+                  <li class="nav-item ml-3">
+                      <a class="showartt nav-link" href="{% url 'gallery' %}">Gallery</a>
+                    </li>
+                      <li class="nav-item ml-3">
+                          <a class="showartt nav-link" href="{% url 'index' %}">About Us</a>
+                      </li>
+                      <li class="nav-item ml-3">
+                          <a class="showartt nav-link" href="{% url 'login' %}">Log In</a>
+                      </li>
+                      <li class="nav-item ml-3">
+                          <a class="showartt nav-link" href="{% url 'register' %}">Register</a>
+                      </li>
+                  {% endif %}
+                     
+                </ul>
+              </div>
+    </div>
+  </div>
+    </nav>
+
+    
+
+        
+        <div id="bodyid"class="bodyy mt-3">
             {% block body %}
             {% endblock %}
         </div>
-    </body>
+      </body>
 </html>

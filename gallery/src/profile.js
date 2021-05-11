@@ -65,7 +65,7 @@ function getCookie(name) {
       return (
         <div>
             <div class="d-flex justify-content-center">
-                <button class="btn btn-outline-danger btn-sm mt-2 mb-2" onClick={this.toBack}>Back</button>
+                <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.toBack}>return</button>
             </div>
             
         </div>
@@ -263,6 +263,10 @@ function getCookie(name) {
             document.querySelector('#gallerypage').hidden = false;
             console.log(e)
             document.querySelector('#navibarid').hidden = true;
+            //document.getElementById("gallerycoverid").style.marginTop = "0px";
+
+
+
             let clicked = parseInt(window.location.pathname.split('/')[2])
 
 

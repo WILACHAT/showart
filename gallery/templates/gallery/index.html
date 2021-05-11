@@ -1,8 +1,235 @@
-{% extends "gallery/layout.html" %}
+{% load static %}
 
-{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}NFTs Gallery{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+          <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <link href="{% static 'gallery/styles.css' %}" rel="stylesheet">
+        <link href="{% static 'gallery/scroll.css' %}" rel="stylesheet">
+        <link href="{% static 'gallery/main.css' %}" rel="stylesheet">
 
-{% endblock %}
 
-{% block script %}
-{% endblock %}
+
+        <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+        <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>      
+        <script src="{% static 'gallery/dropzone/dist/dropzone.js' %}"></script>
+        <script src="{% static 'gallery/dropzone/dist/dropzone.js' %}"></script>
+        <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+        <script src="https://unpkg.com/fast-average-color/dist/index.min.js"></script>
+        <script>
+          function myFunction() {
+            document.querySelector('#bodyid').style.overflow.hidden = true;
+
+          }
+          </script>
+        {% block script %}
+        {% endblock %}
+    </head>
+<body>
+    <nav id="navibarid" class="navbar fixed-top navbar-expand-md navbar-light bg-light">
+        <a class="showart navbar-brand" href="{% url 'explore' %}">showArt</a>
+        <button onclick="myFunction()" class="navbutton navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+          <div class="navbar-collapse" id="navbar">
+            <div class="naviout">
+
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                   
+              
+                  {% if user.is_authenticated %}
+
+                  <li class="nav-item">
+                        <a class="showart nav-link" href="{% url 'profile' user.id %}"><strong>{{ user.username }}</strong></a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="showart nav-link" href="{% url 'gallery' %}">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="showart nav-link" href="{% url 'explore' %}">Explore</a>
+                      </li>
+             
+                        <li class="nav-item">
+                          <a class="showart nav-link" href="{% url 'connectwallet' %}">Add Wallet</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="showart nav-link" href="{% url 'connectwallet' %}">Saved</a>
+                        </li>
+                        {% if user.galleryinfo == None %}
+                        <li class="nav-item">
+                          <a class="showart nav-link" href="{% url 'realcreate' %}">Real Create</a>
+                        </li>
+                        
+                        {% else %}
+                        <li class="nav-item">
+                          <a class="showart nav-link" href="{% url 'realcreate' %}">Edit Gallery</a>
+                        </li>
+                        {% endif %}
+  
+                        <li class="nav-item">
+                          <a class="showart nav-link" href="{% url 'index' %}">About Us</a>
+                      </li>
+  
+  
+                        <li class="nav-item">
+                            <a class="showart nav-link" href="{% url 'following' %}">Voted</a>
+                        </li>
+                      
+                        <li showart class="nav-item">
+                            <a class="showart nav-link" href="{% url 'logout' %}">Log Out</a>
+                        </li>
+                   
+                  {% else %}  
+                  <li class="nav-item">
+                    <a class="showart nav-link" href="{% url 'index' %}">About Us</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="showart nav-link" href="{% url 'gallery' %}">Gallery</a>
+                    </li>
+                      <li class="nav-item">
+                          <a class="showart nav-link" href="{% url 'index' %}">About Us</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="showart nav-link" href="{% url 'login' %}">Log In</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="showart nav-link" href="{% url 'register' %}">Register</a>
+                      </li>
+                  {% endif %}
+                     
+                </ul>
+              </div>
+    </div>
+    </nav>
+                  <div class="backgrounddumb">
+                    <div class="show-on-scroll d-flex justify-content-center">
+                        <h1 class="headwhatever">ABOUT US</h1>
+                    </div>  
+                  </div>
+
+                    <div class="backgrounddumbtwo">
+                        <div class="show-on-scroll d-flex justify-content-center">
+                            <div>
+                                <h1 class="whatis mr-3">WHAT IS</h1><h1 class="headwhatevertwo">showNART</h1>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="backgrounddumbthree">
+                        <div class="show-on-scroll d-flex justify-content-center">
+                            <h1 class="whatisthree">showNART is</h1>
+                        </div>  
+                    </div>
+                    <div class="backgrounddumbfour">
+                        <div class="show-on-scroll d-flex justify-content-center">
+                            <h1 class="whatisfour">A place to view people's NFTs</h1>
+                        </div>  
+                    </div> 
+                    <div class="backgrounddumbfive">
+                        <div class="show-on-scroll d-flex justify-content-center">
+                            <h1 class="whatisfive">A place to display your owned NFTs</h1>
+                        </div>  
+                    </div> 
+                    <div class="backgrounddumbsix">
+                        <div class="show-on-scroll d-flex justify-content-center">
+                            <h1 class="whatissix">A place to escape the noisy NFT marketplace</h1>
+                        </div>  
+                    </div>
+                  
+                  <div class="backgrounddumb">
+                    <div class="show-on-scroll d-flex justify-content-center">
+                        <h1 class="headwhatever">HOW DOES IT WORK?</h1>
+                    </div>  
+                    </div>
+               
+                    <div class="backgrounddumb">
+                        <div class="show-on-scroll d-flex justify-content-center">
+                            <h1 class="headwhatever">CONNECT TO A WALLET</h1>
+                        </div>  
+                    </div>
+
+                    <div class="backgrounddumb">
+                        <div class="show-on-scroll d-flex justify-content-center">
+                            <h1 class="headwhatever">CREATE AN ACCOUNT</h1>
+                        </div>  
+                    </div>
+                    
+                    <div class="backgrounddumb">
+                        <div class="show-on-scroll d-flex justify-content-center">
+                            <h1 class="headwhatever">CREATE A GALLERY</h1>
+                        </div>  
+                        <div class="show-on-scroll d-flex justify-content-center">
+                            <h1 class="headwhatever">SORT TYPE OF NFTs</h1>
+                        </div>  
+                        <div class="show-on-scroll d-flex justify-content-center">
+                            <h1 class="headwhatever">SELECT NFTs YOU WANT TO DISPLAY </h1>
+                        </div>   
+                        <div class="show-on-scroll d-flex justify-content-center">
+                            <h1 class="headwhatever">CLICK CREATE TEMPLATE AND CLICK ADD IMAGES TO ADD IMAGE TO YOUR TEMPLATE</h1>
+                        </div>
+                        <div class="show-on-scroll d-flex justify-content-center">
+                            <h1 class="headwhatever">CLICK ON NFTS IN THE HEADER AND CLICK ON THE COVER ON YOUR TEMPLATE TO PASTE NFT</h1>
+                        </div> 
+                        <div class="show-on-scroll d-flex justify-content-center">
+                            <h1 class="headwhatever">DECORATE THE BACKGROUND OF TEMPLATE BY CHANGING COLOR OR CHANING BACKGROUND IMAGES</h1>
+                        </div> 
+                        <div class="show-on-scroll d-flex justify-content-center">
+                            <h1 class="headwhatever">JUST SHOW!</h1>
+                        </div> 
+                    </div>
+             
+             
+              <script>
+              var scroll = window.requestAnimationFrame ||
+                // IE Fallback
+                function(callback){ window.setTimeout(callback, 1000/60)};
+   var elementsToShow = document.querySelectorAll('.show-on-scroll'); 
+   
+   function loop() {
+   
+     elementsToShow.forEach(function (element) {
+       if (isElementInViewport(element)) {
+         element.classList.add('is-visible');
+       } else {
+         element.classList.remove('is-visible');
+       }
+     });
+   
+     scroll(loop);
+   }
+   
+   // Call the loop for the first time
+   loop();
+   
+   // Helper function from: http://stackoverflow.com/a/7557433/274826
+   function isElementInViewport(el) {
+     // special bonus for those using jQuery
+     if (typeof jQuery === "function" && el instanceof jQuery) {
+       el = el[0];
+     }
+     var rect = el.getBoundingClientRect();
+     return (
+       (rect.top <= 0
+         && rect.bottom >= 0)
+       ||
+       (rect.bottom >= (window.innerHeight || document.documentElement.clientHeight) &&
+         rect.top <= (window.innerHeight || document.documentElement.clientHeight))
+       ||
+       (rect.top >= 0 &&
+         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight))
+     );
+   }</script>
+            
+            
+        </div>
+      </body>
+</html>
+

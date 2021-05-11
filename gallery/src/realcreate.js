@@ -645,6 +645,8 @@ function getCookie(name) {
     goBack(e)
     {
         console.log("wtf")
+        document.querySelector('#navibarid').hidden = false;
+
         document.querySelector('#nextimg').hidden = true
         document.querySelector('#shownfts').hidden = false
         document.querySelector('#showtemplates').hidden = true
@@ -818,7 +820,7 @@ function getCookie(name) {
             </div>: null}
            
             {this.props.type != "gallerycoverprofile" ?  <div class="belowimgnextbg">
-                <div class="d-flex justify-content-center">
+                <div class="templteimgdiv d-flex justify-content-center">
                     <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-1" onClick={() => this.showTemplate1(counttemplate1++)}>Template1</button>
                     <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={() => this.showTemplate2(counttemplate2++)}>Template2</button>
                 </div>
@@ -829,15 +831,17 @@ function getCookie(name) {
                 <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.goSave}>Save</button>
   
             </div>:null}
-            <div>
+           
+            <div class= "titlecolor">
             {this.props.type != "gallerycoverprofile" ? <div id="boss"class="d-flex justify-content-center d-flex flex-wrap  mt-2">
                 <input id="exampleColorInput" onChange={this.changeBgColor} type="color" class="changecolor form-control form-control-color col-1 mb-1" title="Choose your color"></input>
                 <input id="filetemplate1" onChange={this.imageTemplate} class="filetemplate1 form-control-file col-sm-1 mr-1" type="file"></input>
                  </div> :null}
          
-            <div id="titlecolor" className="d-flex justify-content-center template2 mr-4" style={this.props.type != "gallerycoverprofile" ? {backgroundImage: this.state.bgimagetitle, backgroundColor: this.state.bgcolortitle} :{backgroundImage: this.props.gallerybgimage, backgroundColor: this.props.gallerybgcolor}}>
+            <div id= {this.props.type != "gallerycoverprofile" ? "nottitlecolor": "titlecolor"} className="d-flex justify-content-center template2 mr-4" style={this.props.type != "gallerycoverprofile" ? {backgroundImage: this.state.bgimagetitle, backgroundColor: this.state.bgcolortitle} :{backgroundImage: this.props.gallerybgimage, backgroundColor: this.props.gallerybgcolor}}>
             {this.props.type != "gallerycoverprofile" ? <input class="gallerytitleinput form-control col-4"placeholder="Title of Gallery" type="text" onChange={this.checkGalleryTitleArea} value={this.state.gallerytitleedit} required></input> : <h6 class="yuptitlee">{this.props.gallerytitle}</h6>}
             </div>
+
             
 
             </div>
@@ -935,6 +939,8 @@ function getCookie(name) {
     }
     selectedImg(e)
     {   
+        document.querySelector('#navibarid').hidden = true;
+
 
         let i = 0
         let array = []
@@ -1008,7 +1014,7 @@ function getCookie(name) {
         
         let address = document.querySelector('#walletaddress').value
         
-        fetch(`https://api.opensea.io/api/v1/assets?owner=${address}${query}&offset=0&limit=20`)
+        fetch(`https://api.opensea.io/api/v1/assets?owner=${address}${query}&offset=0&limit=50`)
       
         .then(response => response.json())
     
