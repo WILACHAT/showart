@@ -64,10 +64,11 @@ function getCookie(name) {
         let i = 0;
       return (
         <div>
-            <div class="d-flex justify-content-center">
-                <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.toBack}>return</button>
+            <div class="backgrounddumbprofile">
+                <div class="d-flex justify-content-center">
+                    <button class="dumbbutton btn btn-outline-dark btn-lg" onClick={this.toBack}>return</button>
+                </div>  
             </div>
-            
         </div>
       )
     }
@@ -107,10 +108,10 @@ function getCookie(name) {
         }
         if (profilepic == null)
         {
-            profilepic = "/static/profile_pic/wallpaper.png"
+            profilepic = "/static/profile_pic/brown.jpeg"
         }
         const edit_button = this.props.data["user"] == clicked ? 
-        <button type="button" name="edit_button" onClick={this.showEditPost} className="loll btn btn-outline-dark btn-sm">edit</button> 
+        <button type="button" name="edit_button" onClick={this.showEditPost} className="btn btn-outline-dark btn-sm">Edit</button> 
         : null;
 
        
@@ -134,7 +135,7 @@ function getCookie(name) {
         
         <div class="mb-2">
                 <div class="d-flex justify-content-center ml-6 mt-3 mb-3">
-                    <h2 class="wow">{username} {edit_button}</h2>
+                    <h2 class="wow mr-2">{username} </h2>{edit_button}
                 </div> 
                 <div class="d-flex justify-content-center mb-3">
                     <h3 class="contactgmailcss ">{contactgmail}</h3> 
@@ -551,6 +552,9 @@ function getCookie(name) {
       }
       
     render() {
+    
+        document.querySelector('#navprofile').style.color = "salmon";
+          
         
         let userid_clicked = parseInt(window.location.pathname.split('/')[2])
         

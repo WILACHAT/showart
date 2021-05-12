@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block body %}
-<div class="connectwalletclass">
+<div id="connectwalletclass" class="connectwalletclass">
         
     <p id="texty" class="text-center">You need a MetaMask wallet to create your own Gallery.</p>
     <div class="d-flex justify-content-center">
@@ -30,5 +30,14 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'gallery/connectwallet.js' %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function(e) {
+    let clicked = window.location.pathname
+    if (clicked == "/connectwallet"){
+        document.querySelector('#navconnectwallet').style.color = "salmon";
+    }
+})
+</script>
+
+<script type="module" src="{% static 'gallery/connectwallet.js' %}"></script>
 {% endblock %}

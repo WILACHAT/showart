@@ -1,7 +1,7 @@
 import PostTable from './main.js'
 
 document.addEventListener('DOMContentLoaded', function() {
-   
+    
     const pagination = 1
     const whatkind = window.location.pathname.split('/')[1]
 

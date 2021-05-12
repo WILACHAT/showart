@@ -81,11 +81,15 @@ var DisplayGallery = function (_React$Component) {
                 null,
                 React.createElement(
                     'div',
-                    { 'class': 'd-flex justify-content-center' },
+                    { 'class': 'backgrounddumbprofile' },
                     React.createElement(
-                        'button',
-                        { 'class': 'btn btn-outline-dark btn-sm mt-2 mb-2', onClick: this.toBack },
-                        'return'
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'button',
+                            { 'class': 'dumbbutton btn btn-outline-dark btn-lg', onClick: this.toBack },
+                            'return'
+                        )
                     )
                 )
             );
@@ -130,12 +134,12 @@ var ProfileEdit = function (_React$Component2) {
             profiledes = "profiledes";
         }
         if (profilepic == null) {
-            profilepic = "/static/profile_pic/wallpaper.png";
+            profilepic = "/static/profile_pic/brown.jpeg";
         }
         var edit_button = _this2.props.data["user"] == clicked ? React.createElement(
             'button',
-            { type: 'button', name: 'edit_button', onClick: _this2.showEditPost, className: 'loll btn btn-outline-dark btn-sm' },
-            'edit'
+            { type: 'button', name: 'edit_button', onClick: _this2.showEditPost, className: 'btn btn-outline-dark btn-sm' },
+            'Edit'
         ) : null;
 
         console.log("contact gmail", contactgmail);
@@ -165,11 +169,11 @@ var ProfileEdit = function (_React$Component2) {
                         { 'class': 'd-flex justify-content-center ml-6 mt-3 mb-3' },
                         React.createElement(
                             'h2',
-                            { 'class': 'wow' },
+                            { 'class': 'wow mr-2' },
                             username,
-                            ' ',
-                            edit_button
-                        )
+                            ' '
+                        ),
+                        edit_button
                     ),
                     React.createElement(
                         'div',
@@ -769,6 +773,8 @@ var FollowTable = function (_React$Component4) {
     }, {
         key: 'render',
         value: function render() {
+
+            document.querySelector('#navprofile').style.color = "salmon";
 
             var userid_clicked = parseInt(window.location.pathname.split('/')[2]);
 

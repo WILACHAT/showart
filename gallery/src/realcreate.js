@@ -22,107 +22,7 @@ function getCookie(name) {
     }
     return cookieValue;
   }
-  class ShowTemplateOne extends React.Component{
-      constructor(props){
-          super(props);
-          this.tImageOne = this.tImageOne.bind(this);
-          this.state =
-          {
-              div1: <div></div>,
-              div2: <div></div>,
-              border1:"dotted",
-              border2:"dotted"
-          }
-      }
-      tImageOne(number, e)
-      {
-        console.log("waifu", e)
-        let t1image1 = "t1-image1" + this.props.id;
-        let t1vdo1 = "t1-vdo1" + this.props.id;
-        let t1image2 = "t1-image2" + this.props.id;
-        let t1vdo2 = "t1-vdo2" + this.props.id;
-        let url = document.querySelector('#saveurl').value
-        
-        if (url == "")
-        {
-            window.alert("You haven't choose a nft yet")
-  
-        }
-        else if (url.charAt(8) == "l")
-        {
-            if (number == 1)
-            {
-                this.setState({
-                    div1: <img id={t1image1} src={url} class="testingtestimgg"></img>,
-                    border1:""
-                 })
-            }
-            else
-            {
-                this.setState({
-                    div2: <img id={t1image2} src={url} class="testingtestimgg"></img>,
-                    border2:""
-                    })
-            }
-        }
-        else
-        {
-            console.log("check url", url)
-            if (number == 1)
-            {
-                this.setState({
-                    div1: <video id={t1vdo1} src={url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={url} type = "video/mp4"></source></video>,
-                    border1:""
-                })
-            }
-            else
-            {
-                this.setState({
-                    div2: <video id={t1vdo2} src={url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={url} type = "video/mp4"></source></video>,
-                    border2:""
-                })
-            }
-        }
-        }
-  
-      render(){
-        return (
-            <div>
-            <div class="margin120 d-flex justify-content-center d-flex flex-wrap mt-2">
-                <input onChange={this.props.changeBgColor} type="color" class="changecolor form-control form-control-color col-1 mb-1" id="exampleColorInput" title="Choose your color"></input>
-                <input onChange={this.props.imageTemplate} class="filetemplate1 form-control-file col-sm-1 mr-1"id="filetemplate1" type="file"></input>
-                <button onClick={(e) => this.props.deleteTemplate(this.props.id, e)} class="deletetemplate btn btn-danger mb-1"></button>
-  
-            </div>
-            <div class="d-flex justify-content-center template1 mr-4 d-flex flex-wrap">
-                <div id="wilachatww" name="imgdiv" value="false" class="templates1" >
-                    <div id="one"onClick={(e) => this.tImageOne(1, e)} class="divborder" style={{borderStyle: this.state.border1}}>
-                        {this.state.div1}
-                    </div>
-                    <div class="d-flex justify-content-center mt-3">
-                        <input class="form-control col-4 "placeholder="Title of NFT"type="text" ></input>
-                    </div>
-                    <div class="d-flex justify-content-center mt-2">
-                        <textarea class="form-control col-10"placeholder="Description of NFT"rows="3"></textarea>
-                    </div>
-                </div>
-                <div id="wilachatww" name="imgdiv" value="false" class="templates1" >
-                    <div id="two" onClick={(e) => this.tImageOne(2, e)}class="divborder" style={{borderStyle: this.state.border2}}>
-                        {this.state.div2}
-                    </div>
-                    
-                    <div class="d-flex justify-content-center mt-3">
-                        <input class="form-control col-4"placeholder="Title of NFT"type="text"></input>
-                    </div>
-                    <div class="d-flex justify-content-center mt-2">
-                        <textarea class="form-control col-10"placeholder="Description of NFT"rows="3"></textarea>
-                    </div>
-                </div>
-            </div>
-            </div>
-        )
-      }
-  }
+
   class AnotherDivNewClass extends React.Component{
       constructor(props){
         super(props);
@@ -164,7 +64,7 @@ function getCookie(name) {
         return (
             <div id="overlayrc" style={{backgroundImage: this.props.bgimage, backgroundColor: this.props.bgcolor}}>
             <div class="d-flex justify-content-end mr-2">
-                <button id="overlaybutton" onClick={this.hiddenOverlay} class="btn btn-outline-danger btn-sm mt-2 mb-2">Go Back</button>
+                <button id="overlaybutton" onClick={this.hiddenOverlay} class="fluke btn btn-outline-light btn-sm mt-2 mb-2">Go Back</button>
             </div>
             <div>
             <div id="forimagevdo" onClick={this.imgvdo}class="mt-5 d-flex justify-content-center">
@@ -268,8 +168,40 @@ function getCookie(name) {
            const fac = new FastAverageColor();
            fac.getColorAsync(bgimagesplit2[0])
                .then(color => {
+                function componentToHex(c) {
+                    var hex = c.toString(16);
+                    return hex.length == 1 ? "0" + hex : hex;
+                  }
+                 color = color.rgb
+                 let rgb = color.replace(/[^\d,]/g, '').split(',');
+                 let firstcolor = rgb[0] - 30
+                 let secondcolor = rgb[1] - 30
+                 let thirdcolor = rgb[2] - 30
+                 if (firstcolor <= 30)
+                 {
+                     console.log("wpw1")
+                     firstcolor = parseInt(rgb[0]) + 80 
+  
+                 }
+                 
+                 if(secondcolor <= 50)
+                 {
+                  console.log("wpw2")
+  
+                    secondcolor = parseInt(rgb[1]) + 90
+                 }
+               
+                 if(thirdcolor <= 50)
+                 {
+                  console.log("wpw3")
+  
+                    thirdcolor = parseInt(rgb[2]) + 90
+                 }
+              
+
+                 let hex =  "#" + componentToHex(firstcolor) + componentToHex(secondcolor) + componentToHex(thirdcolor);
                  this.setState({
-                  hexy:color.hex
+                  hexy:hex
                  })
             // container.style.backgroundColor = color.rgba;
             // container.style.color = color.isDark ? '#fff' : '#000';
@@ -287,6 +219,27 @@ function getCookie(name) {
                let firstcolor = rgb[0] - 30
                let secondcolor = rgb[1] - 30
                let thirdcolor = rgb[2] - 30
+               if (firstcolor <= 30)
+               {
+                   console.log("wpw1")
+                   firstcolor = parseInt(rgb[0]) + 80 
+
+               }
+               
+               if(secondcolor <= 50)
+               {
+                console.log("wpw2")
+
+                  secondcolor = parseInt(rgb[1]) + 90
+               }
+             
+               if(thirdcolor <= 50)
+               {
+                console.log("wpw3")
+
+                  thirdcolor = parseInt(rgb[2]) + 90
+               }
+            
                let hexyy =  "#" + componentToHex(firstcolor) + componentToHex(secondcolor) + componentToHex(thirdcolor);
                this.setState({
                    hexy:hexyy
@@ -389,6 +342,7 @@ function getCookie(name) {
     }
    
     addImage = (realid, e, classname) => {  
+        console.log("is this the right thing?")
         console.log("check e", e)
         if (e.target.parentElement.parentElement.childNodes[1].childNodes != "")
         {
@@ -404,7 +358,9 @@ function getCookie(name) {
                 }
             }
         }
-
+        console.log("waker", e.target.parentElement.parentElement.childNodes[1].childNodes.length)
+        if (e.target.parentElement.parentElement.childNodes[1].childNodes.length < 3)
+        {
 
         let length = this.state.list.length + 1
         this.setState({
@@ -418,6 +374,10 @@ function getCookie(name) {
             list,
           };
         });
+        }
+        else{
+            window.alert("you can add a maximum of three images per template")
+        }
         
       }
       
@@ -438,10 +398,14 @@ function getCookie(name) {
         return (
         <div>
 
-            {this.props.type != "profile" ? <div id="boss"class="d-flex justify-content-center d-flex flex-wrap  mt-2">
+            {this.props.type != "profile" ? <div id="boss"class="d-flex justify-content-center d-flex flex-wrap mt-2">
+                <p>Change template background color:</p>
                 <input id="exampleColorInput" onChange={this.props.changeBgColor} type="color" class="changecolor form-control form-control-color col-1 mb-1" title="Choose your color"></input>
+                <p>Change template background image:</p>
                 <input id="filetemplate1" onChange={this.props.imageTemplate} class="filetemplate1 form-control-file col-sm-1 mr-1" type="file"></input>
+                <p>Delete template:</p>
                 <button id="deletetemplate1" onClick={(e) => this.props.deleteTemplate(this.props.id, e)} class="deletetemplate btn btn-outline-danger btn-sm mr-1 mb-1">X</button>
+                <p>Add frame:</p>
                 <button id="addimagetemplate1"onClick={(e) => this.addImage(realid, e, classname)} class="deletetemplate btn btn-outline-dark btn-sm mb-1">Add Image</button>
             </div> :null}
             <div id={realid} name={this.props.id} className="d-flex justify-content-center template2 mr-4 d-flex flex-wrap" style={{backgroundImage: this.state.bgimage, backgroundColor: this.state.bgcolor}}>
@@ -526,7 +490,6 @@ function getCookie(name) {
     constructor(props) {
         super(props);
         this.goBack = this.goBack.bind(this)
-        this.showTemplate1 = this.showTemplate1.bind(this);
         this.showTemplate2 = this.showTemplate2.bind(this);
         this.changeBgColor = this.changeBgColor.bind(this);
         this.deleteTemplate = this.deleteTemplate.bind(this);
@@ -654,7 +617,7 @@ function getCookie(name) {
     }
     goSave(e)
     {
-  
+        console.log("this again", e)
         let src = ""
         let title = ""
         let des = ""
@@ -662,35 +625,27 @@ function getCookie(name) {
         let bgimage = ""
         let everydata = {}
         let tryeverydata = []
-        
-        let gallerytitle = e.target.parentElement.parentElement.parentElement.childNodes[0].childNodes[3].childNodes[1].childNodes[0].value
-        let gallerybgcolor = e.target.parentElement.parentElement.parentElement.childNodes[0].childNodes[3].childNodes[1].style.backgroundColor
-        let gallerybgimage = e.target.parentElement.parentElement.parentElement.childNodes[0].childNodes[3].childNodes[1].style.backgroundImage
+    
+        let gallerytitle = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[1].childNodes[1].childNodes[0].value
+        let gallerybgcolor = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[1].childNodes[1].style.backgroundColor
+        let gallerybgimage = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[1].childNodes[1].style.backgroundImage
   
         let l = 0;
       
-        let z = 0;
-        let num = 0
-        for (z = 0; z < e.target.parentElement.parentElement.parentElement.parentElement.childNodes.length; z++)
-        {
-            if (z == 7 || z == 9)
-            {
-                console.log("should console twice")
-                num = z
-                console.log(num)
-            }
-        }
-            let i = 0;
+     
+    
+            let i = 0;    
+
             
-            for (i = 0; i < e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].childNodes.length - 1; i++)
+            for (i = 0; i < e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].childNodes.length - 1; i++)
             { 
                 let sectiondict = {}
-                console.log("c1", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0])
-                console.log("c2", e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1])
+                console.log("c1", e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0])
+                console.log("c2", e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1])
                 
-                bgcolor = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].style.backgroundColor
+                bgcolor = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].style.backgroundColor
                 sectiondict['bgcolor'] = bgcolor
-                bgimage = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].style.backgroundImage
+                bgimage = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].style.backgroundImage
                 console.log("just to make sure this is the bgimage", bgimage)
         
     
@@ -714,20 +669,20 @@ function getCookie(name) {
                 let j = 0;
                 let imagearray = []
     
-            for (j = 0; j < e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes.length; j++)
+            for (j = 0; j < e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes.length; j++)
             {
                     let imageinfo = "imageinfo" + (j + 1)
     
                     let imageinfodict = {}
     
-                    let src = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes[j].childNodes[0].childNodes[0].src
+                    let src = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes[j].childNodes[0].childNodes[0].src
                     
                     imageinfodict['src'] = src
                     
-                    let title = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes[j].childNodes[1].childNodes[0].value
+                    let title = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes[j].childNodes[1].childNodes[0].value
                     imageinfodict['title'] = title
                     
-                    let des = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes[j].childNodes[2].childNodes[0].value
+                    let des = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes[j].childNodes[2].childNodes[0].value
                     imageinfodict['des'] = des
                     console.log("this is image info dict", imageinfodict)
                     imagearray.push(imageinfodict)
@@ -739,6 +694,12 @@ function getCookie(name) {
      
         console.log("everydata", everydata)
         console.log("try every data", tryeverydata)
+        console.log("porno graffitti", gallerytitle)
+        console.log("porno graffitti", gallerybgimage)
+        console.log("porno graffitti", gallerybgcolor)
+
+
+
   
         let formData = new FormData();
         formData.append("everydata", everydata)
@@ -759,16 +720,6 @@ function getCookie(name) {
    
             
           })
-    }
-    showTemplate1(count)
-    {
-        const newDiv = document.createElement("div");
-        newDiv.id = "templatesidone" + count
-        let id = "templatesidone" + count
-        document.querySelector('#showtemplates').append(newDiv)
-        ReactDOM.render(<ShowTemplateOne id={id} changeBgColor={this.changeBgColor} 
-        deleteTemplate={this.deleteTemplate} imageTemplate={this.imageTemplate}/>, document.querySelector('#templatesidone' + count));
-           
     }
     showTemplate2(count)
     {
@@ -817,23 +768,18 @@ function getCookie(name) {
         <div>
            {this.props.type != "gallerycoverprofile" ? <div class="d-flex flex-wrap d-flex justify-content-center imgnextbg">
                 {img}
+                <div class="belowimgnextbg ">
+                    <div class="templateimgdiv d-flex justify-content-center">
+                    <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-2" onClick={this.goBack}>Back</button>
+                    <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-2" onClick={() => this.showTemplate2(counttemplate2++)}>Add Template</button>
+                    <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.goSave}>Save</button>
+                </div>
+                </div>
             </div>: null}
            
-            {this.props.type != "gallerycoverprofile" ?  <div class="belowimgnextbg">
-                <div class="templteimgdiv d-flex justify-content-center">
-                    <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-1" onClick={() => this.showTemplate1(counttemplate1++)}>Template1</button>
-                    <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={() => this.showTemplate2(counttemplate2++)}>Template2</button>
-                </div>
-            </div> :null}
-           
-            {this.props.type != "gallerycoverprofile" ?  <div class="d-flex justify-content-center">
-                <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-2" onClick={this.goBack}>Back</button>
-                <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.goSave}>Save</button>
-  
-            </div>:null}
-           
+            
             <div class= "titlecolor">
-            {this.props.type != "gallerycoverprofile" ? <div id="boss"class="d-flex justify-content-center d-flex flex-wrap  mt-2">
+            {this.props.type != "gallerycoverprofile" ? <div id="bosss"class="d-flex justify-content-center d-flex flex-wrap">
                 <input id="exampleColorInput" onChange={this.changeBgColor} type="color" class="changecolor form-control form-control-color col-1 mb-1" title="Choose your color"></input>
                 <input id="filetemplate1" onChange={this.imageTemplate} class="filetemplate1 form-control-file col-sm-1 mr-1" type="file"></input>
                  </div> :null}
@@ -940,16 +886,17 @@ function getCookie(name) {
     selectedImg(e)
     {   
         document.querySelector('#navibarid').hidden = true;
+        console.log("selected img", e)
 
 
         let i = 0
         let array = []
         console.log(e)
-        for (i = 0; i < e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[0].childNodes.length; i++)
+        for (i = 0; i < e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes.length; i++)
         {
-            if (e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[0].childNodes[i].childNodes[0].childNodes[0].dataset["selected"] == "true")
+            if (e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes[i].childNodes[0].childNodes[0].dataset["selected"] == "true")
             {
-                array.push(e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[0].childNodes[i].childNodes[0].childNodes[0].childNodes[0].src)
+                array.push(e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes[i].childNodes[0].childNodes[0].childNodes[0].src)
             }
         }
         if (array[0] != undefined)
@@ -968,6 +915,8 @@ function getCookie(name) {
         }
     }
         render() {
+           
+              
             const img = [];
             const counter = [];
             let counterr = 0;
@@ -981,6 +930,9 @@ function getCookie(name) {
             }
       return (
         <div>
+        <div id="whattodoinselectimg" class="d-flex justify-content-center">
+            <h1 class="whattodoinselectimg">Select NFTs you would like to display in your gallery.</h1>
+        </div>
         <div class="d-flex justify-content-around d-flex flex-wrap">
             {img}
         </div>
@@ -993,6 +945,12 @@ function getCookie(name) {
   }
   
   document.addEventListener('DOMContentLoaded', function(e) {
+    let clicked = window.location.pathname
+    if (clicked == "/realcreate"){
+        document.querySelector('#navcreate').style.color = "salmon";
+    }
+
+
   
     // do while u dont own an nfts (not the query)
   

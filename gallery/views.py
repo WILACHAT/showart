@@ -61,6 +61,7 @@ def realsaveapi(request, address):
     if request.method == "POST":
         curid = request.user.id
         data = json.loads(request.body)
+        print(f"gallerytitle: {data['gallerytitle']}")
 
         tz = pytz.timezone('Asia/Bangkok')
         currenttime = datetime.now(tz)
@@ -148,7 +149,7 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
             if i.profile_pic != None:
                 profpic = i.profile_pic
             else:
-                profpic = "/static/profile_pic/wallpaper.png"
+                profpic = "/static/profile_pic/brown.jpeg"
 
         if request.method == "POST":
             if 'media' in request.FILES.keys():
@@ -176,7 +177,7 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
                     if i.profile_pic != None:
                         profpic = i.profile_pic
                     else:
-                        profpic = "/static/profile_pic/wallpaper.png"
+                        profpic = "/static/profile_pic/brown.jpeg"
                 User.objects.filter(id = request.user.id).update(contactgmail = contactgmail, opensea_url = openseaurl, profile_des = profiledes)      
 
 

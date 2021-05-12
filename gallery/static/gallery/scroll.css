@@ -6,6 +6,17 @@
     margin-top:-15px;
 
 }
+.backgrounddumbprofile{
+    height:105vh;
+    background:#F9D790
+    ;
+    border-color: black;
+    width:100%;
+}
+.dumbbutton{
+    margin-top:25%;
+  
+}
 .backgrounddumb{
     background:skyblue;
     height:90vh;

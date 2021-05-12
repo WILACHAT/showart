@@ -171,6 +171,19 @@ var PostTable = function (_React$Component2) {
   }, {
     key: "render",
     value: function render() {
+      console.log("does the css work");
+      if (this.props.data["whatkind"] == "following") {
+        console.log("in what kind following");
+        document.querySelector('#navfollowing').style.color = "salmon";
+      } else if (this.props.data["whatkind"] == "explore") {
+        console.log("in what kind explore");
+
+        document.querySelector('#navexplore').style.color = "salmon";
+      } else if (this.props.data["whatkind"] == "gallery") {
+        console.log("in what kind explore");
+
+        document.querySelector('#navgallery').style.color = "salmon";
+      }
 
       var h1nopost = "";
 

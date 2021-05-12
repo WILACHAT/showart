@@ -1,13 +1,14 @@
 @font-face {font-family: "HelveticaW01-Bold"; src: url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.eot"); src: url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.woff") format("woff"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/f7d1b2995a6dff7abcda304d226aa67d.svg#HelveticaW01-Bold") format("svg"); }
 @font-face {font-family: "HelveticaW01-Cn"; src: url("//db.onlinewebfonts.com/t/13142f2ecc33e8151867bd44ea4eb4dc.eot"); src: url("//db.onlinewebfonts.com/t/13142f2ecc33e8151867bd44ea4eb4dc.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/13142f2ecc33e8151867bd44ea4eb4dc.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/13142f2ecc33e8151867bd44ea4eb4dc.woff") format("woff"), url("//db.onlinewebfonts.com/t/13142f2ecc33e8151867bd44ea4eb4dc.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/13142f2ecc33e8151867bd44ea4eb4dc.svg#HelveticaW01-Cn") format("svg"); }
 
-.navibar
-{
-  background-color:white;
+#navibarid{
+  background-color: #f6bd60;
 }
 
 body{
-  background-image: url(/static/profile_pic/marble.jpg)
+
+ /* background-image: url(/static/profile_pic/marble.jpg);*/
+  background-color:#f4e9dd;
 }
 
 .nav-link{
@@ -82,7 +83,7 @@ div {
     font-size: 25px;
     color: rgb(0, 0, 0);
     display: inline-block;
-    font-family:"VSCO Gothic";
+  font-family:"HelveticaW01-Bold";
 }
 .contactgmailcss
 {
@@ -120,11 +121,18 @@ div {
     background-color:lightgoldenrodyellow;
     border-radius: 5px;
 }
+
 .showart
 {
   color:white;
   font-family:"HelveticaW01-Bold";
     
+}
+.whattodoinselectimg
+{
+  font-family:"HelveticaW01-Bold";
+  font-size:20px;
+  margin-top:7%;
 }
 .showartt
 {
@@ -138,7 +146,7 @@ div {
 }
 .showartt:hover
 {
-  background-color:#d3d3d3;
+  background-color:#f4e9dd;
   border-radius:20px;
 
 
@@ -355,6 +363,20 @@ input[id='choosefile'] {
   font-size:50px;
   margin-top:20%;
 }
+.belowimgnextbg{
+  margin-top:8%;
+  position:fixed;
+}
+.templateimgdiv{
+  width:100%;
+}
+.backsave{
+  position:fixed;
+  margin-top:9%;
+}
+#bosss{
+  margin-top:12%;
+}
 
 .spans{
   display:flex;
@@ -537,6 +559,9 @@ input[id='choosefile'] {
   background-repeat: no-repeat;
   background-size: cover;
   justify-content: center;
+
+  box-shadow: 5px 5px 4px 2px #909090;
+
 
 }
 .postexplore2
