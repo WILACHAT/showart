@@ -30,6 +30,18 @@
            
 
           }
+          function searchResults(){
+            console.log("search value", document.querySelector('#searchinput').value)
+            let searchvalue = document.querySelector('#searchinput').value
+            fetch(`/search`, {
+            method: 'PUT',
+            headers:{'X-CSRFToken': getcooked},
+            body: JSON.stringify({
+                searchvalue:searchvalue
+                })
+        })
+
+          }
           </script>
         {% block script %}
         {% endblock %}
@@ -38,6 +50,7 @@
       <nav id="navibarid" class="navbar fixed-top navbar-expand-md navbar-light">
         <div class="d-flex justify-content-between">
         <a class="showart navbar-brand" href="{% url 'explore' %}">showArt</a>
+          
        
         <button onclick="myFunction()" class="navbutton navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

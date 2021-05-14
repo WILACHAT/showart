@@ -54,9 +54,6 @@ function getCookie(name) {
             document.querySelector('#gallerypage').hidden = true;
             document.querySelector('#gallerypageone').hidden = true;
             document.querySelector('#navibarid').hidden = false;
-
-
-            
     }
    
 
@@ -141,7 +138,7 @@ function getCookie(name) {
                     <h3 class="contactgmailcss ">{contactgmail}</h3> 
                 </div> 
                 <div class="d-flex justify-content-center mb-3">
-                    <a class="openseaurlcss" href={openseaurl}>{openseaurl}</a>
+                    <a class="openseaurlcss" href={openseaurl} target="_blank">{openseaurl}</a>
                 </div> 
                 <div class="d-flex justify-content-center">
                     <h3 class="profiledescss">{profiledes}</h3>

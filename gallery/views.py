@@ -18,6 +18,8 @@ from django.contrib.staticfiles.views import serve
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.db.models import F
 from django.db.models import Count
+import re
+
 
 
 def index(request):
@@ -106,7 +108,7 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
     following = Follower.objects.filter(user_id_follower = clicked, user_id_following = curuser, follow_qm = 1).count()
     howmanyvotes = Vote.objects.filter(user_id_id = clicked, like = 1).count()
   
-
+    searchvalue = ""
     if howmanyvotes == 0:
             howmanyvotes = 0
     if following == 0:
@@ -210,13 +212,17 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
         kuku = Follower.objects.values('user_id_follower').annotate(count=Count('user_id_follower')).filter(follow_qm = 1).order_by('-count')[:3]
         kulist = []
         print(kuku)
+        counter = 1
         for i in kuku:
             print("i.user.id.follower", i['user_id_follower'])
+            User.objects.filter(id = i['user_id_follower']).update(rank = counter)
+            counter = counter + 1
+
             kulist.append(i['user_id_follower'])
             
         
         print(f"kulist: {kulist}")
-        allgallery = User.objects.filter(id__in = kulist)
+        allgallery = User.objects.filter(id__in = kulist).order_by('rank')
 
 
         print(f"kutoo: {allgallery}")
@@ -230,25 +236,61 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
         
         allgallery = User.objects.filter(id__in = listfollowing)
 
+    elif whatkind == "search":
+        userall = User.objects.all()
+        data = json.loads(request.body)
+        searchvalue = data["searchvalue"]
+        hi = "how many his can i get"
+        listofcloseuser = []
+        
+        
+
+        for i in userall:
+            
+            print(f"this is searchvalue: {searchvalue}")
+            match = re.search(f"{searchvalue}",i.username)
+
+            if match:
+                listofcloseuser.append(i.id)
+
+            else:
+                print("did not find")
+        allgallery = User.objects.filter(id__in = listofcloseuser)
+
+        print(f"this is u know:{listofcloseuser}")
+
+
     newdata = []
     for gallery in allgallery:
         newdata.append(gallery.serializeuser(request.user.id))
     
-    pagination = Paginator(newdata, 5)
-    num_pages = pagination.num_pages
+    if (whatkind == "search"):
+        
+        pagination = Paginator(newdata, 15)
+        num_pages = 0
+    
+    else:
+    
+        pagination = Paginator(newdata, 5)
+        num_pages = pagination.num_pages
+
+    
     paginationid = int(paginationid)
     print(f"this is profpic", profpic)
     howmanyfollow = Follower.objects.filter(user_id_follower = clicked, follow_qm = 1).count()
 
 
     return_request = {"user":curuser, "username":username, "whatkind":whatkind, "following":following,"contactgmail":contactgmail, "openseaurl":openseaurl, "profiledes":profiledes, "data":[], "num_pages":num_pages, "paginationid":paginationid,
-    "profilepic":profpic, "howmanyvotes":howmanyvotes, "howmanyfollow":howmanyfollow, "view":view}
+    "profilepic":profpic, "howmanyvotes":howmanyvotes, "howmanyfollow":howmanyfollow, "view":view, "searchvalue":searchvalue}
 
     for row in pagination.page(paginationid).object_list:  
         return_request["data"].append(row)
 
     return JsonResponse(return_request, safe=False)
 
+
+
+    
 def handle_uploaded_file(profilepic):
     first = "gallery/static/profile_pic/"
     profilepicname= str(profilepic)

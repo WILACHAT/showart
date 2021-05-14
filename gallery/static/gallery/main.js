@@ -8,137 +8,86 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var PostRow = function (_React$Component) {
-  _inherits(PostRow, _React$Component);
+function getCookie(name) {
+  var cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === name + '=') {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
 
-  function PostRow(props) {
-    _classCallCheck(this, PostRow);
+var SearchBar = function (_React$Component) {
+  _inherits(SearchBar, _React$Component);
 
-    var _this = _possibleConstructorReturn(this, (PostRow.__proto__ || Object.getPrototypeOf(PostRow)).call(this, props));
+  function SearchBar(props) {
+    _classCallCheck(this, SearchBar);
 
-    console.log(_this.props.id);
+    var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props));
 
-    console.log(_this.props.username);
-    console.log(_this.props.gallerytitle);
-    console.log(_this.props.gallerybgimage);
-    console.log(_this.props.gallerybgcolor);
-    console.log(_this.props.modifiedtime);
-    console.log("views", _this.props.views);
+    _this.checkSearch = _this.checkSearch.bind(_this);
+
     return _this;
   }
 
-  _createClass(PostRow, [{
-    key: "render",
+  _createClass(SearchBar, [{
+    key: 'checkSearch',
+    value: function checkSearch(e) {
+      this.props.oncheckSearch(e.target.value);
+      console.log("searchbar", e.target.value);
+    }
+  }, {
+    key: 'render',
     value: function render() {
 
-      var createdDate = this.props.time_stamp;
-      var changedTime = this.props.changedtime;
-      var thegallery = "/thegallery/" + this.props.id;
-
-      var checknone = "";
-      if (this.props.curuser == null) {
-        checknone = "None";
-      }
-
-      var info = this.props.post_info;
-      var profilelink = "/profile/" + this.props.id;
-
       return React.createElement(
-        "div",
+        'form',
         null,
-        React.createElement(
-          "a",
-          { "class": "aeexplore", href: profilelink },
-          React.createElement(
-            "div",
-            { "class": "coversall" },
-            React.createElement(
-              "div",
-              { "class": "d-flex justify-content-center mt-5" },
-              React.createElement(
-                "div",
-                { "class": "postexplore2" },
-                this.props.title != "" ? React.createElement(
-                  "p",
-                  _defineProperty({ "class": "titlep d-flex justify-content-end", id: "aescape" }, "class", "font-weight-light timestamp"),
-                  "Title: ",
-                  React.createElement(
-                    "h6",
-                    null,
-                    this.props.gallerytitle
-                  )
-                ) : null
-              )
-            ),
-            React.createElement(
-              "div",
-              { "class": "d-flex justify-content-center" },
-              React.createElement("div", { "class": "postexplore", style: { backgroundColor: this.props.gallerybgcolor, backgroundImage: this.props.gallerybgimage } })
-            ),
-            React.createElement(
-              "div",
-              { "class": "d-flex justify-content-center" },
-              React.createElement(
-                "div",
-                { "class": "postexplore2 d-flex justify-content-between" },
-                React.createElement(
-                  "p",
-                  _defineProperty({ "class": "d-flex justify-content-start", href: profilelink, id: "aescape" }, "class", "h4 colorstyle"),
-                  this.props.username
-                ),
-                React.createElement("p", null),
-                React.createElement(
-                  "p",
-                  _defineProperty({ id: "aescape", "class": "titlep d-flex justify-content-end", name: "timestamp" }, "class", "font-weight-light timestamp"),
-                  this.props.views,
-                  " ",
-                  this.props.views > 1 ? "views" : "view"
-                )
-              )
-            ),
-            React.createElement(
-              "div",
-              { "class": "d-flex justify-content-center" },
-              React.createElement(
-                "div",
-                { "class": "postexplore2" },
-                React.createElement(
-                  "p",
-                  { id: "aescape", "class": "font-weight-light timestamp mb-5" },
-                  "Last Updated: ",
-                  this.props.modifiedtime
-                )
-              )
-            ),
-            React.createElement(
-              "div",
-              { "class": "d-flex justify-content-center" },
-              React.createElement("input", { type: "hidden", value: this.props.id })
-            )
-          )
-        )
+        React.createElement('input', {
+          type: 'text',
+          'class': 'inputsearch',
+          placeholder: 'Search...',
+          value: this.props.searchtext,
+          onChange: this.checkSearch })
       );
     }
   }]);
 
-  return PostRow;
+  return SearchBar;
 }(React.Component);
 
-var PostTable = function (_React$Component2) {
-  _inherits(PostTable, _React$Component2);
+var PostPage = function (_React$Component2) {
+  _inherits(PostPage, _React$Component2);
 
-  function PostTable(props) {
-    _classCallCheck(this, PostTable);
+  function PostPage(props) {
+    _classCallCheck(this, PostPage);
 
-    var _this2 = _possibleConstructorReturn(this, (PostTable.__proto__ || Object.getPrototypeOf(PostTable)).call(this, props));
+    var _this2 = _possibleConstructorReturn(this, (PostPage.__proto__ || Object.getPrototypeOf(PostPage)).call(this, props));
 
+    _this2.checkSearch = _this2.checkSearch.bind(_this2);
     _this2.changePage = _this2.changePage.bind(_this2);
+
+    _this2.state = {
+      searchtext: "",
+      newdata: _this2.props.data
+
+    };
     return _this2;
   }
 
-  _createClass(PostTable, [{
-    key: "changePage",
+  _createClass(PostPage, [{
+    key: 'changePage',
     value: function changePage(e) {
+      var _this3 = this;
+
+      console.log("change page page");
       var pagination = e.target.id;
       var innerhtmlpage = e.target.innerHTML;
       var whatkind = this.props.data["whatkind"];
@@ -159,19 +108,194 @@ var PostTable = function (_React$Component2) {
         clicked = 0;
       }
 
-      fetch("/currentgalleryapi/" + whatkind + "/" + clicked + "/" + pagination).then(function (response) {
+      fetch('/currentgalleryapi/' + whatkind + '/' + clicked + '/' + pagination).then(function (response) {
         return response.json();
       }).then(function (data) {
-
-        ReactDOM.render(React.createElement(PostTable, { data: data }), document.querySelector('#postpage'));
+        _this3.setState({
+          newdata: data
+        });
+        console.log("newest pagination", _this3.state.newdata);
       });
 
       window.scrollTo(0, 0);
     }
   }, {
-    key: "render",
+    key: 'checkSearch',
+    value: function checkSearch(searchtext, e) {
+      var _this4 = this;
+
+      console.log("in checksearch", searchtext);
+      var whatkind = "";
+
+      if (searchtext != "") {
+        whatkind = "search";
+      } else {
+        whatkind = "explore";
+      }
+      var pagination = 1;
+      if (this.props.pagilols != null) {
+        pagination = this.props.pagilols;
+      }
+      var clicked = 1;
+
+      this.setState({ searchtext: searchtext });
+
+      var getcooked = getCookie('csrftoken');
+      fetch('/currentgalleryapi/' + whatkind + '/' + clicked + '/' + pagination, {
+        method: 'PUT',
+        headers: { 'X-CSRFToken': getcooked },
+        body: JSON.stringify({
+          searchvalue: searchtext
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        console.log("this is data", data);
+        _this4.setState({
+          newdata: data
+        });
+      });
+    }
+  }, {
+    key: 'render',
     value: function render() {
-      console.log("does the css work");
+      console.log("this.state.searchtext", this.state.searchtext);
+      return React.createElement(
+        'div',
+        null,
+        React.createElement(SearchBar, { searchtext: this.state.searchtext,
+          oncheckSearch: this.checkSearch }),
+        React.createElement(PostTable, { data: this.state.newdata, changePage: this.changePage })
+      );
+    }
+  }]);
+
+  return PostPage;
+}(React.Component);
+
+var PostRow = function (_React$Component3) {
+  _inherits(PostRow, _React$Component3);
+
+  function PostRow(props) {
+    _classCallCheck(this, PostRow);
+
+    return _possibleConstructorReturn(this, (PostRow.__proto__ || Object.getPrototypeOf(PostRow)).call(this, props));
+  }
+
+  _createClass(PostRow, [{
+    key: 'render',
+    value: function render() {
+
+      var createdDate = this.props.time_stamp;
+      var changedTime = this.props.changedtime;
+      var thegallery = "/thegallery/" + this.props.id;
+
+      var checknone = "";
+      if (this.props.curuser == null) {
+        checknone = "None";
+      }
+
+      var info = this.props.post_info;
+      var profilelink = "/profile/" + this.props.id;
+
+      return React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'a',
+          { 'class': 'aeexplore', href: profilelink },
+          React.createElement(
+            'div',
+            { 'class': 'coversall' },
+            React.createElement(
+              'div',
+              { 'class': 'd-flex justify-content-center mt-5' },
+              React.createElement(
+                'div',
+                { 'class': 'postexplore2' },
+                this.props.title != "" ? React.createElement(
+                  'p',
+                  _defineProperty({ 'class': 'titlep d-flex justify-content-end', id: 'aescape' }, 'class', 'font-weight-light timestamp'),
+                  'Title: ',
+                  React.createElement(
+                    'h6',
+                    null,
+                    this.props.gallerytitle
+                  )
+                ) : null
+              )
+            ),
+            React.createElement(
+              'div',
+              { 'class': 'd-flex justify-content-center' },
+              React.createElement('div', { 'class': 'postexplore', style: { backgroundColor: this.props.gallerybgcolor, backgroundImage: this.props.gallerybgimage } })
+            ),
+            React.createElement(
+              'div',
+              { 'class': 'd-flex justify-content-center' },
+              React.createElement(
+                'div',
+                { 'class': 'postexplore2 d-flex justify-content-between' },
+                React.createElement(
+                  'p',
+                  _defineProperty({ 'class': 'd-flex justify-content-start', href: profilelink, id: 'aescape' }, 'class', 'h4 colorstyle'),
+                  this.props.username
+                ),
+                React.createElement('p', null),
+                React.createElement(
+                  'p',
+                  _defineProperty({ id: 'aescape', 'class': 'titlep d-flex justify-content-end', name: 'timestamp' }, 'class', 'font-weight-light timestamp'),
+                  this.props.views,
+                  ' ',
+                  this.props.views > 1 ? "views" : "view"
+                )
+              )
+            ),
+            React.createElement(
+              'div',
+              { 'class': 'd-flex justify-content-center' },
+              React.createElement(
+                'div',
+                { 'class': 'postexplore2' },
+                React.createElement(
+                  'p',
+                  { id: 'aescape', 'class': 'font-weight-light timestamp mb-5' },
+                  'Last Updated: ',
+                  this.props.modifiedtime
+                )
+              )
+            ),
+            React.createElement(
+              'div',
+              { 'class': 'd-flex justify-content-center' },
+              React.createElement('input', { type: 'hidden', value: this.props.id })
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return PostRow;
+}(React.Component);
+
+var PostTable = function (_React$Component4) {
+  _inherits(PostTable, _React$Component4);
+
+  function PostTable(props) {
+    _classCallCheck(this, PostTable);
+
+    var _this6 = _possibleConstructorReturn(this, (PostTable.__proto__ || Object.getPrototypeOf(PostTable)).call(this, props));
+
+    var data = _this6.props.data;
+
+    return _this6;
+  }
+
+  _createClass(PostTable, [{
+    key: 'render',
+    value: function render() {
+      if (this.props.data["whatkind"] == "following") {}
       if (this.props.data["whatkind"] == "following") {
         console.log("in what kind following");
         document.querySelector('#navfollowing').style.color = "salmon";
@@ -190,18 +314,17 @@ var PostTable = function (_React$Component2) {
       var rows = [];
       var button = [];
       var curuser = this.props.data["user"];
-      console.log("whatkind", this.props.data["whatkind"]);
 
       var paginationid = this.props.data["paginationid"];
 
       for (var j = 0; j < this.props.data["num_pages"]; j++) {
         var thej = j + 1;
         button.push(React.createElement(
-          "li",
-          { "class": paginationid == thej ? "page-item active" : "page-item", onClick: this.changePage },
+          'li',
+          { 'class': paginationid == thej ? "page-item active" : "page-item", onClick: this.props.changePage },
           React.createElement(
-            "a",
-            { "class": "page-link" },
+            'a',
+            { 'class': 'page-link' },
             thej
           )
         ));
@@ -220,40 +343,40 @@ var PostTable = function (_React$Component2) {
           curuser: curuser }));
       }
       return React.createElement(
-        "div",
-        null,
+        'div',
+        { id: 'posttableid' },
         React.createElement(
-          "div",
-          { "class": "flex-column" },
+          'div',
+          { id: 'rowsid', 'class': 'flex-column' },
           rows
         ),
-        this.props.data["whatkind"] == "explore" ? React.createElement(
-          "div",
+        React.createElement(
+          'div',
           null,
           this.props.data["num_pages"] != 0 ? React.createElement(
-            "ul",
-            { "class": "pagination container justify-content-center " },
+            'ul',
+            { 'class': 'pagination container justify-content-center ' },
             React.createElement(
-              "li",
-              { "class": "page-item" },
+              'li',
+              { 'class': 'page-item' },
               paginationid != 1 ? React.createElement(
-                "span",
-                { id: paginationid, "class": "page-link", onClick: this.changePage },
-                "Previous"
+                'span',
+                { id: paginationid, 'class': 'page-link', onClick: this.props.changePage },
+                'Previous'
               ) : null
             ),
             button,
             React.createElement(
-              "li",
-              { "class": "page-item" },
+              'li',
+              { 'class': 'page-item' },
               paginationid != this.props.data["num_pages"] ? React.createElement(
-                "span",
-                { id: paginationid, "class": "page-link", onClick: this.changePage },
-                "Next"
+                'span',
+                { id: paginationid, 'class': 'page-link', onClick: this.props.changePage },
+                'Next'
               ) : null
             )
           ) : null
-        ) : null
+        )
       );
     }
   }]);
@@ -261,4 +384,4 @@ var PostTable = function (_React$Component2) {
   return PostTable;
 }(React.Component);
 
-export default PostTable;
+export default PostPage;

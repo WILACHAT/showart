@@ -1,4 +1,4 @@
-import PostTable from './main.js';
+import PostPage from './main.js';
 
 document.addEventListener('DOMContentLoaded', function () {
   var pagination = 1;
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     return response.json();
   }).then(function (data) {
 
-    ReactDOM.render(React.createElement(PostTable, { data: data }), document.querySelector('#postpage'));
+    ReactDOM.render(React.createElement(PostPage, { data: data }), document.querySelector('#postpage'));
 
     console.log(data);
   });

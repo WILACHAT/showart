@@ -1,18 +1,160 @@
 
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+  }
+  class SearchBar extends React.Component{
+    constructor(props) {
+        super(props);
+        this.checkSearch = this.checkSearch.bind(this);
+
+     
+    };
+    checkSearch(e) {      
+      this.props.oncheckSearch(e.target.value);
+      console.log("searchbar", e.target.value)
+    }
+      render() 
+      {
+   
+        return (
+          <form>
+          <input
+            type="text"
+            class="inputsearch"
+            placeholder="Search..."
+            value={this.props.searchtext} 
+            onChange={this.checkSearch}/>
+        </form>
+        );
+      }
+
+
+  }
+  class PostPage extends React.Component{
+    constructor(props) {
+      super(props);
+      this.checkSearch = this.checkSearch.bind(this);
+      this.changePage = this.changePage.bind(this);
+
+      this.state = 
+      {
+        searchtext:"",
+        newdata: this.props.data
+
+      }
+      };
+    changePage(e)
+    {
+      console.log("change page page")
+      let pagination = e.target.id
+      const innerhtmlpage = e.target.innerHTML
+      let whatkind = this.props.data["whatkind"]
+      console.log("this is whatkind", whatkind)
+    
+      if (innerhtmlpage == "Previous")
+      {
+        pagination = parseInt(pagination)
+        pagination = pagination - 1
+      }
+      else if(innerhtmlpage == "Next")
+      {
+        pagination = parseInt(pagination)
+        pagination = pagination + 1
+      }
+      else{
+        pagination = parseInt(e.target.innerHTML)
+      }
+      let checkfornull = window.location.pathname.split('/')[2]
+      let clicked = parseInt(window.location.pathname.split('/')[2])
+      if (checkfornull == null){
+          clicked = 0
+      }
+      
+
+      fetch(`/currentgalleryapi/${whatkind}/${clicked}/${pagination}`)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          newdata: data
+        })
+      console.log("newest pagination", this.state.newdata)
+      });
+
+      window.scrollTo(0, 0)
+  }
+ 
+      checkSearch(searchtext, e){
+        console.log("in checksearch", searchtext)
+        let whatkind = ""
+
+        if (searchtext != "")
+        {
+          whatkind = "search"
+        }
+        else{
+          whatkind = "explore"
+        }
+        let pagination = 1
+        if (this.props.pagilols != null)
+        {
+          pagination = this.props.pagilols
+        }
+        let clicked = 1
+       
+          this.setState({searchtext: searchtext});
+    
+          const getcooked = getCookie('csrftoken')
+          fetch(`/currentgalleryapi/${whatkind}/${clicked}/${pagination}`, {
+          method: 'PUT',
+          headers:{'X-CSRFToken': getcooked},
+            body: JSON.stringify({
+              searchvalue:  searchtext
+                })
+        })
+        
+        .then(response => response.json())
+    
+        .then(data => {
+         console.log("this is data", data)
+         this.setState({
+           newdata: data
+         })
+   
+        });
+          
+  
+      }
+
+      render() 
+      {
+      console.log("this.state.searchtext", this.state.searchtext)
+        return (
+          <div>
+          <SearchBar   searchtext={this.state.searchtext}
+        oncheckSearch={this.checkSearch}/>
+        
+    <PostTable data={this.state.newdata} changePage={this.changePage}/>
+      </div>
+        );
+      }
+
+  }
   class PostRow extends React.Component {
     constructor(props) {
       super(props);
-      console.log(this.props.id)
-
-      console.log(this.props.username)
-      console.log(this.props.gallerytitle)
-      console.log(this.props.gallerybgimage)
-      console.log(this.props.gallerybgcolor)
-      console.log(this.props.modifiedtime)
-      console.log("views", this.props.views)
       };
- 
-  
 
     render() {
      
@@ -60,7 +202,6 @@
             </div>  
            
          
-           
             <div class="d-flex justify-content-center">
                 <input type="hidden" value={this.props.id}></input>
             </div>    
@@ -76,47 +217,16 @@ class PostTable extends React.Component
   constructor(props) 
   {
     super(props);
-    this.changePage = this.changePage.bind(this);
+    const data = this.props.data
+
   }
-  changePage(e)
-  {
-    let pagination = e.target.id
-    const innerhtmlpage = e.target.innerHTML
-    let whatkind = this.props.data["whatkind"]
-    console.log("this is whatkind", whatkind)
   
-    if (innerhtmlpage == "Previous")
-    {
-      pagination = parseInt(pagination)
-      pagination = pagination - 1
-    }
-    else if(innerhtmlpage == "Next")
-    {
-      pagination = parseInt(pagination)
-      pagination = pagination + 1
-    }
-    else{
-      pagination = parseInt(e.target.innerHTML)
-    }
-    let checkfornull = window.location.pathname.split('/')[2]
-    let clicked = parseInt(window.location.pathname.split('/')[2])
-    if (checkfornull == null){
-        clicked = 0
-    }
-
-
-    fetch(`/currentgalleryapi/${whatkind}/${clicked}/${pagination}`)
-    .then(response => response.json())
-    .then(data => {
-
-    ReactDOM.render(<PostTable data={data}/>, document.querySelector('#postpage'));
-    });
-
-    window.scrollTo(0, 0)
-  }
   render() 
   {
-    console.log("does the css work")
+    if (this.props.data["whatkind"] == "following"){
+
+
+    }
     if (this.props.data["whatkind"] == "following"){
       console.log("in what kind following")
       document.querySelector('#navfollowing').style.color = "salmon";
@@ -141,7 +251,6 @@ class PostTable extends React.Component
     const rows = [];
     const button = [];
     const curuser = this.props.data["user"]
-    console.log("whatkind", this.props.data["whatkind"])
 
     const paginationid = this.props.data["paginationid"]
 
@@ -150,7 +259,7 @@ class PostTable extends React.Component
       let thej = j + 1
       button.push
       (
-        <li class={paginationid == thej ? "page-item active":"page-item"} onClick={this.changePage}><a class="page-link">{thej}</a></li>
+        <li class={paginationid == thej ? "page-item active":"page-item"} onClick={this.props.changePage}><a class="page-link">{thej}</a></li>
       )
 
     }
@@ -173,26 +282,28 @@ class PostTable extends React.Component
 
     }
     return (
-      <div>
-      <div class="flex-column">
+      <div id="posttableid">
+
+
+      <div id="rowsid" class="flex-column">
         {rows}
       </div>
         
-        {this.props.data["whatkind"] == "explore" ? 
+       
         <div>
         {this.props.data["num_pages"] != 0 ?
         <ul class="pagination container justify-content-center ">
             <li class="page-item">
-              {paginationid != 1 ? <span id={paginationid} class="page-link" onClick={this.changePage}>Previous</span>: null}
+              {paginationid != 1 ? <span id={paginationid} class="page-link" onClick={this.props.changePage}>Previous</span>: null}
               </li>
                 {button}              
               <li class="page-item">
-              {paginationid != this.props.data["num_pages"] ? <span id={paginationid} class="page-link" onClick={this.changePage}>Next</span>: null}
+              {paginationid != this.props.data["num_pages"] ? <span id={paginationid} class="page-link" onClick={this.props.changePage}>Next</span>: null}
             </li>
         </ul>: null}
-        </div>: null}
+        </div>
       </div>
     );
   }
 }
-export default PostTable 
+export default PostPage 

@@ -14,6 +14,8 @@ class User(AbstractUser, models.Model):
     gallerybgimage = models.URLField(max_length=256, null=True)
     modify_date = models.DateTimeField(auto_now=True)
     views = models.IntegerField(null=True)
+    rank = models.IntegerField(null=True)
+
 
 
     def serializeuser(self, usercurrent):
@@ -31,11 +33,6 @@ class User(AbstractUser, models.Model):
             "views": self.views, 
             "modifiedtime":self.modify_date.strftime("%b %-d %Y, %-I:%M %p")
         }   
-
-
-  
-
-
 class User_Wallet(models.Model):   
     wallet_address = models.CharField(max_length=64)
     user_id = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)

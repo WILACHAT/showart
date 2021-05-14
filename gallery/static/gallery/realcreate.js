@@ -153,7 +153,7 @@ var DivNewClass = function (_React$Component2) {
         var src = "";
         var des = "";
         var title = "";
-        var border = "dotted";
+        var border = "";
         var thisisfromprofile = "false";
         if (_this2.props.src != undefined) {
             src = _this2.props.src;
@@ -463,41 +463,21 @@ var ShowTemplateTwo = function (_React$Component3) {
                 this.props.type != "profile" ? React.createElement(
                     'div',
                     { id: 'boss', 'class': 'd-flex justify-content-center d-flex flex-wrap mt-2' },
-                    React.createElement(
-                        'p',
-                        null,
-                        'Change template background color:'
-                    ),
                     React.createElement('input', { id: 'exampleColorInput', onChange: this.props.changeBgColor, type: 'color', 'class': 'changecolor form-control form-control-color col-1 mb-1', title: 'Choose your color' }),
-                    React.createElement(
-                        'p',
-                        null,
-                        'Change template background image:'
-                    ),
                     React.createElement('input', { id: 'filetemplate1', onChange: this.props.imageTemplate, 'class': 'filetemplate1 form-control-file col-sm-1 mr-1', type: 'file' }),
                     React.createElement(
-                        'p',
-                        null,
-                        'Delete template:'
+                        'button',
+                        { id: 'addimagetemplate1', onClick: function onClick(e) {
+                                return _this6.addImage(realid, e, classname);
+                            }, 'class': 'deletetemplate btn btn-outline-dark btn-sm mr-2 mb-1' },
+                        'Add Image'
                     ),
                     React.createElement(
                         'button',
                         { id: 'deletetemplate1', onClick: function onClick(e) {
                                 return _this6.props.deleteTemplate(_this6.props.id, e);
-                            }, 'class': 'deletetemplate btn btn-outline-danger btn-sm mr-1 mb-1' },
+                            }, 'class': 'deletetemplate btn btn-outline-danger btn-sm mr-2 mb-1' },
                         'X'
-                    ),
-                    React.createElement(
-                        'p',
-                        null,
-                        'Add frame:'
-                    ),
-                    React.createElement(
-                        'button',
-                        { id: 'addimagetemplate1', onClick: function onClick(e) {
-                                return _this6.addImage(realid, e, classname);
-                            }, 'class': 'deletetemplate btn btn-outline-dark btn-sm mb-1' },
-                        'Add Image'
                     )
                 ) : null,
                 React.createElement(
@@ -867,6 +847,11 @@ var NextImg = function (_React$Component5) {
                                 'button',
                                 { 'class': 'btn btn-outline-dark btn-sm mt-2 mb-2 mr-2', onClick: this.goBack },
                                 'Back'
+                            ),
+                            React.createElement(
+                                'a',
+                                { href: 'http://127.0.0.1:8000/', target: '_blank', 'class': 'btn btn-outline-dark btn-sm mt-2 mb-2 mr-2' },
+                                'How To'
                             ),
                             React.createElement(
                                 'button',

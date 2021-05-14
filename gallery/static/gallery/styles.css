@@ -76,6 +76,28 @@ div {
     cursor: pointer;
 
 }
+.gallerymostvoted{
+  font-family:"HelveticaW01-Bold";
+  font-size: 25px;
+  margin-top:5%;
+
+
+}
+.carouselol{
+color:black;
+}
+.searchbutton
+{
+  position:fixed;
+  margin-top:5%;
+}
+.inputsearch
+{
+  margin-top:5%;
+  position:fixed;
+  border: none;
+
+}
 .wow{
     margin: 0px;
     line-height: 1.2;
@@ -480,6 +502,10 @@ input[id='choosefile'] {
   text-align: center;
   position:relative;
 }
+.divborder :hover
+{
+  cursor: pointer;
+}
 
 .testingtestimgg{
   margin:auto;
@@ -560,7 +586,17 @@ input[id='choosefile'] {
   background-size: cover;
   justify-content: center;
 
-  box-shadow: 5px 5px 4px 2px #909090;
+  box-shadow: #f6bd60 5px 5px, #f7d560 10px 10px, #f6e199 15px 15px,  #fbeeac 20px 20px
+}
+.postexploregallery
+{
+  width:700px;
+  height:400px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  justify-content: center;
+
+  box-shadow: rgb(85, 91, 255) 0px 0px 0px 3px, rgb(31, 193, 27) 0px 0px 0px 6px, rgb(255, 217, 19) 0px 0px 0px 9px, rgb(255, 156, 85) 0px 0px 0px 12px, rgb(255, 85, 85) 0px 0px 0px 15px;
 
 
 }

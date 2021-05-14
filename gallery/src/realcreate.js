@@ -98,7 +98,7 @@ function getCookie(name) {
        let src = ""
        let des = ""
        let title = ""
-       let border = "dotted"
+       let border = ""
        let thisisfromprofile = "false"
        if (this.props.src != undefined)
        {
@@ -399,14 +399,10 @@ function getCookie(name) {
         <div>
 
             {this.props.type != "profile" ? <div id="boss"class="d-flex justify-content-center d-flex flex-wrap mt-2">
-                <p>Change template background color:</p>
                 <input id="exampleColorInput" onChange={this.props.changeBgColor} type="color" class="changecolor form-control form-control-color col-1 mb-1" title="Choose your color"></input>
-                <p>Change template background image:</p>
                 <input id="filetemplate1" onChange={this.props.imageTemplate} class="filetemplate1 form-control-file col-sm-1 mr-1" type="file"></input>
-                <p>Delete template:</p>
-                <button id="deletetemplate1" onClick={(e) => this.props.deleteTemplate(this.props.id, e)} class="deletetemplate btn btn-outline-danger btn-sm mr-1 mb-1">X</button>
-                <p>Add frame:</p>
-                <button id="addimagetemplate1"onClick={(e) => this.addImage(realid, e, classname)} class="deletetemplate btn btn-outline-dark btn-sm mb-1">Add Image</button>
+                <button id="addimagetemplate1"onClick={(e) => this.addImage(realid, e, classname)} class="deletetemplate btn btn-outline-dark btn-sm mr-2 mb-1">Add Image</button>
+                <button id="deletetemplate1" onClick={(e) => this.props.deleteTemplate(this.props.id, e)} class="deletetemplate btn btn-outline-danger btn-sm mr-2 mb-1">X</button>
             </div> :null}
             <div id={realid} name={this.props.id} className="d-flex justify-content-center template2 mr-4 d-flex flex-wrap" style={{backgroundImage: this.state.bgimage, backgroundColor: this.state.bgcolor}}>
             {this.state.list.map(item => (
@@ -771,6 +767,7 @@ function getCookie(name) {
                 <div class="belowimgnextbg ">
                     <div class="templateimgdiv d-flex justify-content-center">
                     <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-2" onClick={this.goBack}>Back</button>
+                    <a href = "http://127.0.0.1:8000/" target="_blank" class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-2">How To</a>
                     <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-2" onClick={() => this.showTemplate2(counttemplate2++)}>Add Template</button>
                     <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.goSave}>Save</button>
                 </div>

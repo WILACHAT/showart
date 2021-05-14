@@ -189,7 +189,7 @@ var ProfileEdit = function (_React$Component2) {
                         { 'class': 'd-flex justify-content-center mb-3' },
                         React.createElement(
                             'a',
-                            { 'class': 'openseaurlcss', href: openseaurl },
+                            { 'class': 'openseaurlcss', href: openseaurl, target: '_blank' },
                             openseaurl
                         )
                     ),

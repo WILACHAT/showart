@@ -1,4 +1,4 @@
-import PostTable from './main.js'
+import PostPage from './main.js'
 
 document.addEventListener('DOMContentLoaded', function() {
     const pagination = 1
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     .then(data => {
       
-      ReactDOM.render(<PostTable data={data}/>, document.querySelector('#postpage'));
+      ReactDOM.render(<PostPage data={data}/>, document.querySelector('#postpage'));
 
       console.log(data)
       
