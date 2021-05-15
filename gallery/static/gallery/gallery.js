@@ -48,7 +48,7 @@ var PostTableGallery = function (_React$Component) {
           React.createElement(
             "h1",
             { "class": "gallerymostvoted" },
-            "MOST VOTED GALLERY"
+            "TOP 3 MOST VOTED GALLERY"
           )
         ),
         React.createElement(

@@ -300,6 +300,7 @@ function getCookie(name) {
     constructor(props){
         super(props);
         this.addImage = this.addImage.bind(this);
+      
         let array = []
         let w = 0
         let newlist = []
@@ -358,6 +359,7 @@ function getCookie(name) {
                 }
             }
         }
+
         console.log("waker", e.target.parentElement.parentElement.childNodes[1].childNodes.length)
         if (e.target.parentElement.parentElement.childNodes[1].childNodes.length < 3)
         {
@@ -381,8 +383,11 @@ function getCookie(name) {
         
       }
       
+
+      
   
     render(){
+        let counttemplate2 = 0;
         let classname = ""
         if (this.state.list.length + 1 == 1)
         {
@@ -402,6 +407,8 @@ function getCookie(name) {
                 <input id="exampleColorInput" onChange={this.props.changeBgColor} type="color" class="changecolor form-control form-control-color col-1 mb-1" title="Choose your color"></input>
                 <input id="filetemplate1" onChange={this.props.imageTemplate} class="filetemplate1 form-control-file col-sm-1 mr-1" type="file"></input>
                 <button id="addimagetemplate1"onClick={(e) => this.addImage(realid, e, classname)} class="deletetemplate btn btn-outline-dark btn-sm mr-2 mb-1">Add Image</button>
+                <button id="addimagetemplate1"onClick={(e) => this.props.addTemplateAbove(realid, e, classname, counttemplate2++)} class="deletetemplate btn btn-outline-dark btn-sm mr-2 mb-1">Add Template Above</button>
+
                 <button id="deletetemplate1" onClick={(e) => this.props.deleteTemplate(this.props.id, e)} class="deletetemplate btn btn-outline-danger btn-sm mr-2 mb-1">X</button>
             </div> :null}
             <div id={realid} name={this.props.id} className="d-flex justify-content-center template2 mr-4 d-flex flex-wrap" style={{backgroundImage: this.state.bgimage, backgroundColor: this.state.bgcolor}}>
@@ -490,6 +497,8 @@ function getCookie(name) {
         this.changeBgColor = this.changeBgColor.bind(this);
         this.deleteTemplate = this.deleteTemplate.bind(this);
         this.checkGalleryTitleArea = this.checkGalleryTitleArea.bind(this);
+        this.addTemplateAbove = this.addTemplateAbove.bind(this);
+
 
         let bgimagetitle = "";
         let bgcolortitle = "";
@@ -544,7 +553,7 @@ function getCookie(name) {
                 document.querySelector('#showtemplates').append(newDiv);
 
                 ReactDOM.render(<ShowTemplateTwo alldata={dataa['everydata'][i]} type="edit" id={id} changeBgColor={this.changeBgColor} 
-                deleteTemplate={this.deleteTemplate} imageTemplate={this.imageTemplate}/>,document.querySelector('#saveddata' + count));
+                deleteTemplate={this.deleteTemplate} imageTemplate={this.imageTemplate} addTemplateAbove={this.addTemplateAbove}/>,document.querySelector('#saveddata' + count));
             }
         }    
     });
@@ -628,8 +637,7 @@ function getCookie(name) {
   
         let l = 0;
       
-     
-    
+      
             let i = 0;    
 
             
@@ -639,6 +647,9 @@ function getCookie(name) {
                 console.log("c1", e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0])
                 console.log("c2", e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1])
                 
+                //newest new
+              //  bgcolor = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].children[i].childNodes[0].childNodes[1].style.backgroundColor
+
                 bgcolor = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].style.backgroundColor
                 sectiondict['bgcolor'] = bgcolor
                 bgimage = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].style.backgroundImage
@@ -713,9 +724,14 @@ function getCookie(name) {
                 gallerytitle:  gallerytitle
 
                 })
-   
-            
           })
+          .then(response => response.json())
+    
+          .then(data => {
+            window.location.href = "profile/" + data;
+  
+  
+          });
     }
     showTemplate2(count)
     {
@@ -727,8 +743,26 @@ function getCookie(name) {
         document.querySelector('#showtemplates').append(newDiv)
        
         ReactDOM.render(<ShowTemplateTwo id={id} changeBgColor={this.changeBgColor} 
-        deleteTemplate={this.deleteTemplate} imageTemplate={this.imageTemplate}/>, document.querySelector('#templatesidtwo' + count));
+        deleteTemplate={this.deleteTemplate} imageTemplate={this.imageTemplate} addTemplateAbove={this.addTemplateAbove}/>, document.querySelector('#templatesidtwo' + count));
     }
+    addTemplateAbove(realid, e, classname, count){
+        console.log("real id", realid)
+        console.log("e", e)
+        console.log("class name", classname)
+
+        const newDiv = document.createElement('div');
+        newDiv.id = "templatesidtwoabove" + realid + count
+        let id = "templatesidtwoabove" + realid + count
+     
+      //  document.querySelector('#showtemplates').append(newDiv)
+        e.target.parentElement.parentElement.parentElement.insertAdjacentElement('beforebegin', newDiv);
+
+     
+      ReactDOM.render(<ShowTemplateTwo id={id} changeBgColor={this.changeBgColor} 
+      deleteTemplate={this.deleteTemplate} imageTemplate={this.imageTemplate} addTemplateAbove={this.addTemplateAbove}/>, document.querySelector('#templatesidtwoabove' + realid + count));
+
+    }
+     
     checkGalleryTitleArea(e)
     {  if (e.target.value.length > 0) {
         this.setState({gallerytitleedit: e.target.value});
@@ -739,8 +773,9 @@ function getCookie(name) {
 
     }
     
-        render() {
-  
+        render() {    
+        let clicked = parseInt(window.location.pathname.split('/')[2])
+        let toprofilelink = "http://127.0.0.1:8000/profile" + clicked
         let counttemplate1 = 0;
         let counttemplate2 = 0;
         console.log("STATE COLOR STATE IMAGE MOFOOOO")
@@ -770,6 +805,7 @@ function getCookie(name) {
                     <a href = "http://127.0.0.1:8000/" target="_blank" class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-2">How To</a>
                     <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-2" onClick={() => this.showTemplate2(counttemplate2++)}>Add Template</button>
                     <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.goSave}>Save</button>
+
                 </div>
                 </div>
             </div>: null}
@@ -946,9 +982,6 @@ function getCookie(name) {
     if (clicked == "/realcreate"){
         document.querySelector('#navcreate').style.color = "salmon";
     }
-
-
-  
     // do while u dont own an nfts (not the query)
   
     let wallclick = document.querySelector('#wallclick')

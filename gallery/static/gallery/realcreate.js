@@ -386,6 +386,7 @@ var ShowTemplateTwo = function (_React$Component3) {
                     }
                 }
             }
+
             console.log("waker", e.target.parentElement.parentElement.childNodes[1].childNodes.length);
             if (e.target.parentElement.parentElement.childNodes[1].childNodes.length < 3) {
 
@@ -406,6 +407,7 @@ var ShowTemplateTwo = function (_React$Component3) {
         };
 
         _this5.addImage = _this5.addImage.bind(_this5);
+
         var array = [];
         var w = 0;
         var newlist = [];
@@ -449,6 +451,7 @@ var ShowTemplateTwo = function (_React$Component3) {
         value: function render() {
             var _this6 = this;
 
+            var counttemplate2 = 0;
             var classname = "";
             if (this.state.list.length + 1 == 1) {
                 classname = "oneimage";
@@ -471,6 +474,13 @@ var ShowTemplateTwo = function (_React$Component3) {
                                 return _this6.addImage(realid, e, classname);
                             }, 'class': 'deletetemplate btn btn-outline-dark btn-sm mr-2 mb-1' },
                         'Add Image'
+                    ),
+                    React.createElement(
+                        'button',
+                        { id: 'addimagetemplate1', onClick: function onClick(e) {
+                                return _this6.props.addTemplateAbove(realid, e, classname, counttemplate2++);
+                            }, 'class': 'deletetemplate btn btn-outline-dark btn-sm mr-2 mb-1' },
+                        'Add Template Above'
                     ),
                     React.createElement(
                         'button',
@@ -581,6 +591,7 @@ var NextImg = function (_React$Component5) {
         _this8.changeBgColor = _this8.changeBgColor.bind(_this8);
         _this8.deleteTemplate = _this8.deleteTemplate.bind(_this8);
         _this8.checkGalleryTitleArea = _this8.checkGalleryTitleArea.bind(_this8);
+        _this8.addTemplateAbove = _this8.addTemplateAbove.bind(_this8);
 
         var bgimagetitle = "";
         var bgcolortitle = "";
@@ -632,7 +643,7 @@ var NextImg = function (_React$Component5) {
                     document.querySelector('#showtemplates').append(newDiv);
 
                     ReactDOM.render(React.createElement(ShowTemplateTwo, { alldata: dataa['everydata'][i], type: 'edit', id: id, changeBgColor: _this8.changeBgColor,
-                        deleteTemplate: _this8.deleteTemplate, imageTemplate: _this8.imageTemplate }), document.querySelector('#saveddata' + count));
+                        deleteTemplate: _this8.deleteTemplate, imageTemplate: _this8.imageTemplate, addTemplateAbove: _this8.addTemplateAbove }), document.querySelector('#saveddata' + count));
                 }
             }
         });
@@ -722,6 +733,9 @@ var NextImg = function (_React$Component5) {
                 console.log("c1", e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0]);
                 console.log("c2", e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1]);
 
+                //newest new
+                //  bgcolor = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].children[i].childNodes[0].childNodes[1].style.backgroundColor
+
                 bgcolor = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].style.backgroundColor;
                 sectiondict['bgcolor'] = bgcolor;
                 bgimage = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].style.backgroundImage;
@@ -785,7 +799,10 @@ var NextImg = function (_React$Component5) {
                     gallerytitle: gallerytitle
 
                 })
-
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                window.location.href = "profile/" + data;
             });
         }
     }, {
@@ -799,7 +816,24 @@ var NextImg = function (_React$Component5) {
             document.querySelector('#showtemplates').append(newDiv);
 
             ReactDOM.render(React.createElement(ShowTemplateTwo, { id: id, changeBgColor: this.changeBgColor,
-                deleteTemplate: this.deleteTemplate, imageTemplate: this.imageTemplate }), document.querySelector('#templatesidtwo' + count));
+                deleteTemplate: this.deleteTemplate, imageTemplate: this.imageTemplate, addTemplateAbove: this.addTemplateAbove }), document.querySelector('#templatesidtwo' + count));
+        }
+    }, {
+        key: 'addTemplateAbove',
+        value: function addTemplateAbove(realid, e, classname, count) {
+            console.log("real id", realid);
+            console.log("e", e);
+            console.log("class name", classname);
+
+            var newDiv = document.createElement('div');
+            newDiv.id = "templatesidtwoabove" + realid + count;
+            var id = "templatesidtwoabove" + realid + count;
+
+            //  document.querySelector('#showtemplates').append(newDiv)
+            e.target.parentElement.parentElement.parentElement.insertAdjacentElement('beforebegin', newDiv);
+
+            ReactDOM.render(React.createElement(ShowTemplateTwo, { id: id, changeBgColor: this.changeBgColor,
+                deleteTemplate: this.deleteTemplate, imageTemplate: this.imageTemplate, addTemplateAbove: this.addTemplateAbove }), document.querySelector('#templatesidtwoabove' + realid + count));
         }
     }, {
         key: 'checkGalleryTitleArea',
@@ -815,6 +849,8 @@ var NextImg = function (_React$Component5) {
         value: function render() {
             var _this9 = this;
 
+            var clicked = parseInt(window.location.pathname.split('/')[2]);
+            var toprofilelink = "http://127.0.0.1:8000/profile" + clicked;
             var counttemplate1 = 0;
             var counttemplate2 = 0;
             console.log("STATE COLOR STATE IMAGE MOFOOOO");
@@ -1112,7 +1148,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
     if (clicked == "/realcreate") {
         document.querySelector('#navcreate').style.color = "salmon";
     }
-
     // do while u dont own an nfts (not the query)
 
     var wallclick = document.querySelector('#wallclick');

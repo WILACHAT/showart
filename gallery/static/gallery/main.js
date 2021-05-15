@@ -48,14 +48,22 @@ var SearchBar = function (_React$Component) {
     value: function render() {
 
       return React.createElement(
-        'form',
-        null,
-        React.createElement('input', {
-          type: 'text',
-          'class': 'inputsearch',
-          placeholder: 'Search...',
-          value: this.props.searchtext,
-          onChange: this.checkSearch })
+        'div',
+        { 'class': 'd-flex justify-content-end' },
+        React.createElement(
+          'div',
+          { 'class': 'divsearch d-flex justify-content-center' },
+          React.createElement(
+            'form',
+            null,
+            React.createElement('input', {
+              type: 'text',
+              'class': 'inputsearch form-control mr-sm-2 mt-2 pb-2',
+              placeholder: 'Search...',
+              value: this.props.searchtext,
+              onChange: this.checkSearch })
+          )
+        )
       );
     }
   }]);
@@ -159,12 +167,11 @@ var PostPage = function (_React$Component2) {
   }, {
     key: 'render',
     value: function render() {
-      console.log("this.state.searchtext", this.state.searchtext);
       return React.createElement(
         'div',
         null,
-        React.createElement(SearchBar, { searchtext: this.state.searchtext,
-          oncheckSearch: this.checkSearch }),
+        this.props.data["whatkind"] == "explore" ? React.createElement(SearchBar, { searchtext: this.state.searchtext,
+          oncheckSearch: this.checkSearch }) : null,
         React.createElement(PostTable, { data: this.state.newdata, changePage: this.changePage })
       );
     }
@@ -355,13 +362,13 @@ var PostTable = function (_React$Component4) {
           null,
           this.props.data["num_pages"] != 0 ? React.createElement(
             'ul',
-            { 'class': 'pagination container justify-content-center ' },
+            { 'class': 'pagination container justify-content-center mt-3' },
             React.createElement(
               'li',
               { 'class': 'page-item' },
               paginationid != 1 ? React.createElement(
                 'span',
-                { id: paginationid, 'class': 'page-link', onClick: this.props.changePage },
+                { id: paginationid, 'class': 'page-link pagelink', onClick: this.props.changePage },
                 'Previous'
               ) : null
             ),
@@ -371,7 +378,7 @@ var PostTable = function (_React$Component4) {
               { 'class': 'page-item' },
               paginationid != this.props.data["num_pages"] ? React.createElement(
                 'span',
-                { id: paginationid, 'class': 'page-link', onClick: this.props.changePage },
+                { id: paginationid, 'class': 'page-link pagelink', onClick: this.props.changePage },
                 'Next'
               ) : null
             )

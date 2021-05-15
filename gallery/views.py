@@ -34,23 +34,6 @@ def index(request):
 def explore(request):
     return render(request, "gallery/explore.html", {"wallet": request.session["wallet"]})
 
-def newcreate(request):
-    userid = request.user.id
-    if request.method == "POST":
-        print(request.POST.keys())
-        if "checkmain" not in request.POST.keys():
-            checkmain = 0
-        else:
-            checkmain = int(request.POST["checkmain"])
-
-        text = request.POST["newposttext"]
-        tz = pytz.timezone('Asia/Bangkok')
-        currenttime = datetime.now(tz)
-        post =  Dummypost(post_info=text, creationtime=currenttime, modify_date=currenttime, user_id_id=userid, activedummy = checkmain)
-        post.save()
-        return render(request, "gallery/explore.html", {"wallet": request.session["wallet"]})
-
-    return render(request, "gallery/newcreate.html", {"wallet": request.session["wallet"]})
 
 def gallery(request):
     if request.user.id == None:
@@ -71,7 +54,8 @@ def realsaveapi(request, address):
         User.objects.filter(id = request.user.id).update(galleryinfo = data['everydataa'], gallerybgcolor = data['gallerybgcolor']
         ,gallerybgimage = data['gallerybgimage'], gallerytitle = data['gallerytitle'], modify_date = currenttime)
         
-        return render(request, "gallery/profile.html")
+        return JsonResponse(curid, safe=False)
+
 
 def realcreateapi(request, clicked):
     if request.method == "POST":
@@ -85,8 +69,11 @@ def realcreateapi(request, clicked):
         
     if request.method == "PUT":
         data = json.loads(request.body)
-        if (data['edit'] == "edit"):
+        if data['edit'] == "edit":
             check =  User.objects.filter(id = request.user.id)  
+        elif data['edit'] == "getcur":
+            getcur = request.user.id
+            return JsonResponse(getcur, safe=False)
         else:
             check =  User.objects.filter(id = clicked)  
 
@@ -206,7 +193,7 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
 
     elif whatkind == "explore":
         print("is this in explore")
-        allgallery = User.objects.all()
+        allgallery = User.objects.all().order_by('?')
     
     elif whatkind == "gallery":
         kuku = Follower.objects.values('user_id_follower').annotate(count=Count('user_id_follower')).filter(follow_qm = 1).order_by('-count')[:3]
@@ -234,7 +221,7 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
         for i in following_f:
             listfollowing.append(i.user_id_follower.id)
         
-        allgallery = User.objects.filter(id__in = listfollowing)
+        allgallery = User.objects.filter(id__in = listfollowing).order_by('-modify_date')
 
     elif whatkind == "search":
         userall = User.objects.all()

@@ -29,14 +29,18 @@
       {
    
         return (
+          <div class="d-flex justify-content-end">
+          <div class="divsearch d-flex justify-content-center">
           <form>
           <input
             type="text"
-            class="inputsearch"
+            class="inputsearch form-control mr-sm-2 mt-2 pb-2"
             placeholder="Search..."
             value={this.props.searchtext} 
             onChange={this.checkSearch}/>
         </form>
+          </div>
+          </div>
         );
       }
 
@@ -133,24 +137,19 @@
          })
    
         });
-          
-  
       }
 
       render() 
       {
-      console.log("this.state.searchtext", this.state.searchtext)
         return (
           <div>
-          <SearchBar   searchtext={this.state.searchtext}
-        oncheckSearch={this.checkSearch}/>
-        
-    <PostTable data={this.state.newdata} changePage={this.changePage}/>
-      </div>
+            {this.props.data["whatkind"] == "explore" ? <SearchBar searchtext={this.state.searchtext} 
+            oncheckSearch={this.checkSearch}/>:null}   
+            <PostTable data={this.state.newdata} changePage={this.changePage}/>
+          </div>
         );
       }
-
-  }
+    }
   class PostRow extends React.Component {
     constructor(props) {
       super(props);
@@ -292,13 +291,13 @@ class PostTable extends React.Component
        
         <div>
         {this.props.data["num_pages"] != 0 ?
-        <ul class="pagination container justify-content-center ">
+        <ul class="pagination container justify-content-center mt-3">
             <li class="page-item">
-              {paginationid != 1 ? <span id={paginationid} class="page-link" onClick={this.props.changePage}>Previous</span>: null}
+              {paginationid != 1 ? <span id={paginationid} class="page-link pagelink" onClick={this.props.changePage}>Previous</span>: null}
               </li>
                 {button}              
               <li class="page-item">
-              {paginationid != this.props.data["num_pages"] ? <span id={paginationid} class="page-link" onClick={this.props.changePage}>Next</span>: null}
+              {paginationid != this.props.data["num_pages"] ? <span id={paginationid} class="page-link pagelink" onClick={this.props.changePage}>Next</span>: null}
             </li>
         </ul>: null}
         </div>

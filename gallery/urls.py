@@ -11,7 +11,6 @@ urlpatterns = [
     path("explore", views.explore, name="explore"),
     path("following", views.explore, name="following"),
     path("saved", views.explore, name="saved"),
-    path("newcreate", views.newcreate, name="newcreate"),
     path("gallery", views.gallery, name="gallery"),
     path("realcreate", views.realcreate, name="realcreate"),
     path("testdropzone", views.testdropzone, name="testdropzone"),

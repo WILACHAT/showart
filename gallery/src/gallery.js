@@ -36,7 +36,7 @@ render()
   return (
     <div>
       <div class="d-flex justify-content-center">
-        <h1 class="gallerymostvoted">MOST VOTED GALLERY</h1>
+        <h1 class="gallerymostvoted">TOP 3 MOST VOTED GALLERY</h1>
       </div>
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">

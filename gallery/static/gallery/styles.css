@@ -90,14 +90,21 @@ color:black;
 {
   position:fixed;
   margin-top:5%;
+  margin-left:50%;
 }
-.inputsearch
-{
-  margin-top:5%;
-  position:fixed;
-  border: none;
+.inputsearch{
+  margin-top:3%;
 
 }
+
+.divsearch{
+  background-color:#f4e9dd;
+  margin-top:2.5%;
+  width:100%;
+  height:45px;
+  position:fixed;
+}
+
 .wow{
     margin: 0px;
     line-height: 1.2;
@@ -638,4 +645,17 @@ input[id='choosefile'] {
 }
 #titlecolor{
   margin-top:-20px;
+}
+#posttableid{
+  margin-top:10%;
+}
+.pagelink{
+  color:#f6bd60;
+}
+.pagelink:hover{
+  color:black;
+}
+.active a{
+  background-color:  #f6bd60 !important;
+  border-color: #f6bd60 !important; 
 }
