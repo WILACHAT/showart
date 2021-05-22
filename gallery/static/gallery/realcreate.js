@@ -7,11 +7,15 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /*randomwallet address to use
+using
 0xce9b6da25e5b9578305f9c593c670736754ed4c5
 0x923af7b3a0a65c514c09a68d4ef331cec93d451a
 0x00bd53913a82f36e5796ed7d30f1b2a15cd31c20
+using
 0x50dd57f50a17d57304e7a4f262da30beb31c2e87
 0x3f16d081113c613743ce1d7da6858dc4d26352c3
+urs
+0xc1a1974fb3c4032188b80ab08ff5aeecd31ca57c
 */
 
 function getCookie(name) {
@@ -55,8 +59,6 @@ var AnotherDivNewClass = function (_React$Component) {
                 document.querySelector('#vdovdovdo').muted = true;
             }
 
-            console.log("should at least print something");
-            console.log("super new vlass", document.querySelector('#supernewclass'));
             document.querySelector('#supernewclass').hidden = true;
         }
     }, {
@@ -73,7 +75,6 @@ var AnotherDivNewClass = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            console.log("hex", this.props.hex);
             return React.createElement(
                 'div',
                 { id: 'overlayrc', style: { backgroundImage: this.props.bgimage, backgroundColor: this.props.bgcolor } },
@@ -212,19 +213,13 @@ var DivNewClass = function (_React$Component2) {
         value: function componentDidMount() {
             var _this3 = this;
 
-            console.log("this.props.bgimage", this.props.bgimage);
             if (this.props.bgimage != undefined) {
 
                 var bgimagesplit1 = this.props.bgimage.split('url(');
-                console.log("bgimagesplit1", bgimagesplit1);
                 var bgimagesplit2 = bgimagesplit1[1].split(')');
                 var bgimagesplitcheck = bgimagesplit2[0].split('/');
-                console.log("bgimagesplit2", bgimagesplit2);
-
-                console.log("bgimagesplitcheck", bgimagesplitcheck);
 
                 if (bgimagesplitcheck[3] != "") {
-                    console.log("in if bgimagesplit");
                     var fac = new FastAverageColor();
                     fac.getColorAsync(bgimagesplit2[0]).then(function (color) {
                         function componentToHex(c) {
@@ -237,18 +232,15 @@ var DivNewClass = function (_React$Component2) {
                         var secondcolor = rgb[1] - 30;
                         var thirdcolor = rgb[2] - 30;
                         if (firstcolor <= 30) {
-                            console.log("wpw1");
                             firstcolor = parseInt(rgb[0]) + 80;
                         }
 
                         if (secondcolor <= 50) {
-                            console.log("wpw2");
 
                             secondcolor = parseInt(rgb[1]) + 90;
                         }
 
                         if (thirdcolor <= 50) {
-                            console.log("wpw3");
 
                             thirdcolor = parseInt(rgb[2]) + 90;
                         }
@@ -273,18 +265,15 @@ var DivNewClass = function (_React$Component2) {
                 var secondcolor = rgb[1] - 30;
                 var thirdcolor = rgb[2] - 30;
                 if (firstcolor <= 30) {
-                    console.log("wpw1");
                     firstcolor = parseInt(rgb[0]) + 80;
                 }
 
                 if (secondcolor <= 50) {
-                    console.log("wpw2");
 
                     secondcolor = parseInt(rgb[1]) + 90;
                 }
 
                 if (thirdcolor <= 50) {
-                    console.log("wpw3");
 
                     thirdcolor = parseInt(rgb[2]) + 90;
                 }
@@ -322,6 +311,11 @@ var DivNewClass = function (_React$Component2) {
             var checkifurl = "video";
             if (this.state.url.charAt(8) == "l") {
                 checkifurl = "image";
+            }
+            if (this.state.url.charAt(8) == "s") {
+                if (this.state.url.indexOf('.jpg') == 85) {
+                    checkifurl = "image";
+                }
             }
 
             return React.createElement(
@@ -407,6 +401,7 @@ var ShowTemplateTwo = function (_React$Component3) {
         };
 
         _this5.addImage = _this5.addImage.bind(_this5);
+        console.log("mother mother fak er", _this5.props.adddata);
 
         var array = [];
         var w = 0;
@@ -417,15 +412,39 @@ var ShowTemplateTwo = function (_React$Component3) {
         var bgcolor = "";
         var bgimage = "";
 
-        console.log("type", _this5.props.type);
         if (_this5.props.alldata != undefined) {
+            console.log("ALL DATA IS FAKING UNDEFINED");
             bgcolor = _this5.props.alldata['bgcolor'];
             bgimage = _this5.props.alldata['bgimage'];
             var first = "url(/static/profile_pic/";
             var last = ")";
             bgimage = first + bgimage + last;
             for (w = 0; w < _this5.props.alldata['imageinfo'].length; w++) {
-                imageinfo_src = _this5.props.alldata['imageinfo'][w]['src'];
+                console.log("console.log", _this5.props.alldata['imageinfo'][w]['src']);
+
+                var checker = 0;
+                for (var o = 0; o < _this5.props.adddata.length; o++) {
+
+                    if (_this5.props.adddata[o][1] != null) {
+                        if (_this5.props.adddata[o][1] == _this5.props.alldata['imageinfo'][w]['src']) {
+                            imageinfo_src = _this5.props.alldata['imageinfo'][w]['src'];
+                            checker = 1;
+                        } else {
+                            imageinfo_src = "/static/profile_pic/brown.jpeg";
+                        }
+                    } else {
+
+                        if (_this5.props.adddata[o][0] == _this5.props.alldata['imageinfo'][w]['src']) {
+                            imageinfo_src = _this5.props.alldata['imageinfo'][w]['src'];
+                            checker = 1;
+                        } else {
+                            if (checker != 1) {
+                                imageinfo_src = "/static/profile_pic/brown.jpeg";
+                            }
+                        }
+                    }
+                }
+                //imageinfo_src = this.props.alldata['imageinfo'][w]['src
                 imageinfo_title = _this5.props.alldata['imageinfo'][w]['title'];
                 imageinfo_des = _this5.props.alldata['imageinfo'][w]['des'];
 
@@ -443,6 +462,7 @@ var ShowTemplateTwo = function (_React$Component3) {
             bgimage: bgimage
 
         };
+
         return _this5;
     }
 
@@ -555,6 +575,11 @@ var SortNextImg = function (_React$Component4) {
             document.querySelector('#showtemplates').hidden = false;
 
             var char = this.props.source.charAt(8);
+            if (this.props.source.charAt(8) == "s") {
+                if (this.props.source.indexOf('.jpg') == 85) {
+                    char = "l";
+                }
+            }
 
             return React.createElement(
                 'div',
@@ -643,11 +668,10 @@ var NextImg = function (_React$Component5) {
                     document.querySelector('#showtemplates').append(newDiv);
 
                     ReactDOM.render(React.createElement(ShowTemplateTwo, { alldata: dataa['everydata'][i], type: 'edit', id: id, changeBgColor: _this8.changeBgColor,
-                        deleteTemplate: _this8.deleteTemplate, imageTemplate: _this8.imageTemplate, addTemplateAbove: _this8.addTemplateAbove }), document.querySelector('#saveddata' + count));
+                        deleteTemplate: _this8.deleteTemplate, imageTemplate: _this8.imageTemplate, addTemplateAbove: _this8.addTemplateAbove, adddata: _this8.props.adddata }), document.querySelector('#saveddata' + count));
                 }
             }
         });
-
         return _this8;
     }
 
@@ -678,7 +702,6 @@ var NextImg = function (_React$Component5) {
             console.log("fileINput", fileInput);
             var formData = new FormData();
             formData.append("media", fileInput);
-            var address = document.querySelector('#walletaddress').value;
             var getcooked = getCookie('csrftoken');
 
             fetch('/realcreateapi/1', {
@@ -785,11 +808,10 @@ var NextImg = function (_React$Component5) {
 
             var formData = new FormData();
             formData.append("everydata", everydata);
-            var address = document.querySelector('#walletaddress').value;
             var getcooked = getCookie('csrftoken');
             var lastdata = {};
             lastdata["everydata"] = tryeverydata;
-            fetch('/realsaveapi/' + address, {
+            fetch('/realsaveapi', {
                 method: 'POST',
                 headers: { 'X-CSRFToken': getcooked },
                 body: JSON.stringify({
@@ -861,6 +883,7 @@ var NextImg = function (_React$Component5) {
             var i = 0;
             if (this.props.type != "gallerycoverprofile") {
                 for (i = 0; i < this.props.array.length; i++) {
+                    console.log("array i", this.props.array[i]);
                     img.push(React.createElement(SortNextImg, {
                         source: this.props.array[i] }));
                 }
@@ -906,7 +929,7 @@ var NextImg = function (_React$Component5) {
                 ) : null,
                 React.createElement(
                     'div',
-                    { 'class': 'titlecolor' },
+                    { 'class': this.props.type != "gallerycoverprofile" ? "titlecolor" : "nottitlecolor" },
                     this.props.type != "gallerycoverprofile" ? React.createElement(
                         'div',
                         { id: 'bosss', 'class': 'd-flex justify-content-center d-flex flex-wrap' },
@@ -942,17 +965,39 @@ var EachNft = function (_React$Component6) {
         _this10.cancelNft = _this10.cancelNft.bind(_this10);
         var arrayurl = [];
         var animationurl = _this10.props.animationurl;
+        var imageurl = _this10.props.imageurl;
         var index = 65;
 
         if (animationurl != null) {
             index = animationurl.indexOf('.gltf');
+            //     console.log("index gltf", index)
         }
+        if (imageurl.charAt(8) == "s") {
+            if (imageurl != null) {
+                if (imageurl.indexOf('.jpg') == 85) {
+                    index = 65;
+                } else {
+                    index = -99;
+                }
+            }
+        }
+
+        console.log("index", index);
+
         _this10.state = {
             arrayurl: arrayurl,
             wholeimg: React.createElement(
                 'div',
                 null,
-                React.createElement(
+                index == -99 ? React.createElement(
+                    'div',
+                    { id: 'wilachatww', name: 'imgdiv', value: 'false', className: 'box', onClick: _this10.chooseNft, 'data-selected': 'false' },
+                    React.createElement(
+                        'video',
+                        { src: _this10.props.imageurl, muted: true, autoplay: 'autoplay', loop: 'true', 'class': 'nftvdo' },
+                        React.createElement('source', { src: _this10.props.imageurl, type: 'video/mp4' })
+                    )
+                ) : React.createElement(
                     'div',
                     { id: 'wilachatww', name: 'imgdiv', value: 'false', className: 'box', onClick: _this10.chooseNft, 'data-selected': 'false' },
                     index == 65 ? React.createElement('img', { 'class': 'nftimg', src: _this10.props.imageurl }) : React.createElement(
@@ -979,17 +1024,36 @@ var EachNft = function (_React$Component6) {
         key: 'chooseNft',
         value: function chooseNft(e) {
             var animationurl = this.props.animationurl;
+            var imageurl = this.props.imageurl;
+
             var index = 65;
 
             if (animationurl != null) {
                 index = animationurl.indexOf('.gltf');
+            }
+            if (imageurl.charAt(8) == "s") {
+                if (imageurl != null) {
+                    if (imageurl.indexOf('.jpg') == 85) {
+                        index = 65;
+                    } else {
+                        index = -99;
+                    }
+                }
             }
 
             this.setState({
                 wholeimg: React.createElement(
                     'div',
                     null,
-                    React.createElement(
+                    index == -99 ? React.createElement(
+                        'div',
+                        { id: 'wilachatww', name: 'imgdiv', value: 'true', className: 'boxcolor', 'data-selected': 'true', onClick: this.cancelNft },
+                        React.createElement(
+                            'video',
+                            { src: this.props.imageurl, muted: true, autoplay: 'autoplay', loop: 'true', 'class': 'nftvdo' },
+                            React.createElement('source', { src: this.props.imageurl, type: 'video/mp4' })
+                        )
+                    ) : React.createElement(
                         'div',
                         { id: 'wilachatww', name: 'imgdiv', value: 'true', className: 'boxcolor', 'data-selected': 'true', onClick: this.cancelNft },
                         index == 65 ? React.createElement('img', { 'class': 'nftimg', src: this.props.imageurl }) : React.createElement(
@@ -1014,19 +1078,39 @@ var EachNft = function (_React$Component6) {
         key: 'cancelNft',
         value: function cancelNft(e) {
             var animationurl = this.props.animationurl;
+            var imageurl = this.props.imageurl;
+
             var index = 65;
 
             if (animationurl != null) {
                 index = animationurl.indexOf('.gltf');
             }
 
+            if (imageurl.charAt(8) == "s") {
+                if (imageurl != null) {
+                    if (imageurl.indexOf('.jpg') == 85) {
+                        index = 65;
+                    } else {
+                        index = -99;
+                    }
+                }
+            }
+
             this.setState({
                 wholeimg: React.createElement(
                     'div',
                     null,
-                    React.createElement(
+                    index == -99 ? React.createElement(
                         'div',
-                        { id: 'wilachatww', name: 'imgdiv', className: 'box', 'data-selected': 'false', onClick: this.chooseNft },
+                        { id: 'wilachatww', name: 'imgdiv', value: 'false', className: 'box', onClick: this.chooseNft, 'data-selected': 'false' },
+                        React.createElement(
+                            'video',
+                            { src: this.props.imageurl, muted: true, autoplay: 'autoplay', loop: 'true', 'class': 'nftvdo' },
+                            React.createElement('source', { src: this.props.imageurl, type: 'video/mp4' })
+                        )
+                    ) : React.createElement(
+                        'div',
+                        { id: 'wilachatww', name: 'imgdiv', value: 'false', className: 'box', onClick: this.chooseNft, 'data-selected': 'false' },
                         index == 65 ? React.createElement('img', { 'class': 'nftimg', src: this.props.imageurl }) : React.createElement(
                             'video',
                             { src: this.props.animationurl, muted: true, autoplay: 'autoplay', loop: 'true', 'class': 'nftvdo' },
@@ -1048,8 +1132,8 @@ var EachNft = function (_React$Component6) {
     }, {
         key: 'render',
         value: function render() {
-            console.log("animation url", this.props.animationurl);
-            console.log("img url", this.props.imageurl);
+            // console.log("animation url", this.props.animationurl)
+            //    console.log("img url", this.props.imageurl)
             return React.createElement(
                 'div',
                 null,
@@ -1070,7 +1154,6 @@ var ShowNfts = function (_React$Component7) {
         var _this11 = _possibleConstructorReturn(this, (ShowNfts.__proto__ || Object.getPrototypeOf(ShowNfts)).call(this, props));
 
         _this11.selectedImg = _this11.selectedImg.bind(_this11);
-        console.log("check for data inside to get the address to send back to api", _this11.props.data);
         return _this11;
     }
 
@@ -1082,18 +1165,28 @@ var ShowNfts = function (_React$Component7) {
 
             var i = 0;
             var array = [];
-            console.log(e);
+            console.log("wilachat array", e);
+
             for (i = 0; i < e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes.length; i++) {
                 if (e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes[i].childNodes[0].childNodes[0].dataset["selected"] == "true") {
+                    console.log("INSIDE 1", e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0]);
+                    console.log("INSIDE 2", e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1]);
+                    console.log("INSIDE 3", e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes[i]);
+                    console.log("INSIDE 4", e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes[i].childNodes[0]);
+                    console.log("INSIDE 5", e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes[i].childNodes[0].childNodes[0]);
+                    console.log("INSIDE 6", e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes[i].childNodes[0].childNodes[0].childNodes[0]);
+                    console.log("INSIDE 7", e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes[i].childNodes[0].childNodes[0].childNodes[0].src);
+
                     array.push(e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes[i].childNodes[0].childNodes[0].childNodes[0].src);
                 }
             }
-            if (array[0] != undefined) {
 
+            if (array[0] != undefined) {
                 // document.querySelector('#shownfts').style.visibility = 'hidden'
                 document.querySelector('#shownfts').hidden = true;
+                console.log("demon king iruma alsdfnlasdkfn lsadfjdosaijflasdfjnoi dfoaisdfoiadsj oifjsdofi dofij asodifjasod");
 
-                ReactDOM.render(React.createElement(NextImg, { array: array }), document.querySelector('#nextimg'));
+                ReactDOM.render(React.createElement(NextImg, { array: array, adddata: this.props.data }), document.querySelector('#nextimg'));
             } else {
                 window.alert("You need to select a nft before proceeding to create gallery");
             }
@@ -1101,18 +1194,21 @@ var ShowNfts = function (_React$Component7) {
     }, {
         key: 'render',
         value: function render() {
-
             var img = [];
             var counter = [];
             var counterr = 0;
+            // console.log("HYPERLOOP", this.props.data)
+            // console.log("FAKE HYPERLOOP", this.props.data.length)
 
-            for (var i = 0; i < this.props.data["assets"].length; i++) {
-                img.push(React.createElement(EachNft, { imageurl: this.props.data["assets"][i]["image_url"],
-                    animationurl: this.props.data["assets"][i]["animation_url"] }));
+            for (var i = 0; i < this.props.data.length; i++) {
+                //console.log("hyperloop img", this.props.data[i][0])
+                //console.log("hyperloop vdo", this.props.data[i][1])
+                img.push(React.createElement(EachNft, { imageurl: this.props.data[i][0],
+                    animationurl: this.props.data[i][1] }));
             }
             return React.createElement(
                 'div',
-                null,
+                { 'class': 'formargin' },
                 React.createElement(
                     'div',
                     { id: 'whattodoinselectimg', 'class': 'd-flex justify-content-center' },
@@ -1144,34 +1240,64 @@ var ShowNfts = function (_React$Component7) {
 }(React.Component);
 
 document.addEventListener('DOMContentLoaded', function (e) {
+    document.querySelector('#loading').hidden = false;
+    console.log("this is real create");
+    var getcooked = getCookie('csrftoken');
+
+    // document.querySelector('#loading').hidden = true
+
+
     var clicked = window.location.pathname;
     if (clicked == "/realcreate") {
         document.querySelector('#navcreate').style.color = "salmon";
     }
+
     // do while u dont own an nfts (not the query)
-
-    var wallclick = document.querySelector('#wallclick');
-    wallclick.addEventListener('click', function (e) {
-        console.log("what");
-        var query = "";
-        var i = 0;
-        console.log("e", e);
-        for (i = 0; i < e.path[1].childNodes[3].length; i++) {
-            if (e.path[1].childNodes[3].options[i].selected == true) {
-                query = e.path[1].childNodes[3].options[i].value;
+    /*
+            let offset = 0
+            let adddata = []
+            recurse(offset)
+            function recurse(offset) {
+                fetch(`https://api.opensea.io/api/v1/assets?owner=0x50dd57f50a17d57304e7a4f262da30beb31c2e87&order_by=visitor_count&order_direction=desc&offset=${offset}&limit=50`)
+                .then(response => response.json())
+    
+                .then(data => {
+                   
+                console.log("what the hell")
+                if(data["assets"] == "")
+                 {
+                        console.log("done")
+                        console.log("all", adddata)
+             
+                    
+                }
+                 else {
+                    console.log("asset", data["assets"])
+    
+                    adddata = adddata.concat(data["assets"])
+                    recurse(offset + 50);
+                }
+                    
+                });
+                
             }
-        }
+    */
 
-        console.log("query", query);
+    fetch('/realcreateapi/1', {
+        method: 'PUT',
+        headers: { 'X-CSRFToken': getcooked },
+        body: JSON.stringify({
+            edit: "gallery"
+        })
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        document.querySelector('#loading').hidden = true;
 
-        var address = document.querySelector('#walletaddress').value;
+        console.log("add mofo data", data['adddata'].length);
+        console.log("the data", data['adddata']);
 
-        fetch('https://api.opensea.io/api/v1/assets?owner=' + address + query + '&offset=0&limit=50').then(function (response) {
-            return response.json();
-        }).then(function (data) {
-            document.querySelector('#askforwallet').hidden = true;
-            ReactDOM.render(React.createElement(ShowNfts, { data: data }), document.querySelector('#shownfts'));
-        });
+        ReactDOM.render(React.createElement(ShowNfts, { data: data['adddata'] }), document.querySelector('#shownfts'));
     });
 });
 export { NextImg, ShowTemplateTwo };

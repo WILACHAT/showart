@@ -3,34 +3,33 @@
 
 
 {% block body %}
-<div id="askforwallet">
-    <h1 class="quertfornfttext">Query NFTS</h1>
+<div id="loading" class="loadingcss">
+    <div class="loader">
+			<span>F</span>
+			<span>E</span>
+			<span>T</span>
+			<span>C</span>
+			<span>H</span>
+			<span>I</span>
+			<span>N</span>
+            <span>G</span>
+            <span> </span>
+            <span>D</span>
+            <span>A</span>
+            <span>T</span>
+            <span>A</span>
 
-<div class="d-flex justify-content-center align-middle">
-    <input class="askforwallet mr-2" type="text" id="walletaddress">
-   
-    <select class="askforwallet mr-2 " name="sort" id="newsorting">
-        <option value="None"></option>
-       
-        <option value="&order_by=sale_date&order_direction=desc">Date(Latest)</option>
-        <option value="&order_by=sale_date&order_direction=asc">Date(Oldest)</option>
 
-        <option value="&order_by=visitor_count&order_direction=desc">Visitor Count(Highest)</option>
-        <option value="&order_by=visitor_count&order_direction=asc">Visitor Count(Lowest)</option>
 
-        <option value="&order_by=sale_price&order_direction=desc">Price(Highest)</option>
-        <option value="&order_by=sale_price&order_direction=asc">Price(Lowest)</option>
 
-        <option value="&order_by=sale_count&order_direction=desc">Number of Sales(Highest)</option>
-        <option value="&order_by=sale_count&order_direction=asc">Number of Sales(Lowest)</option>
-    </select>
-    <button id="wallclick"type="button" class="btn btn-outline-dark btn-sm" value="button">Search</button>
+			
 </div>
-</div>
+		</div>
 
 
 <div id="shownfts">
 </div>
+
 
 
 

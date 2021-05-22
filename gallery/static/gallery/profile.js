@@ -35,9 +35,9 @@ var DisplayGallery = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (DisplayGallery.__proto__ || Object.getPrototypeOf(DisplayGallery)).call(this, props));
 
         _this.toBack = _this.toBack.bind(_this);
+        console.log("asdfasdfasdfasdfasdfadfas", _this.props.adddata);
 
         var data = _this.props.data;
-        console.log("what kind of data is really showing", data);
 
         data = data.replaceAll("'", '"');
         data = JSON.parse(data);
@@ -58,7 +58,7 @@ var DisplayGallery = function (_React$Component) {
             console.log("this is newDiv", newDiv);
             document.querySelector('#gallerypageone').appendChild(newDiv);
 
-            ReactDOM.render(React.createElement(ShowTemplateTwo, { alldata: data['everydata'][i], type: 'profile' }), document.querySelector('#templatesidtwo' + count));
+            ReactDOM.render(React.createElement(ShowTemplateTwo, { alldata: data['everydata'][i], type: 'profile', adddata: _this.props.adddata }), document.querySelector('#templatesidtwo' + count));
         }
         return _this;
     }
@@ -71,6 +71,7 @@ var DisplayGallery = function (_React$Component) {
             document.querySelector('#gallerypage').hidden = true;
             document.querySelector('#gallerypageone').hidden = true;
             document.querySelector('#navibarid').hidden = false;
+            document.querySelector('#loading').hidden = true;
         }
     }, {
         key: 'render',
@@ -390,8 +391,13 @@ var ProfileEdit = function (_React$Component2) {
         }
     }, {
         key: 'toNext',
-        value: function toNext(e) {
+        value: function toNext(e, count) {
+            console.log("this is count", count);
             //unhide the profileedit to make the gallery in the same page as profile info
+            if (count == 0) {
+                document.querySelector('#loading').hidden = false;
+            }
+
             document.querySelector('#profileedit').hidden = true;
             document.querySelector('#gallerypageone').hidden = false;
             document.querySelector('#followpart').hidden = true;
@@ -413,13 +419,10 @@ var ProfileEdit = function (_React$Component2) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log("gallery faking info", data['galleryinfo']);
-                console.log("gallery title", data['gallerytitle']);
-                console.log("gallery bg image", data['gallerybgimage']);
-                console.log("gallery bg color", data['gallerybgcolor']);
+                document.querySelector('#loading').hidden = true;
 
                 ReactDOM.render(React.createElement(DisplayGallery, { data: data['galleryinfo'], gallerytitle: data['gallerytitle'],
-                    gallerybgimage: data['gallerybgimage'], gallerybgcolor: data['gallerybgcolor'] }), document.querySelector('#gallerypage'));
+                    gallerybgimage: data['gallerybgimage'], gallerybgcolor: data['gallerybgcolor'], adddata: data['adddata'] }), document.querySelector('#gallerypage'));
             });
         }
     }, {
@@ -503,6 +506,9 @@ var ProfileEdit = function (_React$Component2) {
     }, {
         key: 'render',
         value: function render() {
+            var _this4 = this;
+
+            var count = 0;
             var clicked = parseInt(window.location.pathname.split('/')[2]);
             var user = this.props.data["user"];
             return React.createElement(
@@ -514,7 +520,9 @@ var ProfileEdit = function (_React$Component2) {
                     { 'class': 'd-flex justify-content-center' },
                     React.createElement(
                         'button',
-                        { 'class': 'btn btn-outline-dark btn-sm mt-2 mb-2', onClick: this.toNext },
+                        { 'class': 'btn btn-outline-dark btn-sm mt-2 mb-2', onClick: function onClick(e) {
+                                return _this4.toNext(e, count++);
+                            } },
                         'Gallery'
                     )
                 )
@@ -531,21 +539,21 @@ var EditPost = function (_React$Component3) {
     function EditPost(props) {
         _classCallCheck(this, EditPost);
 
-        var _this4 = _possibleConstructorReturn(this, (EditPost.__proto__ || Object.getPrototypeOf(EditPost)).call(this, props));
+        var _this5 = _possibleConstructorReturn(this, (EditPost.__proto__ || Object.getPrototypeOf(EditPost)).call(this, props));
 
-        _this4.textInput = React.createRef();
-        _this4.editPost = _this4.editPost.bind(_this4);
-        _this4.editCancel = _this4.editCancel.bind(_this4);
-        _this4.chooseFile = _this4.chooseFile.bind(_this4);
-        _this4.checkTxtArea = _this4.checkTxtArea.bind(_this4);
+        _this5.textInput = React.createRef();
+        _this5.editPost = _this5.editPost.bind(_this5);
+        _this5.editCancel = _this5.editCancel.bind(_this5);
+        _this5.chooseFile = _this5.chooseFile.bind(_this5);
+        _this5.checkTxtArea = _this5.checkTxtArea.bind(_this5);
 
-        _this4.state = { profiledes: _this4.props.profiledes,
-            contactgmail: _this4.props.contactgmail,
-            openseaurl: _this4.props.openseaurl,
-            profilepic: _this4.props.profilepic
+        _this5.state = { profiledes: _this5.props.profiledes,
+            contactgmail: _this5.props.contactgmail,
+            openseaurl: _this5.props.openseaurl,
+            profilepic: _this5.props.profilepic
         };
 
-        return _this4;
+        return _this5;
     }
 
     _createClass(EditPost, [{
@@ -608,13 +616,15 @@ var EditPost = function (_React$Component3) {
     }, {
         key: 'chooseFile',
         value: function chooseFile(e) {
-            var _this5 = this;
+            var _this6 = this;
 
             var getcooked = getCookie('csrftoken');
             var whatkind = "profile";
             var clicked = parseInt(window.location.pathname.split('/')[2]);
             var pagination = 1;
+
             var fileInput = document.querySelector('#choosefile').files[0];
+            console.log("fileinput", fileInput);
 
             var formData = new FormData();
             formData.append("media", fileInput);
@@ -626,7 +636,7 @@ var EditPost = function (_React$Component3) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                _this5.setState({ profilepic: data["profilepic"] });
+                _this6.setState({ profilepic: data["profilepic"] });
             });
         }
     }, {
@@ -715,18 +725,18 @@ var FollowTable = function (_React$Component4) {
     function FollowTable(props) {
         _classCallCheck(this, FollowTable);
 
-        var _this6 = _possibleConstructorReturn(this, (FollowTable.__proto__ || Object.getPrototypeOf(FollowTable)).call(this, props));
+        var _this7 = _possibleConstructorReturn(this, (FollowTable.__proto__ || Object.getPrototypeOf(FollowTable)).call(this, props));
 
-        var followname = _this6.props.data["following"] > 0 ? "Unvote" : "Vote";
-        _this6.followPost = _this6.followPost.bind(_this6);
+        var followname = _this7.props.data["following"] > 0 ? "Unvote" : "Vote";
+        _this7.followPost = _this7.followPost.bind(_this7);
         console.log("followname", followname);
 
-        _this6.state = {
+        _this7.state = {
             followname: followname,
-            current_howmanyfollow: _this6.props.data["howmanyfollow"]
+            current_howmanyfollow: _this7.props.data["howmanyfollow"]
 
         };
-        return _this6;
+        return _this7;
     }
 
     _createClass(FollowTable, [{
@@ -811,7 +821,7 @@ var FollowTable = function (_React$Component4) {
                         { 'class': 'postexplore2 d-flex justify-content-between' },
                         React.createElement(
                             'p',
-                            _defineProperty({ 'class': 'ptitle d-flex justify-content-end', name: 'timestamp' }, 'class', 'font-weight-light timestamp'),
+                            _defineProperty({ 'class': 'ptitle ml-2 d-flex justify-content-end', name: 'timestamp' }, 'class', 'font-weight-light timestamp'),
                             this.state.current_howmanyfollow,
                             ' ',
                             this.state.current_howmanyfollow > 1 ? "votes" : "vote"
@@ -819,7 +829,7 @@ var FollowTable = function (_React$Component4) {
                         React.createElement('p', null),
                         React.createElement(
                             'p',
-                            _defineProperty({ 'class': 'titlep d-flex justify-content-end', name: 'timestamp' }, 'class', 'font-weight-light timestamp'),
+                            _defineProperty({ 'class': 'titlep mr-2 d-flex justify-content-end', name: 'timestamp' }, 'class', 'font-weight-light timestamp'),
                             this.props.data["view"],
                             ' ',
                             this.props.data["view"] > 1 ? "views" : "view"
@@ -841,6 +851,7 @@ document.addEventListener('DOMContentLoaded', function () {
     Grade(document.querySelectorAll('.gradient-wrap'));
     var clicked = parseInt(window.location.pathname.split('/')[2]);
     document.querySelector('#gallerypage').hidden = true;
+    document.querySelector('#loading').hidden = true;
 
     fetch('/currentgalleryapi/' + whatkind + '/' + clicked + '/' + pagination).then(function (response) {
         return response.json();

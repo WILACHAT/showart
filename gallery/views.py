@@ -19,6 +19,9 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.db.models import F
 from django.db.models import Count
 import re
+import requests
+
+
 
 
 
@@ -42,7 +45,7 @@ def gallery(request):
     return render(request, "gallery/gallery.html", {"wallet": request.session["wallet"]})
 
 
-def realsaveapi(request, address):
+def realsaveapi(request):
     if request.method == "POST":
         curid = request.user.id
         data = json.loads(request.body)
@@ -58,16 +61,19 @@ def realsaveapi(request, address):
 
 
 def realcreateapi(request, clicked):
+    wallet = ""
     if request.method == "POST":
         
         if 'media' in request.FILES.keys():
 
-            handle_uploaded_file(request.FILES['media'])
+            handle_uploaded_file(request, request.FILES['media'])
             print(f"checking for request files: {request.FILES['media']}")   
             filename = str(request.FILES['media'])
             return JsonResponse(filename, safe=False)
-        
+    newdata = []
+
     if request.method == "PUT":
+        curuser = request.user.id
         data = json.loads(request.body)
         if data['edit'] == "edit":
             check =  User.objects.filter(id = request.user.id)  
@@ -75,19 +81,48 @@ def realcreateapi(request, clicked):
             getcur = request.user.id
             return JsonResponse(getcur, safe=False)
         else:
-            check =  User.objects.filter(id = clicked)  
+            
+            check =  User.objects.filter(id = clicked)
+            if clicked == 1:
+                check =  User.objects.filter(id = request.user.id)
+
+            for i in check:
+                wallet = i.wallet_address
+
+            adddata = []
+            offset = 0
+            newdata = []
+            numberall = 0
+            print(f"this is real wallet address:{wallet}")
+            def recurse(offset, numberall, newdata):
+                url = "https://api.opensea.io/api/v1/assets"
+                querystring = {"owner":wallet,"order_by":"visitor_count","order_direction":"desc","offset":offset,"limit":"50"}
+                response = requests.request("GET", url, params=querystring)
+                adddata = json.loads(response.text)
+              
+                if adddata['assets'] == []:
+
+                    return newdata
+                else:
+                    for i in range(len(adddata['assets'])):
+                        smallerdata = []
+                        numberall = numberall + 1
+                        smallerdata.append(adddata['assets'][i]['image_url'])
+                        smallerdata.append(adddata['assets'][i]['animation_url'])
+                        newdata.append(smallerdata)
+                   
+                    return recurse(offset + 50, numberall, newdata)
+
+            recurse(offset, numberall, newdata)
 
         for i in check:
-            print(f"check for the galleryinfo: {i.galleryinfo}")
             galleryinfo = i.galleryinfo
             gallerybgimage = i.gallerybgimage
             gallerybgcolor = i.gallerybgcolor
             gallerytitle = i.gallerytitle
-            print(f"this is gallery info:{galleryinfo}")
+            return_request = {"galleryinfo": galleryinfo, "gallerybgimage": gallerybgimage, "gallerybgcolor": gallerybgcolor, "gallerytitle": gallerytitle, "adddata":newdata}
+        return JsonResponse(return_request, safe=False)
 
-            return_request = {"galleryinfo": galleryinfo, "gallerybgimage": gallerybgimage, "gallerybgcolor": gallerybgcolor, "gallerytitle": gallerytitle}
-
-            return JsonResponse(return_request, safe=False)
 
 def currentgalleryapi(request, whatkind, clicked, paginationid):
     curuser = request.user.id
@@ -150,9 +185,13 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
                         profpica = first + profpica
                         os.remove(profpica)
                 
-                handle_uploaded_file(request.FILES['media'])
+                print(f"iruma sama: {request.FILES['media']}")
+                ok = handle_uploaded_file(request, request.FILES['media'])
+                print(f"this is not ok:{ok}")
                 profpicc = str(request.FILES['media'])
+                print(f"this is profpicc: {profpicc}")
                 profpic = nogal + profpicc
+                print(f"this is profpicc: {profpic}")
                 User.objects.filter(id = request.user.id).update(profile_pic = profpic)     
 
 
@@ -278,13 +317,27 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
 
 
     
-def handle_uploaded_file(profilepic):
+def handle_uploaded_file(request, profilepic):
+    curuserstr = str(request.user.id)
     first = "gallery/static/profile_pic/"
     profilepicname= str(profilepic)
-    path = first + profilepicname
+
+    splitname = profilepicname.split('.')
+    splitname[0] = splitname[0] + curuserstr
+    splitname[-1] = "." + splitname[-1]
+
+    realname = ""
+    for i in range(len(splitname)):
+    
+        realname = realname + splitname[i]
+    profilepic.name = realname
+
+    
+    path = first + realname
     with open(path, 'wb+') as destination:
         for chunk in profilepic.chunks():
             destination.write(chunk)
+    return profilepicname
 
 def realcreate(request):
     return render(request, "gallery/realcreate.html")
@@ -370,15 +423,9 @@ def connectwallet(request):
     if request.method == "PUT":
 
         data = json.loads(request.body)
-        wallet_address = data["wallet_address"]
         
-        try:
-            check_if_wallet_exists = User_Wallet.objects.get(user_id_id = current_userid, wallet_address = wallet_address)
-        except User_Wallet.DoesNotExist:
-            print("still none")
-            userwalletdb = User_Wallet(user_id_id = current_userid, wallet_address = wallet_address)
-            userwalletdb.save()
-
+        wallet_address = data["wallet_address"]
+        User.objects.filter(id = request.user.id).update(wallet_address = wallet_address)
 
     #MIGHT HAVE A PROBLEM LATER IF USER HAVE MORE THAN ONE WALLET
     

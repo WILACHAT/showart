@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@babel/runtime": "^7.14.0",
     "babel-cli": "^6.26.0",
     "babel-preset-react-app": "^3.1.2",
     "fast-average-color": "^6.4.0",
@@ -11,7 +12,11 @@
     "npm": "^7.7.5",
     "react-dropzone-uploader": "^2.11.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.14.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-runtime": "^6.26.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -15,6 +15,8 @@ class User(AbstractUser, models.Model):
     modify_date = models.DateTimeField(auto_now=True)
     views = models.IntegerField(null=True)
     rank = models.IntegerField(null=True)
+    wallet_address = models.CharField(max_length=64, null=True)
+
 
 
 

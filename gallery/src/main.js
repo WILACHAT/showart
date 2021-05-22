@@ -181,7 +181,7 @@
               </div>
             </div>
             
-            <div class="d-flex justify-content-center">
+            <div class="cleary d-flex justify-content-center">
                 <div class="postexplore"style={{backgroundColor: this.props.gallerybgcolor, backgroundImage: this.props.gallerybgimage}}></div>
             </div>
 
@@ -289,7 +289,7 @@ class PostTable extends React.Component
       </div>
         
        
-        <div>
+        <div class="paginationcss">
         {this.props.data["num_pages"] != 0 ?
         <ul class="pagination container justify-content-center mt-3">
             <li class="page-item">

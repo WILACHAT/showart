@@ -1,10 +1,14 @@
 
 /*randomwallet address to use
+using
 0xce9b6da25e5b9578305f9c593c670736754ed4c5
 0x923af7b3a0a65c514c09a68d4ef331cec93d451a
 0x00bd53913a82f36e5796ed7d30f1b2a15cd31c20
+using
 0x50dd57f50a17d57304e7a4f262da30beb31c2e87
 0x3f16d081113c613743ce1d7da6858dc4d26352c3
+urs
+0xc1a1974fb3c4032188b80ab08ff5aeecd31ca57c
 */
 
 function getCookie(name) {
@@ -41,8 +45,7 @@ function getCookie(name) {
             document.querySelector('#vdovdovdo').muted = true
         }
 
-        console.log("should at least print something")
-        console.log("super new vlass", document.querySelector('#supernewclass'))
+       
         document.querySelector('#supernewclass').hidden = true
       }
       imgvdo()
@@ -60,7 +63,6 @@ function getCookie(name) {
       }
       
       render(){
-          console.log("hex", this.props.hex)
         return (
             <div id="overlayrc" style={{backgroundImage: this.props.bgimage, backgroundColor: this.props.bgcolor}}>
             <div class="d-flex justify-content-end mr-2">
@@ -149,22 +151,17 @@ function getCookie(name) {
          })
     }
     componentDidMount() {
-        console.log("this.props.bgimage", this.props.bgimage)
         if (this.props.bgimage != undefined)
         {
 
         let bgimagesplit1 = this.props.bgimage.split('url(')
-        console.log("bgimagesplit1", bgimagesplit1)
         let bgimagesplit2 = bgimagesplit1[1].split(')')
         let bgimagesplitcheck = bgimagesplit2[0].split('/')
-        console.log("bgimagesplit2", bgimagesplit2)
 
-        console.log("bgimagesplitcheck", bgimagesplitcheck)
         
 
         if (bgimagesplitcheck[3] != "")
        {
-           console.log("in if bgimagesplit")
            const fac = new FastAverageColor();
            fac.getColorAsync(bgimagesplit2[0])
                .then(color => {
@@ -179,21 +176,18 @@ function getCookie(name) {
                  let thirdcolor = rgb[2] - 30
                  if (firstcolor <= 30)
                  {
-                     console.log("wpw1")
                      firstcolor = parseInt(rgb[0]) + 80 
   
                  }
                  
                  if(secondcolor <= 50)
                  {
-                  console.log("wpw2")
   
                     secondcolor = parseInt(rgb[1]) + 90
                  }
                
                  if(thirdcolor <= 50)
                  {
-                  console.log("wpw3")
   
                     thirdcolor = parseInt(rgb[2]) + 90
                  }
@@ -221,21 +215,18 @@ function getCookie(name) {
                let thirdcolor = rgb[2] - 30
                if (firstcolor <= 30)
                {
-                   console.log("wpw1")
                    firstcolor = parseInt(rgb[0]) + 80 
 
                }
                
                if(secondcolor <= 50)
                {
-                console.log("wpw2")
 
                   secondcolor = parseInt(rgb[1]) + 90
                }
              
                if(thirdcolor <= 50)
                {
-                console.log("wpw3")
 
                   thirdcolor = parseInt(rgb[2]) + 90
                }
@@ -275,6 +266,13 @@ function getCookie(name) {
     {
         checkifurl = "image"
     }
+    if (this.state.url.charAt(8) == "s")
+    {
+        if (this.state.url.indexOf( '.jpg' ) == 85)
+        {
+            checkifurl = "image"
+        }
+    }
 
     return (
         <div id="wilachatww" name="imgdiv" value="false" className="threeimage" >
@@ -300,6 +298,7 @@ function getCookie(name) {
     constructor(props){
         super(props);
         this.addImage = this.addImage.bind(this);
+        console.log("mother mother fak er", this.props.adddata)
       
         let array = []
         let w = 0
@@ -309,10 +308,10 @@ function getCookie(name) {
         let imageinfo_des = ""
         let bgcolor = ""
         let bgimage = ""
-
-        console.log("type", this.props.type)
+        
         if (this.props.alldata != undefined)
         {
+            console.log("ALL DATA IS FAKING UNDEFINED")
             bgcolor = this.props.alldata['bgcolor']
             bgimage = this.props.alldata['bgimage']
             let first = "url(/static/profile_pic/"
@@ -320,7 +319,44 @@ function getCookie(name) {
             bgimage = first + bgimage + last
             for(w = 0; w < this.props.alldata['imageinfo'].length; w++)
             {
-                imageinfo_src = this.props.alldata['imageinfo'][w]['src']
+                console.log("console.log", this.props.alldata['imageinfo'][w]['src'])
+
+                let checker = 0
+                for(let o = 0; o < this.props.adddata.length; o++)
+                {
+                    
+                    if (this.props.adddata[o][1] != null)
+                    {
+                        if(this.props.adddata[o][1] == this.props.alldata['imageinfo'][w]['src'])
+                        {
+                            imageinfo_src = this.props.alldata['imageinfo'][w]['src']
+                            checker = 1;
+                        }
+                        else
+                        {
+                            imageinfo_src = "/static/profile_pic/brown.jpeg"
+                        }
+                    }
+                    else
+                    {
+                   
+                        if(this.props.adddata[o][0] == this.props.alldata['imageinfo'][w]['src'])
+                        {
+                            imageinfo_src = this.props.alldata['imageinfo'][w]['src']
+                            checker = 1;
+                        }
+                        else
+                        {
+                            if (checker != 1)
+                            {
+                                imageinfo_src = "/static/profile_pic/brown.jpeg"
+
+                            }
+                        }
+                      
+                    }
+                }
+                //imageinfo_src = this.props.alldata['imageinfo'][w]['src
                 imageinfo_title = this.props.alldata['imageinfo'][w]['title']
                 imageinfo_des = this.props.alldata['imageinfo'][w]['des']
                
@@ -331,7 +367,8 @@ function getCookie(name) {
               
             }
         }
-       
+
+ 
         this.state =
         {
             imgdiv: "",
@@ -340,6 +377,8 @@ function getCookie(name) {
             bgimage:bgimage
             
         }
+      
+
     }
    
     addImage = (realid, e, classname) => {  
@@ -475,6 +514,14 @@ function getCookie(name) {
         document.querySelector('#showtemplates').hidden = false
   
         let char = this.props.source.charAt(8)
+        if (this.props.source.charAt(8) == "s")
+        {
+            if (this.props.source.indexOf( '.jpg' ) == 85)
+            {
+                char = "l"
+            }
+        }
+
   
         return (
             <div>
@@ -489,7 +536,6 @@ function getCookie(name) {
   
   //send delete + add background color function to template classes
   class NextImg extends React.Component {
-  
     constructor(props) {
         super(props);
         this.goBack = this.goBack.bind(this)
@@ -498,6 +544,7 @@ function getCookie(name) {
         this.deleteTemplate = this.deleteTemplate.bind(this);
         this.checkGalleryTitleArea = this.checkGalleryTitleArea.bind(this);
         this.addTemplateAbove = this.addTemplateAbove.bind(this);
+
 
 
         let bgimagetitle = "";
@@ -510,7 +557,8 @@ function getCookie(name) {
             bgcolortitle:"",
             bgimagetitle:""
         }
-        
+ 
+
         const getcooked = getCookie('csrftoken')
         fetch(`/realcreateapi/1`, {
             method: 'PUT',
@@ -553,15 +601,11 @@ function getCookie(name) {
                 document.querySelector('#showtemplates').append(newDiv);
 
                 ReactDOM.render(<ShowTemplateTwo alldata={dataa['everydata'][i]} type="edit" id={id} changeBgColor={this.changeBgColor} 
-                deleteTemplate={this.deleteTemplate} imageTemplate={this.imageTemplate} addTemplateAbove={this.addTemplateAbove}/>,document.querySelector('#saveddata' + count));
+                deleteTemplate={this.deleteTemplate} imageTemplate={this.imageTemplate} addTemplateAbove={this.addTemplateAbove} adddata={this.props.adddata}/>,document.querySelector('#saveddata' + count));
             }
         }    
     });
-        
-  
     }
-        
-    
     changeBgColor(e){
         console.log("waan")
         console.log(e)
@@ -586,7 +630,6 @@ function getCookie(name) {
         console.log("fileINput", fileInput)
         let formData = new FormData();
         formData.append("media", fileInput);
-        let address = document.querySelector('#walletaddress').value
         const getcooked = getCookie('csrftoken')
   
         fetch(`/realcreateapi/1`, {
@@ -710,11 +753,10 @@ function getCookie(name) {
   
         let formData = new FormData();
         formData.append("everydata", everydata)
-        let address = document.querySelector('#walletaddress').value
         const getcooked = getCookie('csrftoken')
         let lastdata = {}
         lastdata["everydata"] = tryeverydata;
-        fetch(`/realsaveapi/${address}`, {
+        fetch(`/realsaveapi`, {
             method: 'POST',
             headers:{'X-CSRFToken': getcooked},
             body: JSON.stringify({
@@ -789,11 +831,12 @@ function getCookie(name) {
             {
                 for (i = 0; i < this.props.array.length; i ++)
                 {
+                    console.log("array i", this.props.array[i])
                     img.push(<SortNextImg 
                         source={this.props.array[i]}/>
                     );
                 }
-            }
+            } 
         //creating new template just for title page and when to click
       return (
         <div>
@@ -811,7 +854,7 @@ function getCookie(name) {
             </div>: null}
            
             
-            <div class= "titlecolor">
+            <div class= {this.props.type != "gallerycoverprofile" ? "titlecolor": "nottitlecolor"}>
             {this.props.type != "gallerycoverprofile" ? <div id="bosss"class="d-flex justify-content-center d-flex flex-wrap">
                 <input id="exampleColorInput" onChange={this.changeBgColor} type="color" class="changecolor form-control form-control-color col-1 mb-1" title="Choose your color"></input>
                 <input id="filetemplate1" onChange={this.imageTemplate} class="filetemplate1 form-control-file col-sm-1 mr-1" type="file"></input>
@@ -835,20 +878,48 @@ function getCookie(name) {
         this.chooseNft = this.chooseNft.bind(this);
         this.cancelNft = this.cancelNft.bind(this)
         let arrayurl = [];
-        let animationurl =  this.props.animationurl ;
+        let animationurl =  this.props.animationurl;
+        let imageurl = this.props.imageurl;
         let index = 65;
+
+        
   
         if (animationurl != null)
         { 
-        index = animationurl.indexOf( '.gltf' );
+            index = animationurl.indexOf( '.gltf' );
+       //     console.log("index gltf", index)
+
         }
+        if (imageurl.charAt(8) == "s")
+        {
+            if (imageurl != null)
+            { 
+                if (imageurl.indexOf( '.jpg' ) == 85)
+                {
+                    index = 65
+                }
+                else
+                {
+                    index = -99
+                }    
+            }
+          
+        }
+
+        console.log("index", index)
+
         this.state = {
             arrayurl: arrayurl,
             wholeimg:
             <div>
-                <div id="wilachatww" name="imgdiv" value="false" className="box" onClick={this.chooseNft} data-selected="false">
-                    {index == 65 ? <img class="nftimg" src={this.props.imageurl}></img>: <video src={this.props.animationurl} muted autoplay="autoplay" loop="true" class="nftvdo"><source src={this.props.animationurl} type = "video/mp4"></source></video>}                  
-                </div>
+                {index == -99 ? <div id="wilachatww" name="imgdiv" value="false" className="box" onClick={this.chooseNft} data-selected="false">
+                <video src={this.props.imageurl} muted autoplay="autoplay" loop="true" class="nftvdo"><source src={this.props.imageurl} type = "video/mp4"></source></video></div>
+                :<div id="wilachatww" name="imgdiv" value="false" className="box" onClick={this.chooseNft} data-selected="false">
+                {index == 65 ? <img class="nftimg" src={this.props.imageurl}></img>: <video src={this.props.animationurl} muted autoplay="autoplay" loop="true" class="nftvdo"><source src={this.props.animationurl} type = "video/mp4"></source></video>}        
+            </div>}
+
+                
+        
                 <div class="d-flex justify-content-center">
                     <a href = {index == 65 ? this.props.imageurl: this.props.animationurl} target="_blank" class="btn btn-outline-dark btn-sm mt-1 mb-1">view</a>
                 </div>
@@ -856,20 +927,40 @@ function getCookie(name) {
         }
       }
       chooseNft(e){
-        let animationurl =  this.props.animationurl ;
+        let animationurl =  this.props.animationurl;
+        let imageurl = this.props.imageurl;
+
         let index = 65;
   
         if (animationurl != null)
         { 
         index = animationurl.indexOf( '.gltf' );
         }
+        if (imageurl.charAt(8) == "s")
+        {
+            if (imageurl != null)
+            { 
+                if (imageurl.indexOf( '.jpg' ) == 85)
+                {
+                    index = 65
+                }
+                else
+                {
+                    index = -99
+                }    
+            }
+        }
   
         this.setState({
             wholeimg:
-            <div>
-                <div id="wilachatww" name="imgdiv" value="true" className="boxcolor" data-selected="true" onClick={this.cancelNft}>
-                    {index == 65  ? <img class="nftimg" src={this.props.imageurl}></img>: <video src={this.props.animationurl} muted autoplay="autoplay" loop="true" class="nftvdo"><source src={this.props.animationurl} type = "video/mp4"></source></video>}                  
-                </div>
+            <div>       
+                  
+                {index == -99 ? <div id="wilachatww" name="imgdiv" value="true" className="boxcolor" data-selected="true"  onClick={this.cancelNft}>
+                <video src={this.props.imageurl} muted autoplay="autoplay" loop="true" class="nftvdo"><source src={this.props.imageurl} type = "video/mp4"></source></video></div>
+                :<div id="wilachatww" name="imgdiv" value="true" className="boxcolor" data-selected="true" onClick={this.cancelNft}>
+                {index == 65 ? <img class="nftimg" src={this.props.imageurl}></img>: <video src={this.props.animationurl} muted autoplay="autoplay" loop="true" class="nftvdo"><source src={this.props.animationurl} type = "video/mp4"></source></video>}        
+                </div>}
+
                 <div class="d-flex justify-content-center">
                     <a href = {index == 65 ? this.props.imageurl: this.props.animationurl} target="_blank" class="btn btn-outline-dark btn-sm mt-1 mb-1">view</a>
                 </div>
@@ -879,20 +970,39 @@ function getCookie(name) {
       }
       cancelNft(e)
       {
-        let animationurl =  this.props.animationurl ;
+        let animationurl =  this.props.animationurl;
+        let imageurl = this.props.imageurl;
+
         let index = 65;
   
         if (animationurl != null)
         { 
         index = animationurl.indexOf( '.gltf' );
         }
+
+        if (imageurl.charAt(8) == "s")
+        {
+            if (imageurl != null)
+            { 
+                if (imageurl.indexOf( '.jpg' ) == 85)
+                {
+                    index = 65
+                }
+                else
+                {
+                    index = -99
+                }    
+            }
+        }
   
         this.setState({
             wholeimg:
             <div>
-                <div id="wilachatww" name="imgdiv" className="box" data-selected="false" onClick={this.chooseNft}>
-                    {index == 65  ? <img class="nftimg" src={this.props.imageurl}></img>: <video src={this.props.animationurl} muted autoplay="autoplay" loop="true" class="nftvdo"><source src={this.props.animationurl} type = "video/mp4"></source></video>}                  
-                </div>
+                  {index == -99 ? <div id="wilachatww" name="imgdiv" value="false" className="box" onClick={this.chooseNft} data-selected="false">
+                <video src={this.props.imageurl} muted autoplay="autoplay" loop="true" class="nftvdo"><source src={this.props.imageurl} type = "video/mp4"></source></video></div>
+                :<div id="wilachatww" name="imgdiv" value="false" className="box" onClick={this.chooseNft} data-selected="false">
+                {index == 65 ? <img class="nftimg" src={this.props.imageurl}></img>: <video src={this.props.animationurl} muted autoplay="autoplay" loop="true" class="nftvdo"><source src={this.props.animationurl} type = "video/mp4"></source></video>}        
+            </div>}
                 <div class="d-flex justify-content-center">
                     <a href = {index == 65 ? this.props.imageurl: this.props.animationurl} target="_blank" class="btn btn-outline-dark btn-sm mt-1 mb-1">view</a>
                 </div>
@@ -901,8 +1011,8 @@ function getCookie(name) {
   
       }
       render() {
-          console.log("animation url", this.props.animationurl)
-          console.log("img url", this.props.imageurl)
+         // console.log("animation url", this.props.animationurl)
+  //    console.log("img url", this.props.imageurl)
           return (
             <div>
                 {this.state.wholeimg}
@@ -914,7 +1024,6 @@ function getCookie(name) {
     constructor(props) {
         super(props);
         this.selectedImg = this.selectedImg.bind(this);
-        console.log("check for data inside to get the address to send back to api", this.props.data)
     }
     selectedImg(e)
     {   
@@ -924,45 +1033,57 @@ function getCookie(name) {
 
         let i = 0
         let array = []
-        console.log(e)
+        console.log("wilachat array", e)
+
         for (i = 0; i < e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes.length; i++)
         {
             if (e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes[i].childNodes[0].childNodes[0].dataset["selected"] == "true")
             {
+                console.log("INSIDE 1", e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0])
+                console.log("INSIDE 2", e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1])
+                console.log("INSIDE 3", e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes[i])
+                console.log("INSIDE 4", e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes[i].childNodes[0])
+                console.log("INSIDE 5", e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes[i].childNodes[0].childNodes[0])
+                console.log("INSIDE 6", e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes[i].childNodes[0].childNodes[0].childNodes[0])
+                console.log("INSIDE 7", e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes[i].childNodes[0].childNodes[0].childNodes[0].src)
+
                 array.push(e.target.offsetParent.childNodes[3].childNodes[3].childNodes[0].childNodes[1].childNodes[i].childNodes[0].childNodes[0].childNodes[0].src)
             }
         }
+       
         if (array[0] != undefined)
         {
-            
            // document.querySelector('#shownfts').style.visibility = 'hidden'
             document.querySelector('#shownfts').hidden = true
-  
-  
-  
-            ReactDOM.render(<NextImg array={array}/>, document.querySelector('#nextimg'));
+            console.log("demon king iruma alsdfnlasdkfn lsadfjdosaijflasdfjnoi dfoaisdfoiadsj oifjsdofi dofij asodifjasod")
+            
+            ReactDOM.render(<NextImg array={array} adddata={this.props.data}/>, document.querySelector('#nextimg'));
   
         }
-        else{
+
+        else
+        {
             window.alert("You need to select a nft before proceeding to create gallery")
         }
     }
         render() {
-           
-              
             const img = [];
             const counter = [];
             let counterr = 0;
-  
-            for (let i = 0; i < this.props.data["assets"].length; i++)
+           // console.log("HYPERLOOP", this.props.data)
+           // console.log("FAKE HYPERLOOP", this.props.data.length)
+
+            for (let i = 0; i < this.props.data.length; i++)
             {
+               //console.log("hyperloop img", this.props.data[i][0])
+               //console.log("hyperloop vdo", this.props.data[i][1])
                 img.push(
-                    <EachNft imageurl={this.props.data["assets"][i]["image_url"]} 
-                    animationurl={this.props.data["assets"][i]["animation_url"]} />
+                    <EachNft imageurl={this.props.data[i][0]} 
+                    animationurl={this.props.data[i][1]}/>
                   );
             }
       return (
-        <div>
+        <div class="formargin">
         <div id="whattodoinselectimg" class="d-flex justify-content-center">
             <h1 class="whattodoinselectimg">Select NFTs you would like to display in your gallery.</h1>
         </div>
@@ -978,40 +1099,74 @@ function getCookie(name) {
   }
   
   document.addEventListener('DOMContentLoaded', function(e) {
+    document.querySelector('#loading').hidden = false
+    console.log("this is real create")
+    const getcooked = getCookie('csrftoken')
+
+   // document.querySelector('#loading').hidden = true
+
+
     let clicked = window.location.pathname
     if (clicked == "/realcreate"){
         document.querySelector('#navcreate').style.color = "salmon";
     }
+
     // do while u dont own an nfts (not the query)
-  
-    let wallclick = document.querySelector('#wallclick')
-    wallclick.addEventListener('click', (e) => {
-        console.log("what")
-        let query = ""
-        let i = 0
-        console.log("e", e)
-        for (i = 0; i < e.path[1].childNodes[3].length; i++)
-        {
-            if (e.path[1].childNodes[3].options[i].selected == true)
-            {
-                query = e.path[1].childNodes[3].options[i].value
+/*
+        let offset = 0
+        let adddata = []
+        recurse(offset)
+        function recurse(offset) {
+            fetch(`https://api.opensea.io/api/v1/assets?owner=0x50dd57f50a17d57304e7a4f262da30beb31c2e87&order_by=visitor_count&order_direction=desc&offset=${offset}&limit=50`)
+            .then(response => response.json())
+
+            .then(data => {
+               
+            console.log("what the hell")
+            if(data["assets"] == "")
+             {
+                    console.log("done")
+                    console.log("all", adddata)
+         
+                
             }
-        }
-        
-       console.log("query", query)
-        
-        let address = document.querySelector('#walletaddress').value
-        
-        fetch(`https://api.opensea.io/api/v1/assets?owner=${address}${query}&offset=0&limit=50`)
-      
-        .then(response => response.json())
-    
-         .then(data => {
-            document.querySelector('#askforwallet').hidden = true;
-            ReactDOM.render(<ShowNfts data={data}/>, document.querySelector('#shownfts'));
+             else {
+                console.log("asset", data["assets"])
+
+                adddata = adddata.concat(data["assets"])
+                recurse(offset + 50);
+            }
+                
+            });
             
+        }
+*/
+
+      fetch(`/realcreateapi/1`, {
+            method: 'PUT',
+            headers:{'X-CSRFToken': getcooked},
+            body: JSON.stringify({
+                edit:"gallery"
+                })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.querySelector('#loading').hidden = true
+
+
+            console.log("add mofo data", data['adddata'].length)
+            console.log("the data", data['adddata'])
+         
+
+            ReactDOM.render(<ShowNfts data={data['adddata']}/>, document.querySelector('#shownfts'));
+
         });
-    });
+        
+
+       
+        
+     
+  
   });
   export {
     NextImg,

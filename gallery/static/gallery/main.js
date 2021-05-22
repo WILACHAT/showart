@@ -234,7 +234,7 @@ var PostRow = function (_React$Component3) {
             ),
             React.createElement(
               'div',
-              { 'class': 'd-flex justify-content-center' },
+              { 'class': 'cleary d-flex justify-content-center' },
               React.createElement('div', { 'class': 'postexplore', style: { backgroundColor: this.props.gallerybgcolor, backgroundImage: this.props.gallerybgimage } })
             ),
             React.createElement(
@@ -359,7 +359,7 @@ var PostTable = function (_React$Component4) {
         ),
         React.createElement(
           'div',
-          null,
+          { 'class': 'paginationcss' },
           this.props.data["num_pages"] != 0 ? React.createElement(
             'ul',
             { 'class': 'pagination container justify-content-center mt-3' },

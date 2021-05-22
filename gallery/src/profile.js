@@ -20,9 +20,11 @@ function getCookie(name) {
     constructor(props){
         super(props);
         this.toBack = this.toBack.bind(this);
-
+        console.log("asdfasdfasdfasdfasdfadfas", this.props.adddata)
+   
+       
+    
         let data = this.props.data;
-        console.log("what kind of data is really showing", data)
       
         data = data.replaceAll("'", '"');
         data = JSON.parse(data);
@@ -44,7 +46,7 @@ function getCookie(name) {
             console.log("this is newDiv", newDiv);
             document.querySelector('#gallerypageone').appendChild(newDiv);
             
-            ReactDOM.render(<ShowTemplateTwo alldata={data['everydata'][i]} type="profile" />,document.querySelector('#templatesidtwo' + count));
+            ReactDOM.render(<ShowTemplateTwo alldata={data['everydata'][i]} type="profile" adddata={this.props.adddata}/>,document.querySelector('#templatesidtwo' + count));
         }
     }
     toBack()
@@ -54,6 +56,8 @@ function getCookie(name) {
             document.querySelector('#gallerypage').hidden = true;
             document.querySelector('#gallerypageone').hidden = true;
             document.querySelector('#navibarid').hidden = false;
+            document.querySelector('#loading').hidden = true
+
     }
    
 
@@ -253,8 +257,14 @@ function getCookie(name) {
         });
 
     }
-    toNext(e){
+    toNext(e, count){
+            console.log("this is count", count)
             //unhide the profileedit to make the gallery in the same page as profile info
+            if (count == 0)
+            {
+                document.querySelector('#loading').hidden = false
+            }
+
             document.querySelector('#profileedit').hidden = true;           
             document.querySelector('#gallerypageone').hidden = false;
             document.querySelector('#followpart').hidden = true;
@@ -280,14 +290,10 @@ function getCookie(name) {
             
             
          .then(data => {
-            console.log("gallery faking info", data['galleryinfo'])
-            console.log("gallery title", data['gallerytitle'])
-            console.log("gallery bg image", data['gallerybgimage'])
-            console.log("gallery bg color", data['gallerybgcolor'])
-
+            document.querySelector('#loading').hidden = true
 
             ReactDOM.render(<DisplayGallery data={data['galleryinfo']} gallerytitle={data['gallerytitle']}
-            gallerybgimage={data['gallerybgimage']} gallerybgcolor={data['gallerybgcolor']}/>, document.querySelector('#gallerypage'));
+            gallerybgimage={data['gallerybgimage']} gallerybgcolor={data['gallerybgcolor']} adddata={data['adddata']}/>, document.querySelector('#gallerypage'));
 
         });
     }
@@ -340,6 +346,7 @@ function getCookie(name) {
     }
    
     render() {
+        let count = 0
         let clicked = parseInt(window.location.pathname.split('/')[2])
         let user = this.props.data["user"]
       return (
@@ -347,7 +354,7 @@ function getCookie(name) {
             {this.state.edit}
 
             <div class="d-flex justify-content-center">
-                <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.toNext}>Gallery</button>
+                <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={(e) => this.toNext(e, count++)}>Gallery</button>
             </div>
         </div>
         );
@@ -435,7 +442,10 @@ function getCookie(name) {
         let whatkind = "profile"
         let clicked = parseInt(window.location.pathname.split('/')[2])
         let pagination = 1
+        
+     
         let fileInput = document.querySelector('#choosefile').files[0]
+        console.log("fileinput", fileInput)
     
         let formData = new FormData();
         formData.append("media", fileInput);
@@ -575,9 +585,9 @@ function getCookie(name) {
         <div>
              <div class="d-flex justify-content-center">
                     <div class="postexplore2 d-flex justify-content-between">
-                        <p class="ptitle d-flex justify-content-end"name="timestamp" class="font-weight-light timestamp">{this.state.current_howmanyfollow} {this.state.current_howmanyfollow > 1 ? "votes":"vote"}</p>
+                        <p class="ptitle ml-2 d-flex justify-content-end"name="timestamp" class="font-weight-light timestamp">{this.state.current_howmanyfollow} {this.state.current_howmanyfollow > 1 ? "votes":"vote"}</p>
                         <p></p>
-                        <p class="titlep d-flex justify-content-end"name="timestamp" class="font-weight-light timestamp">{this.props.data["view"]} {this.props.data["view"] > 1 ? "views":"view"}</p>
+                        <p class="titlep mr-2 d-flex justify-content-end"name="timestamp" class="font-weight-light timestamp">{this.props.data["view"]} {this.props.data["view"] > 1 ? "views":"view"}</p>
                     </div>
                 </div>
             {follow_button}
@@ -594,6 +604,8 @@ document.addEventListener('DOMContentLoaded', function() {
     Grade(document.querySelectorAll('.gradient-wrap'))
     let clicked = parseInt(window.location.pathname.split('/')[2])
     document.querySelector('#gallerypage').hidden = true;
+    document.querySelector('#loading').hidden = true
+
 
     fetch(`/currentgalleryapi/${whatkind}/${clicked}/${pagination}`)
 
