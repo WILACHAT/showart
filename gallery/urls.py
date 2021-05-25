@@ -17,8 +17,10 @@ urlpatterns = [
     
 
     path("register", views.register, name="register"),
+    path("authenticity", views.authenticity, name="authenticity"),
     path("thegallery/<int:id>", views.thegallery, name="thegallery"),
     path("profile/<int:id>", views.profile, name="profile"),
+
         
 
 

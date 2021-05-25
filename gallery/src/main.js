@@ -33,6 +33,7 @@
           <div class="divsearch d-flex justify-content-center">
           <form>
           <input
+            id="searchid"
             type="text"
             class="inputsearch form-control mr-sm-2 mt-2 pb-2"
             placeholder="Search..."
@@ -280,15 +281,26 @@ class PostTable extends React.Component
       );
 
     }
+
+    const explorelink= "/explore";
+   
+
     return (
       <div id="posttableid">
+      
+      <div>
+        {rows == "" ? <div> {this.props.data["whatkind"] == "following" ? <div><h4 class="authenh4">You Haven't Voted Anyone</h4> 
+          <h6 class="authenh4">Find Someone To Vote:<a href={explorelink} class="btn btn-outline-dark btn-sm ml-2">Explore</a></h6></div>:<h4 class="authenh4">No Result Found</h4>}
+        </div>:                
 
-
-      <div id="rowsid" class="flex-column">
-        {rows}
+        <div id="rowsid" class="flex-column">
+          {rows}
+        </div>}
       </div>
-        
-       
+    
+   
+   
+      {rows != "" ? 
         <div class="paginationcss">
         {this.props.data["num_pages"] != 0 ?
         <ul class="pagination container justify-content-center mt-3">
@@ -300,7 +312,8 @@ class PostTable extends React.Component
               {paginationid != this.props.data["num_pages"] ? <span id={paginationid} class="page-link pagelink" onClick={this.props.changePage}>Next</span>: null}
             </li>
         </ul>: null}
-        </div>
+        </div>:null}
+     
       </div>
     );
   }

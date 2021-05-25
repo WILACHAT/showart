@@ -1,9 +1,11 @@
 
 .backgrounddumb, .backgrounddumbtwo, .backgrounddumbthree, .backgrounddumbfour,
-.backgrounddumbfive, .backgrounddumbsix
+.backgrounddumbfive, .backgrounddumbsix, .backgrounddumbseven, .backgrounddumbeight, 
+.backgrounddumb9, .backgrounddumb10, .backgrounddumb11, .backgrounddumb12, .bgimage1
 {
     width:100;
     margin-top:-15px;
+
 
 }
 .backgrounddumbprofile{
@@ -34,22 +36,109 @@
 .backgrounddumbfour, .backgrounddumbfive ,.backgrounddumbsix{
     height:60vh;
 }
-.backgrounddumbfour{
+.backgrounddumbseven, .backgrounddumb9,  .backgrounddumb11, .backgrounddumb12
+{
+  height:60vh;
+}
+.bgimage12{
+  height:60vh;
+}
+.bgimageopensea{
+  height:60vh;
+}
+.woloa{
+
+  margin-top:12%;
+}
+.woloabtn{
+  margin-left:35%;
+}
+.bgimage1, .bgimage2, .bgimage3, .bgimage4, .bgimage5, .bgimage6, .bgimage7
+, .bgimage8, .bgimage9, .bgimage10, .bgimage11
+{
+  height:105vh;
+
+}
+.bgimage1{
+  background-color: #66CCCC ;
+
+}
+.bgimage2{
+  background-color: #96CDCD ;
+
+}.bgimage3{
+  background-color: #70DBDB ;
+
+}.bgimage4{
+  background-color: #A4D3EE ;
+
+}.bgimage5{
+  background-color: #AFEEEE ;
+
+}
+.bgimage6{
+  background-color: #39B7CD ;
+
+}.bgimage7{
+  background-color: #7AC5CD ;
+
+}.bgimage8{
+  background-color: #63D1F4 ;
+
+}.bgimage9{
+  background-color: #00BFFF ;
+
+}.bgimage10{
+  background-color: #38B0DE ;
+
+}
+.bgimage11{
+  background-color: #96CDCD ;
+
+}.bgimage12{
+  background-color: #7EC0EE ;
+  
+
+}.bgimage13{
+  background-color:#F76E6E ;
+
+}
+.bgimageopensea{
+  background-color: #70DBDB;
+}
+.backgrounddumb10
+{  
+  height:105vh;
+
+}
+.backgrounddumbeight
+{
+  height: 80vh;
+}
+.backgrounddumbfour,.backgrounddumb9
+{
     background-color: #72A0C1 ;
-}.backgrounddumbfive{
+}.backgrounddumbfive, .backgrounddumb10{
     background-color: #7CB9E8 ;
-}.backgrounddumbsix{
+}.backgrounddumbsix, .backgrounddumb11 {
     background-color: #318CE7 ;
 }
+.backgrounddumbseven, .backgrounddumb12{
+  background-color: 	#6495ED ;
+}
+.backgrounddumbeight{
+  background-color: salmon ;
+}
+
 
   .is-visible .headwhatever{
     animation: backInDown; /* referring directly to the animation's @keyframe declaration */
-    animation-duration: 1s;
+    animation-duration: 1.25s;
   }
 
   .is-visible .headwhatevertwo{
     animation: backInRight; /* referring directly to the animation's @keyframe declaration */
-    animation-duration: 2s;
+    animation-duration: 1.75s;
   }
   .is-visible .whatis{
     animation: backInLeft; /* referring directly to the animation's @keyframe declaration */
@@ -61,23 +150,127 @@
     animation-duration: 1.5s;
   }
 
-  .is-visible .whatisfour{
+  .is-visible .whatisfour {
     animation: backInRight; /* referring directly to the animation's @keyframe declaration */
     animation-duration: 1.5s;
   }
   
 
-  .is-visible .whatisfive{
+  .is-visible .whatisfive {
     animation: backInLeft; /* referring directly to the animation's @keyframe declaration */
     animation-duration: 1.5s;
   }
   
 
-  .is-visible .whatissix{
+  .is-visible .whatissix {
     animation: backInRight; /* referring directly to the animation's @keyframe declaration */
     animation-duration: 1.5s;
   }
   
+  .is-visible .whatisseven {
+    animation: bounceInLeft; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.5s;
+  }
+  
+  .is-visible .whatis9{
+    animation: backInRight; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.2s;
+  }
+  
+  .is-visible .whatis10a{
+    animation: bounceIn; /* referring directly to the animation's @keyframe declaration */
+    animation-duration:1s;
+  }
+  
+  .is-visible .whatis10b{
+    animation: bounceIn; /* referring directly to the animation's @keyframe declaration */
+    animation-duration:1.5s;
+  }
+   .is-visible .whatis10c{
+    animation: bounceIn; /* referring directly to the animation's @keyframe declaration */
+    animation-duration:2s;
+  }
+  
+  .is-visible .whatis11{
+    animation: backInRight; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.5s;
+  }
+  
+  .is-visible .whatis12{
+    animation: backInLeft; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.5s;
+  }
+  .is-visible .btnwhatis1{
+    animation: backInLeft; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.5s;
+  } .is-visible .btnwhatis2{
+    animation: backInLeft; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 2s;
+  }
+  .is-visible .btnwhatis3{
+    animation: backInRight; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 2s;
+  }
+  .is-visible .btnwhatis4{
+    animation: backInRight; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.5s;
+  }
+  .is-visible .woloabtn{
+    animation: shakeX; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 2s;
+  }
+  .is-visible .h1imagecaa{
+    animation: tada; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1s;
+  }
+  .is-visible .h1imagecp{
+    animation: headShake; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1s;
+  }
+  .is-visible .h1imagemore{
+    animation: headShake; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.5s;
+  }
+  .is-visible .h1imageex{
+    animation: shakeY; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.5s;
+  } .is-visible .h1imagevote{
+    animation: headShake; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.5s;
+  }
+  .is-visible .h1imagetop{
+    animation: headShake; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.5s;
+  }
+  .is-visible .asdf{
+    animation: heartBeat; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 5s;
+  }
+  .is-visible .h1imagegal{
+    animation: backInRight; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.2s;
+  }
+  .is-visible .h12image{
+    animation: jackInTheBox; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.2s;
+  }
+  .is-visible .h1imagebut{
+    animation: bounce; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.2s;
+  }
+  .is-visible .h1imagechoose{
+    animation: rubberBand; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.2s;
+  }
+  
+  
+  
+  
+  
+  
+  
+
+
 
   
 

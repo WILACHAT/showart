@@ -96,24 +96,24 @@ function getCookie(name) {
         this.checkTitleArea = this.checkTitleArea.bind(this);
         
 
-
+        console.log("this.src", this.props.src)
        let src = ""
        let des = ""
        let title = ""
-       let border = ""
+       let bgcolor = "salmon"
        let thisisfromprofile = "false"
        if (this.props.src != undefined)
        {
             src = this.props.src
             des = this.props.des
             title = this.props.title
-            border = ""
+            bgcolor = null
             thisisfromprofile = "true"
        }
         this.state =
         {
             url:src,
-            border:border,
+            bgcolor:bgcolor,
             title:title,
             des:des,
             fromprofile:thisisfromprofile,
@@ -146,7 +146,8 @@ function getCookie(name) {
         console.log("going inside like a pro")
         this.setState({
             url: document.querySelector('#saveurl').value,
-            border:null
+            bgcolor:null
+
   
          })
     }
@@ -274,9 +275,10 @@ function getCookie(name) {
         }
     }
 
+    console.log("color state", this.state.bgcolor)
     return (
         <div id="wilachatww" name="imgdiv" value="false" className="threeimage" >
-            <div id="oneinamillion" onClick={(e) => this.props.type != "profile" ? this.t2ImageOne(e): this.goIntoImage(checkifurl, this.state.hexy)} class="divborder"style={{borderStyle: this.state.border}}>
+            <div id="oneinamillion" onClick={(e) => this.props.type != "profile" ? this.t2ImageOne(e): this.goIntoImage(checkifurl, this.state.hexy)} class="divborder"style={{backgroundColor: this.state.bgcolor}}>
                 {checkifurl == "image" ? <img id="oneintwo"class="testingtestimgg" src={this.state.url}></img>: 
                  <video src={this.state.url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={this.state.url} type = "video/mp4"></source></video>}                  
             </div>
@@ -317,46 +319,53 @@ function getCookie(name) {
             let first = "url(/static/profile_pic/"
             let last = ")"
             bgimage = first + bgimage + last
+            console.log("TYPE DESU", this.props.type)
+            
             for(w = 0; w < this.props.alldata['imageinfo'].length; w++)
             {
-                console.log("console.log", this.props.alldata['imageinfo'][w]['src'])
 
                 let checker = 0
-                for(let o = 0; o < this.props.adddata.length; o++)
+                if (this.props.type == "edit")
                 {
-                    
-                    if (this.props.adddata[o][1] != null)
+                    for(let o = 0; o < this.props.adddata.length; o++)
                     {
-                        if(this.props.adddata[o][1] == this.props.alldata['imageinfo'][w]['src'])
+                        
+                        if (this.props.adddata[o][1] != null)
                         {
-                            imageinfo_src = this.props.alldata['imageinfo'][w]['src']
-                            checker = 1;
-                        }
-                        else
-                        {
-                            imageinfo_src = "/static/profile_pic/brown.jpeg"
-                        }
-                    }
-                    else
-                    {
-                   
-                        if(this.props.adddata[o][0] == this.props.alldata['imageinfo'][w]['src'])
-                        {
-                            imageinfo_src = this.props.alldata['imageinfo'][w]['src']
-                            checker = 1;
-                        }
-                        else
-                        {
-                            if (checker != 1)
+                            if(this.props.adddata[o][1] == this.props.alldata['imageinfo'][w]['src'])
+                            {
+                                imageinfo_src = this.props.alldata['imageinfo'][w]['src']
+                                checker = 1;
+                            }
+                            else
                             {
                                 imageinfo_src = "/static/profile_pic/brown.jpeg"
-
                             }
                         }
-                      
+                        else
+                        {
+                    
+                            if(this.props.adddata[o][0] == this.props.alldata['imageinfo'][w]['src'])
+                            {
+                                imageinfo_src = this.props.alldata['imageinfo'][w]['src']
+                                checker = 1;
+                            }
+                            else
+                            {
+                                if (checker != 1)
+                                {
+                                    imageinfo_src = "/static/profile_pic/brown.jpeg"
+
+                                }
+                            }
+                        
+                        }
                     }
                 }
-                //imageinfo_src = this.props.alldata['imageinfo'][w]['src
+                else
+                {
+                    imageinfo_src = this.props.alldata['imageinfo'][w]['src']
+                }
                 imageinfo_title = this.props.alldata['imageinfo'][w]['title']
                 imageinfo_des = this.props.alldata['imageinfo'][w]['des']
                
@@ -445,8 +454,8 @@ function getCookie(name) {
             {this.props.type != "profile" ? <div id="boss"class="d-flex justify-content-center d-flex flex-wrap mt-2">
                 <input id="exampleColorInput" onChange={this.props.changeBgColor} type="color" class="changecolor form-control form-control-color col-1 mb-1" title="Choose your color"></input>
                 <input id="filetemplate1" onChange={this.props.imageTemplate} class="filetemplate1 form-control-file col-sm-1 mr-1" type="file"></input>
-                <button id="addimagetemplate1"onClick={(e) => this.addImage(realid, e, classname)} class="deletetemplate btn btn-outline-dark btn-sm mr-2 mb-1">Add Image</button>
-                <button id="addimagetemplate1"onClick={(e) => this.props.addTemplateAbove(realid, e, classname, counttemplate2++)} class="deletetemplate btn btn-outline-dark btn-sm mr-2 mb-1">Add Template Above</button>
+                <button id="addimagetemplate1"onClick={(e) => this.addImage(realid, e, classname)} class="deletetemplate btn btn-outline-dark btn-sm mr-2 mb-1">Add Asset</button>
+                <button id="addimagetemplate1"onClick={(e) => this.props.addTemplateAbove(realid, e, classname, counttemplate2++)} class="deletetemplate btn btn-outline-dark btn-sm mr-2 mb-1">Add Background Above</button>
 
                 <button id="deletetemplate1" onClick={(e) => this.props.deleteTemplate(this.props.id, e)} class="deletetemplate btn btn-outline-danger btn-sm mr-2 mb-1">X</button>
             </div> :null}
@@ -597,7 +606,8 @@ function getCookie(name) {
                 const newDiv = document.createElement("div");
                 newDiv.id = "saveddata" + count
                 let id = "saveddata" + count
-
+                
+     
                 document.querySelector('#showtemplates').append(newDiv);
 
                 ReactDOM.render(<ShowTemplateTwo alldata={dataa['everydata'][i]} type="edit" id={id} changeBgColor={this.changeBgColor} 
@@ -846,8 +856,8 @@ function getCookie(name) {
                     <div class="templateimgdiv d-flex justify-content-center">
                     <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-2" onClick={this.goBack}>Back</button>
                     <a href = "http://127.0.0.1:8000/" target="_blank" class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-2">How To</a>
-                    <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-2" onClick={() => this.showTemplate2(counttemplate2++)}>Add Template</button>
-                    <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.goSave}>Save</button>
+                    <button class="btn btn-outline-dark btn-sm mt-2 mb-2 mr-2" onClick={() => this.showTemplate2(counttemplate2++)}>Add Background</button>
+                    <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={this.goSave}>Post</button>
 
                 </div>
                 </div>
@@ -1111,42 +1121,11 @@ function getCookie(name) {
         document.querySelector('#navcreate').style.color = "salmon";
     }
 
-    // do while u dont own an nfts (not the query)
-/*
-        let offset = 0
-        let adddata = []
-        recurse(offset)
-        function recurse(offset) {
-            fetch(`https://api.opensea.io/api/v1/assets?owner=0x50dd57f50a17d57304e7a4f262da30beb31c2e87&order_by=visitor_count&order_direction=desc&offset=${offset}&limit=50`)
-            .then(response => response.json())
-
-            .then(data => {
-               
-            console.log("what the hell")
-            if(data["assets"] == "")
-             {
-                    console.log("done")
-                    console.log("all", adddata)
-         
-                
-            }
-             else {
-                console.log("asset", data["assets"])
-
-                adddata = adddata.concat(data["assets"])
-                recurse(offset + 50);
-            }
-                
-            });
-            
-        }
-*/
-
       fetch(`/realcreateapi/1`, {
             method: 'PUT',
             headers:{'X-CSRFToken': getcooked},
             body: JSON.stringify({
-                edit:"gallery"
+                edit:"fetchnft"
                 })
         })
         .then(response => response.json())
@@ -1154,9 +1133,6 @@ function getCookie(name) {
             document.querySelector('#loading').hidden = true
 
 
-            console.log("add mofo data", data['adddata'].length)
-            console.log("the data", data['adddata'])
-         
 
             ReactDOM.render(<ShowNfts data={data['adddata']}/>, document.querySelector('#shownfts'));
 

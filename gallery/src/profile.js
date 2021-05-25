@@ -1,6 +1,7 @@
 
 import  { NextImg, ShowTemplateTwo } from './realcreate.js';
 
+
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -20,11 +21,10 @@ function getCookie(name) {
     constructor(props){
         super(props);
         this.toBack = this.toBack.bind(this);
-        console.log("asdfasdfasdfasdfasdfadfas", this.props.adddata)
    
-       
     
         let data = this.props.data;
+        
       
         data = data.replaceAll("'", '"');
         data = JSON.parse(data);
@@ -46,7 +46,7 @@ function getCookie(name) {
             console.log("this is newDiv", newDiv);
             document.querySelector('#gallerypageone').appendChild(newDiv);
             
-            ReactDOM.render(<ShowTemplateTwo alldata={data['everydata'][i]} type="profile" adddata={this.props.adddata}/>,document.querySelector('#templatesidtwo' + count));
+            ReactDOM.render(<ShowTemplateTwo alldata={data['everydata'][i]} type="profile"/>,document.querySelector('#templatesidtwo' + count));
         }
     }
     toBack()
@@ -56,7 +56,6 @@ function getCookie(name) {
             document.querySelector('#gallerypage').hidden = true;
             document.querySelector('#gallerypageone').hidden = true;
             document.querySelector('#navibarid').hidden = false;
-            document.querySelector('#loading').hidden = true
 
     }
    
@@ -89,6 +88,7 @@ function getCookie(name) {
         let username = this.props.data["username"];
         let profilepic = this.props.data["profilepic"];
         let numvotes = this.props.data["howmanyvotes"];
+        let wallet = this.props.data["wallet"];
 
 
         console.log("username", username)
@@ -137,6 +137,9 @@ function getCookie(name) {
         <div class="mb-2">
                 <div class="d-flex justify-content-center ml-6 mt-3 mb-3">
                     <h2 class="wow mr-2">{username} </h2>{edit_button}
+                </div> 
+                <div class="d-flex justify-content-center mb-3">
+                    <h3 class="walletcss">{wallet}</h3> 
                 </div> 
                 <div class="d-flex justify-content-center mb-3">
                     <h3 class="contactgmailcss ">{contactgmail}</h3> 
@@ -236,6 +239,9 @@ function getCookie(name) {
                             <div class="d-flex justify-content-center ml-6 mt-3 mb-3">
                                 <h2 class="wow">{username} {edit_button}</h2>
                             </div>
+                            <div class="d-flex justify-content-center mb-3">
+                                <h3 class="walletcss">{this.props.data["wallet"]}</h3> 
+                            </div> 
                             
                             <div class="d-flex justify-content-center mb-3">
                                 <h3 class="contactgmailcss ">{contactgmail}</h3> 
@@ -260,11 +266,7 @@ function getCookie(name) {
     toNext(e, count){
             console.log("this is count", count)
             //unhide the profileedit to make the gallery in the same page as profile info
-            if (count == 0)
-            {
-                document.querySelector('#loading').hidden = false
-            }
-
+           
             document.querySelector('#profileedit').hidden = true;           
             document.querySelector('#gallerypageone').hidden = false;
             document.querySelector('#followpart').hidden = true;
@@ -290,10 +292,21 @@ function getCookie(name) {
             
             
          .then(data => {
-            document.querySelector('#loading').hidden = true
 
-            ReactDOM.render(<DisplayGallery data={data['galleryinfo']} gallerytitle={data['gallerytitle']}
-            gallerybgimage={data['gallerybgimage']} gallerybgcolor={data['gallerybgcolor']} adddata={data['adddata']}/>, document.querySelector('#gallerypage'));
+            console.log("check for data in the thing", data['galleryinfo'])
+            if (data['galleryinfo'] == null)
+            {
+                ReactDOM.render(<DisplayGallery data="blank"/>);            
+            }
+            
+            else
+            {
+        
+                ReactDOM.render(<DisplayGallery data={data['galleryinfo']} gallerytitle={data['gallerytitle']}
+                gallerybgimage={data['gallerybgimage']} gallerybgcolor={data['gallerybgcolor']}/>, document.querySelector('#gallerypage'));
+            } 
+
+    
 
         });
     }
@@ -321,6 +334,10 @@ function getCookie(name) {
                     <div class="d-flex justify-content-center ml-6 mt-3 mb-3">
                         <h2 class="wow">{this.state.username} {edit_button}</h2>
                     </div>
+
+                    <div class="d-flex justify-content-center mb-3">
+                        <h3 class="walletcss">{this.props.data["wallet"]}</h3> 
+                    </div> 
                     
                     <div class="d-flex justify-content-center mb-3">
                         <h3 class="contactgmailcss ">{this.state.contactgmail}</h3> 
@@ -348,13 +365,34 @@ function getCookie(name) {
     render() {
         let count = 0
         let clicked = parseInt(window.location.pathname.split('/')[2])
+        console.log("dataaaaaa userrrr", this.props.data["user"])
+        console.log("dataaaaaa", this.props.data)
+
+        let checker = ""
+        if (this.props.data["datainfo"] == null)
+        {
+            checker = "k"
+        }
+        else{
+            checker = this.props.data["datainfo"][17]
+        }
+        if (checker == null)
+        {
+            checker = "k"
+        }
+
+
+        console.log("checker", checker)
+
         let user = this.props.data["user"]
+
       return (
         <div>
             {this.state.edit}
 
             <div class="d-flex justify-content-center">
-                <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={(e) => this.toNext(e, count++)}>Gallery</button>
+                {checker != "k"  ? 
+                <button class="btn btn-outline-dark btn-sm mt-2 mb-2" onClick={(e) => this.toNext(e, count++)}>Gallery</button>:<p class="font-weight-light">No Gallery</p>}
             </div>
         </div>
         );
@@ -604,7 +642,6 @@ document.addEventListener('DOMContentLoaded', function() {
     Grade(document.querySelectorAll('.gradient-wrap'))
     let clicked = parseInt(window.location.pathname.split('/')[2])
     document.querySelector('#gallerypage').hidden = true;
-    document.querySelector('#loading').hidden = true
 
 
     fetch(`/currentgalleryapi/${whatkind}/${clicked}/${pagination}`)

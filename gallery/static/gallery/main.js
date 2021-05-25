@@ -57,6 +57,7 @@ var SearchBar = function (_React$Component) {
             'form',
             null,
             React.createElement('input', {
+              id: 'searchid',
               type: 'text',
               'class': 'inputsearch form-control mr-sm-2 mt-2 pb-2',
               placeholder: 'Search...',
@@ -349,15 +350,49 @@ var PostTable = function (_React$Component4) {
 
           curuser: curuser }));
       }
+
+      var explorelink = "/explore";
+
       return React.createElement(
         'div',
         { id: 'posttableid' },
         React.createElement(
           'div',
-          { id: 'rowsid', 'class': 'flex-column' },
-          rows
+          null,
+          rows == "" ? React.createElement(
+            'div',
+            null,
+            ' ',
+            this.props.data["whatkind"] == "following" ? React.createElement(
+              'div',
+              null,
+              React.createElement(
+                'h4',
+                { 'class': 'authenh4' },
+                'You Haven\'t Voted Anyone'
+              ),
+              React.createElement(
+                'h6',
+                { 'class': 'authenh4' },
+                'Find Someone To Vote:',
+                React.createElement(
+                  'a',
+                  { href: explorelink, 'class': 'btn btn-outline-dark btn-sm ml-2' },
+                  'Explore'
+                )
+              )
+            ) : React.createElement(
+              'h4',
+              { 'class': 'authenh4' },
+              'No Result Found'
+            )
+          ) : React.createElement(
+            'div',
+            { id: 'rowsid', 'class': 'flex-column' },
+            rows
+          )
         ),
-        React.createElement(
+        rows != "" ? React.createElement(
           'div',
           { 'class': 'paginationcss' },
           this.props.data["num_pages"] != 0 ? React.createElement(
@@ -383,7 +418,7 @@ var PostTable = function (_React$Component4) {
               ) : null
             )
           ) : null
-        )
+        ) : null
       );
     }
   }]);

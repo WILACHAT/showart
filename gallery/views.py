@@ -73,6 +73,8 @@ def realcreateapi(request, clicked):
     newdata = []
 
     if request.method == "PUT":
+        check =  User.objects.filter(id = clicked)  
+
         curuser = request.user.id
         data = json.loads(request.body)
         if data['edit'] == "edit":
@@ -80,15 +82,24 @@ def realcreateapi(request, clicked):
         elif data['edit'] == "getcur":
             getcur = request.user.id
             return JsonResponse(getcur, safe=False)
-        else:
+        elif data['edit'] == "fetchnft" or data['edit'] == "authen":
             
-            check =  User.objects.filter(id = clicked)
-            if clicked == 1:
+            
+            if data['edit'] == "fetchnft":
                 check =  User.objects.filter(id = request.user.id)
 
-            for i in check:
-                wallet = i.wallet_address
+                for i in check:
+                    wallet = i.wallet_address
 
+            else:
+                check =  User.objects.filter(wallet_address = data['wallet'])
+                print(f"check this check: {check}")
+                if not check:
+                    return JsonResponse("error", safe=False)
+                else:
+                    wallet = data['wallet']
+                    
+            
             adddata = []
             offset = 0
             newdata = []
@@ -114,6 +125,9 @@ def realcreateapi(request, clicked):
                     return recurse(offset + 50, numberall, newdata)
 
             recurse(offset, numberall, newdata)
+        elif data['edit'] == "gallery":
+            check =  User.objects.filter(id = clicked)
+
 
         for i in check:
             galleryinfo = i.galleryinfo
@@ -142,7 +156,9 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
     profiledes = None
     username = None
     profpic = None
+    wallet = None
     view = 0
+    datainfo = None
 
     listfollowing = []
 
@@ -165,6 +181,9 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
             openseaurl = i.opensea_url
             profiledes = i.profile_des
             view = i.views
+            wallet = i.wallet_address
+            datainfo = i.galleryinfo
+            
 
         first = "gallery/"   
         nogal = "/static/profile_pic/"   
@@ -185,13 +204,9 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
                         profpica = first + profpica
                         os.remove(profpica)
                 
-                print(f"iruma sama: {request.FILES['media']}")
                 ok = handle_uploaded_file(request, request.FILES['media'])
-                print(f"this is not ok:{ok}")
                 profpicc = str(request.FILES['media'])
-                print(f"this is profpicc: {profpicc}")
                 profpic = nogal + profpicc
-                print(f"this is profpicc: {profpic}")
                 User.objects.filter(id = request.user.id).update(profile_pic = profpic)     
 
 
@@ -305,9 +320,8 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
     print(f"this is profpic", profpic)
     howmanyfollow = Follower.objects.filter(user_id_follower = clicked, follow_qm = 1).count()
 
-
     return_request = {"user":curuser, "username":username, "whatkind":whatkind, "following":following,"contactgmail":contactgmail, "openseaurl":openseaurl, "profiledes":profiledes, "data":[], "num_pages":num_pages, "paginationid":paginationid,
-    "profilepic":profpic, "howmanyvotes":howmanyvotes, "howmanyfollow":howmanyfollow, "view":view, "searchvalue":searchvalue}
+    "profilepic":profpic, "howmanyvotes":howmanyvotes, "howmanyfollow":howmanyfollow, "view":view, "searchvalue":searchvalue, "wallet":wallet, "datainfo":datainfo}
 
     for row in pagination.page(paginationid).object_list:  
         return_request["data"].append(row)
@@ -341,6 +355,9 @@ def handle_uploaded_file(request, profilepic):
 
 def realcreate(request):
     return render(request, "gallery/realcreate.html")
+
+def authenticity(request):
+    return render(request, "gallery/authenticity.html")
 
 def thegallery(request, id):
     return render(request, "gallery/thegallery.html", {"wallet": request.session["wallet"]})
@@ -426,6 +443,7 @@ def connectwallet(request):
         
         wallet_address = data["wallet_address"]
         User.objects.filter(id = request.user.id).update(wallet_address = wallet_address)
+        return JsonResponse(request.user.id, safe=False)
 
     #MIGHT HAVE A PROBLEM LATER IF USER HAVE MORE THAN ONE WALLET
     

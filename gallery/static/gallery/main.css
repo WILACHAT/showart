@@ -26,7 +26,9 @@
   
   }
   .whatis, .whatisthree,
-  .whatisfour, .whatisfive, .whatissix
+  .whatisfour, .whatisfive, .whatissix, .whatisseven, .whatiseight,.whatiseightcolor, .whatis9, .whatis10a, .whatis10b, .whatis10c
+  , .whatis11, .whatis12, .h1image, .h12image, .h1imagecaa, .h1imagecp, .h1imagemore, .h1imagepro, .h1imageex, .h1imagetop, .h1imagevote, 
+  .h1imagegal, .h1imagebut, .h1imagechoose
   {
     font-family:"HelveticaW01-Bold";
     font-weight: bold;
@@ -44,8 +46,35 @@
     margin-top:8%;
     text-align: center;
   }
-  .whatisfour, .whatisfive, .whatissix{
+  .whatisfour, .whatisfive, .whatissix, .whatisseven, .whatiseight,.whatiseightcolor, .whatis9,
+   .whatis11, .whatis12{
     font-size:44px;
     margin-top:14%;
     text-align: center;
   } 
+  .h1image, .h1imagecaa, .h1imagecp, .h1imagemore, .h1imagepro, .h1imageex, .h1imagetop, .h1imagevote, .h1imagegal,
+   .h1imagebut, .h1imagechoose
+  {
+    margin-top:5%;
+
+  }
+  .h12image{
+    margin-top:10%;
+  }
+ 
+  .whatiseight{
+    font-size:80px;
+    margin-top:15%;
+    text-align: center;
+  }
+  .whatiseightcolor{
+    font-size:80px;
+    margin-top:15%;
+    text-align: center;
+    color:white;
+  }
+  .whatis10a , .whatis10b, .whatis10c{
+    font-size:44px;
+    margin-top:25%;
+    text-align: center;
+  }

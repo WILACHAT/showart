@@ -35,7 +35,6 @@ var DisplayGallery = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (DisplayGallery.__proto__ || Object.getPrototypeOf(DisplayGallery)).call(this, props));
 
         _this.toBack = _this.toBack.bind(_this);
-        console.log("asdfasdfasdfasdfasdfadfas", _this.props.adddata);
 
         var data = _this.props.data;
 
@@ -58,7 +57,7 @@ var DisplayGallery = function (_React$Component) {
             console.log("this is newDiv", newDiv);
             document.querySelector('#gallerypageone').appendChild(newDiv);
 
-            ReactDOM.render(React.createElement(ShowTemplateTwo, { alldata: data['everydata'][i], type: 'profile', adddata: _this.props.adddata }), document.querySelector('#templatesidtwo' + count));
+            ReactDOM.render(React.createElement(ShowTemplateTwo, { alldata: data['everydata'][i], type: 'profile' }), document.querySelector('#templatesidtwo' + count));
         }
         return _this;
     }
@@ -71,7 +70,6 @@ var DisplayGallery = function (_React$Component) {
             document.querySelector('#gallerypage').hidden = true;
             document.querySelector('#gallerypageone').hidden = true;
             document.querySelector('#navibarid').hidden = false;
-            document.querySelector('#loading').hidden = true;
         }
     }, {
         key: 'render',
@@ -120,6 +118,7 @@ var ProfileEdit = function (_React$Component2) {
         var username = _this2.props.data["username"];
         var profilepic = _this2.props.data["profilepic"];
         var numvotes = _this2.props.data["howmanyvotes"];
+        var wallet = _this2.props.data["wallet"];
 
         console.log("username", username);
 
@@ -175,6 +174,15 @@ var ProfileEdit = function (_React$Component2) {
                             ' '
                         ),
                         edit_button
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center mb-3' },
+                        React.createElement(
+                            'h3',
+                            { 'class': 'walletcss' },
+                            wallet
+                        )
                     ),
                     React.createElement(
                         'div',
@@ -359,6 +367,15 @@ var ProfileEdit = function (_React$Component2) {
                                     { 'class': 'd-flex justify-content-center mb-3' },
                                     React.createElement(
                                         'h3',
+                                        { 'class': 'walletcss' },
+                                        _this3.props.data["wallet"]
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center mb-3' },
+                                    React.createElement(
+                                        'h3',
                                         { 'class': 'contactgmailcss ' },
                                         contactgmail
                                     )
@@ -394,9 +411,6 @@ var ProfileEdit = function (_React$Component2) {
         value: function toNext(e, count) {
             console.log("this is count", count);
             //unhide the profileedit to make the gallery in the same page as profile info
-            if (count == 0) {
-                document.querySelector('#loading').hidden = false;
-            }
 
             document.querySelector('#profileedit').hidden = true;
             document.querySelector('#gallerypageone').hidden = false;
@@ -419,10 +433,15 @@ var ProfileEdit = function (_React$Component2) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                document.querySelector('#loading').hidden = true;
 
-                ReactDOM.render(React.createElement(DisplayGallery, { data: data['galleryinfo'], gallerytitle: data['gallerytitle'],
-                    gallerybgimage: data['gallerybgimage'], gallerybgcolor: data['gallerybgcolor'], adddata: data['adddata'] }), document.querySelector('#gallerypage'));
+                console.log("check for data in the thing", data['galleryinfo']);
+                if (data['galleryinfo'] == null) {
+                    ReactDOM.render(React.createElement(DisplayGallery, { data: 'blank' }));
+                } else {
+
+                    ReactDOM.render(React.createElement(DisplayGallery, { data: data['galleryinfo'], gallerytitle: data['gallerytitle'],
+                        gallerybgimage: data['gallerybgimage'], gallerybgcolor: data['gallerybgcolor'] }), document.querySelector('#gallerypage'));
+                }
             });
         }
     }, {
@@ -471,6 +490,15 @@ var ProfileEdit = function (_React$Component2) {
                             { 'class': 'd-flex justify-content-center mb-3' },
                             React.createElement(
                                 'h3',
+                                { 'class': 'walletcss' },
+                                this.props.data["wallet"]
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mb-3' },
+                            React.createElement(
+                                'h3',
                                 { 'class': 'contactgmailcss ' },
                                 this.state.contactgmail
                             )
@@ -510,7 +538,23 @@ var ProfileEdit = function (_React$Component2) {
 
             var count = 0;
             var clicked = parseInt(window.location.pathname.split('/')[2]);
+            console.log("dataaaaaa userrrr", this.props.data["user"]);
+            console.log("dataaaaaa", this.props.data);
+
+            var checker = "";
+            if (this.props.data["datainfo"] == null) {
+                checker = "k";
+            } else {
+                checker = this.props.data["datainfo"][17];
+            }
+            if (checker == null) {
+                checker = "k";
+            }
+
+            console.log("checker", checker);
+
             var user = this.props.data["user"];
+
             return React.createElement(
                 'div',
                 null,
@@ -518,12 +562,16 @@ var ProfileEdit = function (_React$Component2) {
                 React.createElement(
                     'div',
                     { 'class': 'd-flex justify-content-center' },
-                    React.createElement(
+                    checker != "k" ? React.createElement(
                         'button',
                         { 'class': 'btn btn-outline-dark btn-sm mt-2 mb-2', onClick: function onClick(e) {
                                 return _this4.toNext(e, count++);
                             } },
                         'Gallery'
+                    ) : React.createElement(
+                        'p',
+                        { 'class': 'font-weight-light' },
+                        'No Gallery'
                     )
                 )
             );
@@ -851,7 +899,6 @@ document.addEventListener('DOMContentLoaded', function () {
     Grade(document.querySelectorAll('.gradient-wrap'));
     var clicked = parseInt(window.location.pathname.split('/')[2]);
     document.querySelector('#gallerypage').hidden = true;
-    document.querySelector('#loading').hidden = true;
 
     fetch('/currentgalleryapi/' + whatkind + '/' + clicked + '/' + pagination).then(function (response) {
         return response.json();

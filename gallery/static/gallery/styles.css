@@ -6,15 +6,11 @@
 
 }
 
-
 body{
 
  /* background-image: url(/static/profile_pic/marble.jpg);*/
   background-color:#f4e9dd;
 }
-
-
-
 
 .nav-link{
   color:white;
@@ -95,6 +91,17 @@ color:black;
   margin-top:3%;
 
 }
+.authenh4
+{
+  text-align: center;
+  font-family:"HelveticaW01-Bold";  
+}
+.authenh4a{
+  text-align: center;
+  font-family:"HelveticaW01-Bold";  
+  color:black;
+  font-size:44px;
+}
 
 .divsearch{
   background-color:#f4e9dd;
@@ -102,6 +109,16 @@ color:black;
   width:100%;
   height:45px;
   position:fixed;
+}
+.inputauthen
+{
+  border:none;
+  width:20%;
+  text-align: center;
+}
+#formtocheck
+{
+  margin-top:15%;
 }
 @media only screen and (max-width: 1250px)
 {
@@ -182,6 +199,12 @@ color:black;
     display: inline-block;
   font-family:"HelveticaW01-Bold";
 }
+.walletcss{
+  margin: 0px 0px 16px;
+  line-height: 1.2;
+  font-size: 14px;
+  color: rgb(131, 131, 131);
+}
 .contactgmailcss
 {
     margin: 0px 0px 16px;
@@ -224,6 +247,17 @@ color:black;
   color:white;
   font-family:"HelveticaW01-Bold";
     
+}
+.authengiant
+{
+  display:flex;
+  flex-direction: column;
+  margin-top:5%;
+}
+.authengiantt
+{
+ 
+  margin-top:20%;
 }
 @media only screen and (max-width: 400px)
 {
@@ -363,7 +397,13 @@ input[id='choosefile'] {
 
   width: 333px; 
   height:333px; 
-  background-color: salmon;
+  background-color:salmon;
+}
+.box:hover{
+  cursor:pointer;
+}
+.boxcolor:hover{
+  cursor:pointer;
 }
 .changecolorr
 {
@@ -639,7 +679,7 @@ input[id='choosefile'] {
   width:100%;
   flex-direction: row;
   min-height: 105vh;
-  background-color:tomato;
+  background-color:#f6bd60;
   z-index: -1;
   background-repeat: no-repeat;
   background-size: cover;

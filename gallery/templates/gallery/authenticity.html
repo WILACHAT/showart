@@ -1,0 +1,31 @@
+{% extends "gallery/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div id="authenticityid">
+    </div>
+    <div id="checkingwallet">
+        <div id="loading" class="loadingcss">
+            <div class="loader">
+                    <span>F</span>
+                    <span>E</span>
+                    <span>T</span>
+                    <span>C</span>
+                    <span>H</span>
+                    <span>I</span>
+                    <span>N</span>
+                    <span>G</span>
+                    <span> </span>
+                    <span>D</span>
+                    <span>A</span>
+                    <span>T</span>
+                    <span>A</span>    
+            </div>
+        </div>
+    </div>
+   
+{% endblock %}
+
+{% block script %}
+    <script type="module" src="{% static 'gallery/authenticity.js' %}"></script>
+{% endblock %}

@@ -25,3 +25,13 @@
         Don't have an account? <a href="{% url 'register' %}"> Register here.</a>
     </div>
 {% endblock %}
+
+{% block script %}
+<script>
+document.addEventListener('DOMContentLoaded', function(e) {
+   document.querySelector('#navlogin').style.color = "salmon"
+})
+
+</script>
+
+{% endblock %}

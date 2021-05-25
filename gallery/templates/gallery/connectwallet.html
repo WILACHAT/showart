@@ -6,7 +6,7 @@
         
     <p id="texty" class="text-center">You need a MetaMask wallet to create your own Gallery.</p>
     <div class="d-flex justify-content-center">
-    <img id="metamaskimg" class="img-fluid center d-block" src="https://storage.googleapis.com/opensea-static/logos/metamask.png" style="object-fit: contain;">
+    <img id="metamaskimg" class="img-fluid center d-block" src="/static/profile_pic/metamask2011001.png" style="object-fit: contain;">
     </div>
     
         <h6 class="text-center mt-3">Don't have a MetaMask wallet yet?</h6>
@@ -77,6 +77,14 @@ document.addEventListener('DOMContentLoaded', function() {
            
             })
       })
+      .then(response => response.json())
+    
+    .then(data => {
+      window.location.href = "profile/" + data;
+
+
+    });
+
   }
 });
 </script>

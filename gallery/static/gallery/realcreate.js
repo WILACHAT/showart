@@ -151,21 +151,22 @@ var DivNewClass = function (_React$Component2) {
         _this2.checkDesArea = _this2.checkDesArea.bind(_this2);
         _this2.checkTitleArea = _this2.checkTitleArea.bind(_this2);
 
+        console.log("this.src", _this2.props.src);
         var src = "";
         var des = "";
         var title = "";
-        var border = "";
+        var bgcolor = "salmon";
         var thisisfromprofile = "false";
         if (_this2.props.src != undefined) {
             src = _this2.props.src;
             des = _this2.props.des;
             title = _this2.props.title;
-            border = "";
+            bgcolor = null;
             thisisfromprofile = "true";
         }
         _this2.state = {
             url: src,
-            border: border,
+            bgcolor: bgcolor,
             title: title,
             des: des,
             fromprofile: thisisfromprofile,
@@ -204,7 +205,7 @@ var DivNewClass = function (_React$Component2) {
             console.log("going inside like a pro");
             this.setState({
                 url: document.querySelector('#saveurl').value,
-                border: null
+                bgcolor: null
 
             });
         }
@@ -318,6 +319,7 @@ var DivNewClass = function (_React$Component2) {
                 }
             }
 
+            console.log("color state", this.state.bgcolor);
             return React.createElement(
                 'div',
                 { id: 'wilachatww', name: 'imgdiv', value: 'false', className: 'threeimage' },
@@ -325,7 +327,7 @@ var DivNewClass = function (_React$Component2) {
                     'div',
                     { id: 'oneinamillion', onClick: function onClick(e) {
                             return _this4.props.type != "profile" ? _this4.t2ImageOne(e) : _this4.goIntoImage(checkifurl, _this4.state.hexy);
-                        }, 'class': 'divborder', style: { borderStyle: this.state.border } },
+                        }, 'class': 'divborder', style: { backgroundColor: this.state.bgcolor } },
                     checkifurl == "image" ? React.createElement('img', { id: 'oneintwo', 'class': 'testingtestimgg', src: this.state.url }) : React.createElement(
                         'video',
                         { src: this.state.url, muted: true, autoplay: 'autoplay', loop: 'true', 'class': 'nftvdoo' },
@@ -419,32 +421,36 @@ var ShowTemplateTwo = function (_React$Component3) {
             var first = "url(/static/profile_pic/";
             var last = ")";
             bgimage = first + bgimage + last;
+            console.log("TYPE DESU", _this5.props.type);
+
             for (w = 0; w < _this5.props.alldata['imageinfo'].length; w++) {
-                console.log("console.log", _this5.props.alldata['imageinfo'][w]['src']);
 
                 var checker = 0;
-                for (var o = 0; o < _this5.props.adddata.length; o++) {
+                if (_this5.props.type == "edit") {
+                    for (var o = 0; o < _this5.props.adddata.length; o++) {
 
-                    if (_this5.props.adddata[o][1] != null) {
-                        if (_this5.props.adddata[o][1] == _this5.props.alldata['imageinfo'][w]['src']) {
-                            imageinfo_src = _this5.props.alldata['imageinfo'][w]['src'];
-                            checker = 1;
-                        } else {
-                            imageinfo_src = "/static/profile_pic/brown.jpeg";
-                        }
-                    } else {
-
-                        if (_this5.props.adddata[o][0] == _this5.props.alldata['imageinfo'][w]['src']) {
-                            imageinfo_src = _this5.props.alldata['imageinfo'][w]['src'];
-                            checker = 1;
-                        } else {
-                            if (checker != 1) {
+                        if (_this5.props.adddata[o][1] != null) {
+                            if (_this5.props.adddata[o][1] == _this5.props.alldata['imageinfo'][w]['src']) {
+                                imageinfo_src = _this5.props.alldata['imageinfo'][w]['src'];
+                                checker = 1;
+                            } else {
                                 imageinfo_src = "/static/profile_pic/brown.jpeg";
+                            }
+                        } else {
+
+                            if (_this5.props.adddata[o][0] == _this5.props.alldata['imageinfo'][w]['src']) {
+                                imageinfo_src = _this5.props.alldata['imageinfo'][w]['src'];
+                                checker = 1;
+                            } else {
+                                if (checker != 1) {
+                                    imageinfo_src = "/static/profile_pic/brown.jpeg";
+                                }
                             }
                         }
                     }
+                } else {
+                    imageinfo_src = _this5.props.alldata['imageinfo'][w]['src'];
                 }
-                //imageinfo_src = this.props.alldata['imageinfo'][w]['src
                 imageinfo_title = _this5.props.alldata['imageinfo'][w]['title'];
                 imageinfo_des = _this5.props.alldata['imageinfo'][w]['des'];
 
@@ -493,14 +499,14 @@ var ShowTemplateTwo = function (_React$Component3) {
                         { id: 'addimagetemplate1', onClick: function onClick(e) {
                                 return _this6.addImage(realid, e, classname);
                             }, 'class': 'deletetemplate btn btn-outline-dark btn-sm mr-2 mb-1' },
-                        'Add Image'
+                        'Add Asset'
                     ),
                     React.createElement(
                         'button',
                         { id: 'addimagetemplate1', onClick: function onClick(e) {
                                 return _this6.props.addTemplateAbove(realid, e, classname, counttemplate2++);
                             }, 'class': 'deletetemplate btn btn-outline-dark btn-sm mr-2 mb-1' },
-                        'Add Template Above'
+                        'Add Background Above'
                     ),
                     React.createElement(
                         'button',
@@ -917,12 +923,12 @@ var NextImg = function (_React$Component5) {
                                 { 'class': 'btn btn-outline-dark btn-sm mt-2 mb-2 mr-2', onClick: function onClick() {
                                         return _this9.showTemplate2(counttemplate2++);
                                     } },
-                                'Add Template'
+                                'Add Background'
                             ),
                             React.createElement(
                                 'button',
                                 { 'class': 'btn btn-outline-dark btn-sm mt-2 mb-2', onClick: this.goSave },
-                                'Save'
+                                'Post'
                             )
                         )
                     )
@@ -1252,50 +1258,16 @@ document.addEventListener('DOMContentLoaded', function (e) {
         document.querySelector('#navcreate').style.color = "salmon";
     }
 
-    // do while u dont own an nfts (not the query)
-    /*
-            let offset = 0
-            let adddata = []
-            recurse(offset)
-            function recurse(offset) {
-                fetch(`https://api.opensea.io/api/v1/assets?owner=0x50dd57f50a17d57304e7a4f262da30beb31c2e87&order_by=visitor_count&order_direction=desc&offset=${offset}&limit=50`)
-                .then(response => response.json())
-    
-                .then(data => {
-                   
-                console.log("what the hell")
-                if(data["assets"] == "")
-                 {
-                        console.log("done")
-                        console.log("all", adddata)
-             
-                    
-                }
-                 else {
-                    console.log("asset", data["assets"])
-    
-                    adddata = adddata.concat(data["assets"])
-                    recurse(offset + 50);
-                }
-                    
-                });
-                
-            }
-    */
-
     fetch('/realcreateapi/1', {
         method: 'PUT',
         headers: { 'X-CSRFToken': getcooked },
         body: JSON.stringify({
-            edit: "gallery"
+            edit: "fetchnft"
         })
     }).then(function (response) {
         return response.json();
     }).then(function (data) {
         document.querySelector('#loading').hidden = true;
-
-        console.log("add mofo data", data['adddata'].length);
-        console.log("the data", data['adddata']);
 
         ReactDOM.render(React.createElement(ShowNfts, { data: data['adddata'] }), document.querySelector('#shownfts'));
     });
