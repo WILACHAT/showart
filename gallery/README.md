@@ -84,9 +84,9 @@ The complexity of the website lies in many places.
 
 #### How does it work?
 
-	![GitHub Logo](gallery/static/shtfolder/metamask.png)
+![what is this ](gallery/static/shtfolder/metamask.png)
 	
-	![GitHub Logo](/static/shtfolder/metamask.png)
+![idk as wekk](/static/shtfolder/metamask.png)
 	
 	<img src="/static/shtfolder/metamask.png"   alt="Markdown Monster icon"
      style="float: left; margin-right: 10px;" /></img>
