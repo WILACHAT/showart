@@ -84,15 +84,25 @@ The complexity of the website lies in many places.
 
 #### How does it work?
 
-![what is this ](/gallery/static/shtfolder/metamask.png)
-	
-![what is this ](./gallery/static/shtfolder/metamask.png)
 
-![idk as wekk](/static/shtfolder/metamask.png)
-![idk as wekk](./static/shtfolder/metamask.png)
+![metamask](./static/shtfolder/metamask.png)
+![metamask](./static/shtfolder/register.png)
+![metamask](./static/shtfolder/login.png)
+![metamask](./static/shtfolder/profileothers.png)
+![metamask](./static/shtfolder/top3.png)
+![metamask](./static/shtfolder/explore.png)
+![metamask](./static/shtfolder/voted.png)
+![metamask](./static/shtfolder/create.png)
+![metamask](./static/shtfolder/increate.png)
+![metamask](./static/shtfolder/addasset.png)
+![metamask](./static/shtfolder/addimage.png)
+![metamask](./static/shtfolder/addmoreasset.png)
+![metamask](./static/shtfolder/new.png)
+![metamask](./static/shtfolder/addbackground.png)
 
 
-![idk as weadfsdkk](/Users/wilachat16/Desktop/nftsart-main/gallery/static/shtfolder/metamask.png)
+
+
 	
 	<img src="/static/shtfolder/metamask.png"   alt="Markdown Monster icon"
      style="float: left; margin-right: 10px;" /></img>
