@@ -3,7 +3,7 @@
 This is the final project for CS50’s Web Programming with Python and Javascript name showArt.
 *showArt was created using mostly Django and React!
 
-#### Distinctiveness
+### Distinctiveness
 	
 	Buying NFTs in the OpenSea website feels like buying a painting that you cannot take out of the store meaning that you cannot take your brand-new art home and display it in a way you would like making it plain and boring.
 
@@ -11,7 +11,7 @@ This is the final project for CS50’s Web Programming with Python and Javascrip
 
 
 
-#### Complexity
+### Complexity
 
 The complexity of the website lies in many places. 
 	
@@ -23,15 +23,24 @@ The complexity of the website lies in many places.
 
 	4. Making the create page as user friendly as possible because creating a NFTs gallery is something that most people might have never done. 
 
-		*See Create Page picture down below for reference*
 		
 		1. Letting users add and delete backdrop (Creating new div size of width: 100% height: 100%) without refreshing by clicking a button. (Add background button)
-		
+![Add background](./static/shtfolder/addbackground.png)
+
 		2. Changing the colour adding images as the background image of a backdrop without refreshing by clicking a button. (Color and Choosefile button)
+		
+![Change Background Color](./static/shtfolder/new.png)
+![Change Background Image](./static/shtfolder/addbgimage.png)
+
+
 		
 		3. Adding and deleting a smaller div class that contains a place to paste NFTs (name = ADDINGNFTS), input class for title of NFTs, and textarea class for description of NFTs without refreshing by clicking a button. (add asset button)
 
 		4. Making users easily click on any NFTs in the navigation bar in the create page and click on ADDINGNFTS in the backdrop to paste NFTs into the gallery.
+
+![add asset](./static/shtfolder/addasset.png)
+![paste nfts](./static/shtfolder/addimage.png)
+![add more asset](./static/shtfolder/addmoreasset.png)
 	
 	5. Saving all the data in the create page (All the backdrop with its changed background color or background images, all the NFTs, title, and description into one chunk of data into the database. 
 	
@@ -47,7 +56,7 @@ The complexity of the website lies in many places.
 
 	11. Search bar in the explore where the user can search for an account’s name without needing to refresh.
 
-#### Files and Directories
+### Files and Directories
 *These are the files that I added or altered.
 
 - `Main Directory`
@@ -84,24 +93,22 @@ The complexity of the website lies in many places.
             - `realcreate.html` : contains html for letting user select NFTs they want to display and the create gallery page
             - `register.html` : contains html for register
 
-#### How does it work?
+### How does it work?
 
-Connet Wallet Page
+#### Connet Wallet Page
 ![metamask](./static/shtfolder/metamask.png)
-Register Page
+#### Register Page
 ![metamask](./static/shtfolder/register.png)
-Login Page
-![metamask](./static/shtfolder/login.png)
-Profile Page
+#### Profile Page
 ![metamask](./static/shtfolder/profile.png)
 ![metamask](./static/shtfolder/profileothers.png)
-Top 3 Page
+#### Top 3 Page
 ![metamask](./static/shtfolder/top3.png)
-Explore Page
+#### Explore Page
 ![metamask](./static/shtfolder/explore.png)
-Voted Page
+#### Voted Page
 ![metamask](./static/shtfolder/voted.png)
-Create Page
+#### Create Page
 ![metamask](./static/shtfolder/create.png)
 ![metamask](./static/shtfolder/inrealcreate.png)
 ![metamask](./static/shtfolder/addbackground.png)
@@ -109,9 +116,11 @@ Create Page
 ![metamask](./static/shtfolder/addimage.png)
 ![metamask](./static/shtfolder/addmoreasset.png)
 ![metamask](./static/shtfolder/new.png)
-Gallery Examples
+![metamask](./static/shtfolder/addbgimage.png)
+![metamask](./static/shtfolder/adddes.png)
+#### Gallery Examples
 ![metamask](./static/shtfolder/ingallery.png)
-![metamask](./static/shtfolder/insidegallery.png)
+![metamask](./static/shtfolder/insideingallery.png)
 
 
 
