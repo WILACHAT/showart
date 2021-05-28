@@ -33,6 +33,15 @@
     font-family:"HelveticaW01-Bold";
     font-weight: bold;
   }
+  @media only screen and (max-width: 400px)
+{
+  .headwhatevertwo {
+    font-size:70px;
+    margin-top:8%;
+    text-align: center;
+  }
+}
+
 .whatis{
   
     font-size:30px;
@@ -46,6 +55,14 @@
     margin-top:8%;
     text-align: center;
   }
+  @media only screen and (max-width: 400px)
+{
+  .whatisthree {
+    font-size:70px;
+    margin-top:8%;
+    text-align: center;
+  }
+}
   .whatisfour, .whatisfive, .whatissix, .whatisseven, .whatiseight,.whatiseightcolor, .whatis9,
    .whatis11, .whatis12{
     font-size:44px;
@@ -75,6 +92,6 @@
   }
   .whatis10a , .whatis10b, .whatis10c{
     font-size:44px;
-    margin-top:25%;
+    margin-top:15%;
     text-align: center;
   }

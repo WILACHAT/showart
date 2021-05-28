@@ -125,13 +125,13 @@ var ProfileEdit = function (_React$Component2) {
         var clicked = parseInt(window.location.pathname.split('/')[2]);
         console.log("just to check the profile pic", profilepic);
         if (contactgmail == null) {
-            contactgmail = "contactgmail";
+            contactgmail = "";
         }
         if (openseaurl == null) {
-            openseaurl = "openseaurl";
+            openseaurl = "";
         }
         if (profiledes == null) {
-            profiledes = "profiledes";
+            profiledes = "";
         }
         if (profilepic == null) {
             profilepic = "/static/profile_pic/brown.jpeg";

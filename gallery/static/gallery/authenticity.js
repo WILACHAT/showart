@@ -120,8 +120,7 @@ var CheckClass = function (_React$Component2) {
                             'h4',
                             { 'class': 'authenh4' },
                             'THE OWNER STILL OWNS EVERY NFT IN THE GALLERY!'
-                        ),
-                        React.createElement('img', { 'class': 'testingtestimgg mt-5', src: 'https://nerdschalk.com/wp-content/uploads/2020/08/pogger-1.png' })
+                        )
                     ) : React.createElement(
                         'div',
                         { 'class': 'authengiant d-flex justify-content-center' },

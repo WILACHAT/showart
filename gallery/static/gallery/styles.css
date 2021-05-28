@@ -252,7 +252,7 @@ color:black;
 {
   display:flex;
   flex-direction: column;
-  margin-top:5%;
+  margin-top:15%;
 }
 .authengiantt
 {
@@ -488,6 +488,8 @@ input[id='choosefile'] {
   background-repeat: no-repeat;
   background-size: cover;
   justify-content: center;
+  overflow: hidden;
+
 
 }
 .nftimageprofile{
@@ -1152,4 +1154,44 @@ margin-top:30%;
 	animation-delay: 3.3s
 }.loader>span:nth-child(13){
 	animation-delay:3.6s
+}
+.lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  margin-top:23%;
+  margin-left:47%;
+
+}
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  background: black;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+.lds-facebook div:nth-child(2) {
+  left: 32px;
+  animation-delay: -0.12s;
+}
+.lds-facebook div:nth-child(3) {
+  left: 56px;
+  animation-delay: 0;
+}
+@keyframes lds-facebook {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+  50%, 100% {
+    top: 24px;
+    height: 32px;
+  }
 }

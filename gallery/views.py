@@ -11,7 +11,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from .models import User_Wallet, Gallery, Template, User, Follower, Vote, Gallery_Info, Dummypost
+from .models import User_Wallet, User, Follower
 import os
 from django.conf import settings
 from django.contrib.staticfiles.views import serve
@@ -142,11 +142,9 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
     curuser = request.user.id
     allgallery = ""
     following = Follower.objects.filter(user_id_follower = clicked, user_id_following = curuser, follow_qm = 1).count()
-    howmanyvotes = Vote.objects.filter(user_id_id = clicked, like = 1).count()
   
     searchvalue = ""
-    if howmanyvotes == 0:
-            howmanyvotes = 0
+  
     if following == 0:
         following = 0
     else:
@@ -173,7 +171,6 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
         print(f"how many views: {view}")
         view = view + 1
         viewcheck = User.objects.filter(id = clicked).update(views = view)
-        currentgallery = Dummypost.objects.filter(user_id_id = clicked, activedummy = 1)
         currentuserinfo = User.objects.filter(id = clicked)
         for i in currentuserinfo:
             username = i.username
@@ -321,7 +318,7 @@ def currentgalleryapi(request, whatkind, clicked, paginationid):
     howmanyfollow = Follower.objects.filter(user_id_follower = clicked, follow_qm = 1).count()
 
     return_request = {"user":curuser, "username":username, "whatkind":whatkind, "following":following,"contactgmail":contactgmail, "openseaurl":openseaurl, "profiledes":profiledes, "data":[], "num_pages":num_pages, "paginationid":paginationid,
-    "profilepic":profpic, "howmanyvotes":howmanyvotes, "howmanyfollow":howmanyfollow, "view":view, "searchvalue":searchvalue, "wallet":wallet, "datainfo":datainfo}
+    "profilepic":profpic, "howmanyfollow":howmanyfollow, "view":view, "searchvalue":searchvalue, "wallet":wallet, "datainfo":datainfo}
 
     for row in pagination.page(paginationid).object_list:  
         return_request["data"].append(row)

@@ -32,6 +32,11 @@ function getCookie(name) {
         super(props);
         this.hiddenOverlay = this.hiddenOverlay.bind(this);
         this.imgvdo = this.imgvdo.bind(this);
+        console.log("bgcolor", this.props.bgcolor)
+        console.log("bgimage", this.props.bgimage)
+        console.log("bgimage", this.props.bgimage)
+
+        console.log(this.props.bgimage.split("/"))
         
         this.state = {
         whatisshown: ""
@@ -125,6 +130,19 @@ function getCookie(name) {
     checkDesArea(e)
     {
         if (e.target.value.length > 0) {
+            let n = e.target.value.includes('"');
+        let w = e.target.value.includes("'")
+        if (n == true)
+        {
+           e.target.value = e.target.value.replace('"','');
+
+        }
+        if (w == true)
+        {
+           e.target.value = e.target.value.replace("'",'');
+
+        }
+
             this.setState({des: e.target.value});
         }
         else {
@@ -133,6 +151,20 @@ function getCookie(name) {
     }
     checkTitleArea(e)
     {  if (e.target.value.length > 0) {
+
+        let n = e.target.value.includes('"');
+        let w = e.target.value.includes("'")
+        if (n == true)
+        {
+           e.target.value = e.target.value.replace('"','');
+
+        }
+        if (w == true)
+        {
+           e.target.value = e.target.value.replace("'",'');
+
+        }
+
         this.setState({title: e.target.value});
     }
     else {
@@ -283,7 +315,7 @@ function getCookie(name) {
                  <video src={this.state.url} muted autoplay="autoplay" loop="true" class="nftvdoo"><source src={this.state.url} type = "video/mp4"></source></video>}                  
             </div>
            {this.props.type != "profile" ? <div class="d-flex justify-content-center mt-3">
-                <input class="form-control col-4"placeholder="Title of NFT" type="text" onChange={this.checkTitleArea} value={this.state.title}></input>
+                <input class="form-control col-4"placeholder="Title of NFT" type="text"  onChange={this.checkTitleArea} value={this.state.title}></input>
             </div>: null}
             {this.props.type != "profile" ? <div class="d-flex justify-content-center mt-2">
                 <textarea class="form-control col-10"placeholder="Description of NFT" rows="3" onChange={this.checkDesArea} value={this.state.des}></textarea>
@@ -308,7 +340,7 @@ function getCookie(name) {
         let imageinfo_src = ""
         let imageinfo_title = ""
         let imageinfo_des = ""
-        let bgcolor = ""
+        let bgcolor = "#f6bd60"
         let bgimage = ""
         
         if (this.props.alldata != undefined)
@@ -324,12 +356,16 @@ function getCookie(name) {
             for(w = 0; w < this.props.alldata['imageinfo'].length; w++)
             {
 
+                console.log("alldata", this.props.alldata['imageinfo'][w]['src'])
+
                 let checker = 0
                 if (this.props.type == "edit")
                 {
                     for(let o = 0; o < this.props.adddata.length; o++)
                     {
-                        
+                        console.log("dosafdsoifjsodifj")
+                        console.log("adddata",this.props.adddata[o])
+
                         if (this.props.adddata[o][1] != null)
                         {
                             if(this.props.adddata[o][1] == this.props.alldata['imageinfo'][w]['src'])
@@ -339,7 +375,10 @@ function getCookie(name) {
                             }
                             else
                             {
-                                imageinfo_src = "/static/profile_pic/brown.jpeg"
+                                if (checker != 1)
+                                {
+                                    imageinfo_src = this.props.alldata['imageinfo'][w]['src']
+                                }
                             }
                         }
                         else
@@ -354,7 +393,7 @@ function getCookie(name) {
                             {
                                 if (checker != 1)
                                 {
-                                    imageinfo_src = "/static/profile_pic/brown.jpeg"
+                                    imageinfo_src = this.props.alldata['imageinfo'][w]['src']
 
                                 }
                             }
@@ -728,6 +767,16 @@ function getCookie(name) {
             
                 let j = 0;
                 let imagearray = []
+                console.log("bgimage", bgimage)
+                console.log("bgcolor", bgcolor)
+                console.log("sectiondict", sectiondict['bgimage'])
+                console.log("bgcolor", sectiondict['bgcolor'])
+
+                if (sectiondict['bgcolor'] == "" && sectiondict['bgimage'] == "")
+                {
+                    bgcolor = "#f6bd60"
+                    sectiondict['bgcolor'] = bgcolor
+                }
     
             for (j = 0; j < e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes.length; j++)
             {

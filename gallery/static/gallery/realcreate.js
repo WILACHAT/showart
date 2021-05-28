@@ -44,6 +44,11 @@ var AnotherDivNewClass = function (_React$Component) {
 
         _this.hiddenOverlay = _this.hiddenOverlay.bind(_this);
         _this.imgvdo = _this.imgvdo.bind(_this);
+        console.log("bgcolor", _this.props.bgcolor);
+        console.log("bgimage", _this.props.bgimage);
+        console.log("bgimage", _this.props.bgimage);
+
+        console.log(_this.props.bgimage.split("/"));
 
         _this.state = {
             whatisshown: ""
@@ -185,6 +190,15 @@ var DivNewClass = function (_React$Component2) {
         key: 'checkDesArea',
         value: function checkDesArea(e) {
             if (e.target.value.length > 0) {
+                var n = e.target.value.includes('"');
+                var w = e.target.value.includes("'");
+                if (n == true) {
+                    e.target.value = e.target.value.replace('"', '');
+                }
+                if (w == true) {
+                    e.target.value = e.target.value.replace("'", '');
+                }
+
                 this.setState({ des: e.target.value });
             } else {
                 this.setState({ des: "" });
@@ -194,6 +208,16 @@ var DivNewClass = function (_React$Component2) {
         key: 'checkTitleArea',
         value: function checkTitleArea(e) {
             if (e.target.value.length > 0) {
+
+                var n = e.target.value.includes('"');
+                var w = e.target.value.includes("'");
+                if (n == true) {
+                    e.target.value = e.target.value.replace('"', '');
+                }
+                if (w == true) {
+                    e.target.value = e.target.value.replace("'", '');
+                }
+
                 this.setState({ title: e.target.value });
             } else {
                 this.setState({ title: "" });
@@ -411,7 +435,7 @@ var ShowTemplateTwo = function (_React$Component3) {
         var imageinfo_src = "";
         var imageinfo_title = "";
         var imageinfo_des = "";
-        var bgcolor = "";
+        var bgcolor = "#f6bd60";
         var bgimage = "";
 
         if (_this5.props.alldata != undefined) {
@@ -425,16 +449,22 @@ var ShowTemplateTwo = function (_React$Component3) {
 
             for (w = 0; w < _this5.props.alldata['imageinfo'].length; w++) {
 
+                console.log("alldata", _this5.props.alldata['imageinfo'][w]['src']);
+
                 var checker = 0;
                 if (_this5.props.type == "edit") {
                     for (var o = 0; o < _this5.props.adddata.length; o++) {
+                        console.log("dosafdsoifjsodifj");
+                        console.log("adddata", _this5.props.adddata[o]);
 
                         if (_this5.props.adddata[o][1] != null) {
                             if (_this5.props.adddata[o][1] == _this5.props.alldata['imageinfo'][w]['src']) {
                                 imageinfo_src = _this5.props.alldata['imageinfo'][w]['src'];
                                 checker = 1;
                             } else {
-                                imageinfo_src = "/static/profile_pic/brown.jpeg";
+                                if (checker != 1) {
+                                    imageinfo_src = _this5.props.alldata['imageinfo'][w]['src'];
+                                }
                             }
                         } else {
 
@@ -443,7 +473,7 @@ var ShowTemplateTwo = function (_React$Component3) {
                                 checker = 1;
                             } else {
                                 if (checker != 1) {
-                                    imageinfo_src = "/static/profile_pic/brown.jpeg";
+                                    imageinfo_src = _this5.props.alldata['imageinfo'][w]['src'];
                                 }
                             }
                         }
@@ -785,6 +815,15 @@ var NextImg = function (_React$Component5) {
 
                 var j = 0;
                 var imagearray = [];
+                console.log("bgimage", bgimage);
+                console.log("bgcolor", bgcolor);
+                console.log("sectiondict", sectiondict['bgimage']);
+                console.log("bgcolor", sectiondict['bgcolor']);
+
+                if (sectiondict['bgcolor'] == "" && sectiondict['bgimage'] == "") {
+                    bgcolor = "#f6bd60";
+                    sectiondict['bgcolor'] = bgcolor;
+                }
 
                 for (j = 0; j < e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[9].children[i].childNodes[0].childNodes[1].childNodes.length; j++) {
                     var imageinfo = "imageinfo" + (j + 1);
