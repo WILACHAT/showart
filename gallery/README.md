@@ -84,9 +84,13 @@ The complexity of the website lies in many places.
 
 #### How does it work?
 
-![what is this ](gallery/static/shtfolder/metamask.png)
+![what is this ](/gallery/static/shtfolder/metamask.png)
 	
+![what is this ](./gallery/static/shtfolder/metamask.png)
+
 ![idk as wekk](/static/shtfolder/metamask.png)
+![idk as wekk](./static/shtfolder/metamask.png)
+
 
 ![idk as weadfsdkk](/Users/wilachat16/Desktop/nftsart-main/gallery/static/shtfolder/metamask.png)
 	
@@ -94,7 +98,7 @@ The complexity of the website lies in many places.
      style="float: left; margin-right: 10px;" /></img>
 	 gallery/static/shtfolder/metamask.png
 
-<img src="/static/shtfolder/metamask.png"   alt="Markdown Monster icon"
+<img src="/static/shtfolder/metamask.png"alt="Markdown Monster icon"
      style="float: left; margin-right: 10px;" /></img>
 
 
