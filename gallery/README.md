@@ -83,7 +83,13 @@ The complexity of the website lies in many places.
             - `register.html` : contains html for register
 
 #### How does it work?
-	![GitHub Logo](/Users/wilachat16/Desktop/nftsart-main/gallery/static/shtfolder/top3.png)
-	Format: ![Alt Text](url)
+	![GitHub Logo](/static/shtfolder/metamask.png)
+	
+	<img src="/static/shtfolder/metamask.png"   alt="Markdown Monster icon"
+     style="float: left; margin-right: 10px;" /></img>
+
+<img src="/static/shtfolder/metamask.png"   alt="Markdown Monster icon"
+     style="float: left; margin-right: 10px;" /></img>
+
 
 
