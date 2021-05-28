@@ -22,12 +22,14 @@ The complexity of the website lies in many places.
 	3. Sorting the data of each NFTs such as current owner, animation_url, image_url, and views to display it in showArt. 
 
 	4. Making the create page as user friendly as possible because creating a NFTs gallery is something that most people might have never done. 
+
+		*See Create Page picture down below for reference*
 		
-		1. Letting users add and delete backdrop (Creating new div size of width: 100% height: 100%) without refreshing by clicking a button.
+		1. Letting users add and delete backdrop (Creating new div size of width: 100% height: 100%) without refreshing by clicking a button. (Add background button)
 		
-		2. Changing the colour adding images as the background image of a backdrop without refreshing by clicking a button..
+		2. Changing the colour adding images as the background image of a backdrop without refreshing by clicking a button. (Color and Choosefile button)
 		
-		3. Adding and deleting a smaller div class that contains a place to paste NFTs (name = ADDINGNFTS), input class for title of NFTs, and textarea class for description of NFTs without refreshing by clicking a button. 
+		3. Adding and deleting a smaller div class that contains a place to paste NFTs (name = ADDINGNFTS), input class for title of NFTs, and textarea class for description of NFTs without refreshing by clicking a button. (add asset button)
 
 		4. Making users easily click on any NFTs in the navigation bar in the create page and click on ADDINGNFTS in the backdrop to paste NFTs into the gallery.
 	
@@ -84,32 +86,36 @@ The complexity of the website lies in many places.
 
 #### How does it work?
 
-
+Connet Wallet Page
 ![metamask](./static/shtfolder/metamask.png)
+Register Page
 ![metamask](./static/shtfolder/register.png)
+Login Page
 ![metamask](./static/shtfolder/login.png)
+Profile Page
+![metamask](./static/shtfolder/profile.png)
 ![metamask](./static/shtfolder/profileothers.png)
+Top 3 Page
 ![metamask](./static/shtfolder/top3.png)
+Explore Page
 ![metamask](./static/shtfolder/explore.png)
+Voted Page
 ![metamask](./static/shtfolder/voted.png)
+Create Page
 ![metamask](./static/shtfolder/create.png)
-![metamask](./static/shtfolder/increate.png)
+![metamask](./static/shtfolder/inrealcreate.png)
+![metamask](./static/shtfolder/addbackground.png)
 ![metamask](./static/shtfolder/addasset.png)
 ![metamask](./static/shtfolder/addimage.png)
 ![metamask](./static/shtfolder/addmoreasset.png)
 ![metamask](./static/shtfolder/new.png)
-![metamask](./static/shtfolder/addbackground.png)
+Gallery Examples
+![metamask](./static/shtfolder/ingallery.png)
+![metamask](./static/shtfolder/insidegallery.png)
 
 
 
 
-	
-	<img src="/static/shtfolder/metamask.png"   alt="Markdown Monster icon"
-     style="float: left; margin-right: 10px;" /></img>
-	 gallery/static/shtfolder/metamask.png
-
-<img src="/static/shtfolder/metamask.png"alt="Markdown Monster icon"
-     style="float: left; margin-right: 10px;" /></img>
 
 
 
