@@ -83,10 +83,14 @@ The complexity of the website lies in many places.
             - `register.html` : contains html for register
 
 #### How does it work?
+
+	![GitHub Logo](gallery/static/shtfolder/metamask.png)
+	
 	![GitHub Logo](/static/shtfolder/metamask.png)
 	
 	<img src="/static/shtfolder/metamask.png"   alt="Markdown Monster icon"
      style="float: left; margin-right: 10px;" /></img>
+	 gallery/static/shtfolder/metamask.png
 
 <img src="/static/shtfolder/metamask.png"   alt="Markdown Monster icon"
      style="float: left; margin-right: 10px;" /></img>
